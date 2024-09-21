@@ -50,120 +50,158 @@
 
 // export default page;
 
-"use client";
-import { motion } from "framer-motion";
-import { FaSearch } from "react-icons/fa";
-// import Image from "next/image";
-import { HiMiniXMark } from "react-icons/hi2";
-// import img from "../images/turkish-logo.jpg";
-import { useState } from "react";
+// "use client";
+// import { motion } from "framer-motion";
+// import { FaSearch } from "react-icons/fa";
+// // import Image from "next/image";
+// import { HiMiniXMark } from "react-icons/hi2";
+// // import img from "../images/turkish-logo.jpg";
+// import { useState } from "react";
 
-const SearchQuery = () => {
-  const [error, setError] = useState("");
-  const [searchData, setSearchData] = useState();
-  // let searchInput;
-  const handleSearchChange = () => {
-    setError(null);
-    let searchInput = document.getElementById("searchInput").value;
-    async function lallala() {
-      const lala = await fetch(
-        `https://test.api.amadeus.com/v1/reference-data/locations?subType=CITY,AIRPORT&keyword=${searchInput}&page[limit]=5`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      );
-      const lulu = await lala.json();
-      // console.log(lulu.data);
-      if (lulu.data[0] == undefined) {
-        setError("No search results found");
-        setSearchData([]);
-        return;
-      }
-      setSearchData(lulu.data);
-    }
-    lallala();
-  };
-  return (
-    <div id="baggageDetails" className="absolute inset-0 backdrop-blur">
-      {" "}
-      <motion.div
-        key={"nothingmuch"}
-        initial={{
-          scale: 0.8,
-          opacity: 0,
-          skewX: 5,
-        }}
-        whileInView={{
-          scale: 1,
-          opacity: 1,
-          skewX: 0,
-        }}
-        transition={{
-          duration: 0.1,
-          type: "spring",
-          stiffness: 50,
-        }}
-        className="flex justify-center h-screen w-screen inset-0 items-center"
-      >
-        <div className="w-[90vw]  py-5 bg-sky-50 md:w-[40vw] shadow-2xl">
-          <div className="relative ">
-            <HiMiniXMark
-              onClick={() => handleDetails()}
-              className="absolute top-0 right-0 mr-3 cursor-pointer text-3xl"
-            />
-          </div>
-          <div className="relative">
-            <div className="absolute top-2 right-20 mr-3 cursor-pointer ">
-              <FaSearch
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleSearchChange();
-                }}
-                className="text-2xl"
-              />
-            </div>
-          </div>
-          <input
-            id="searchInput"
-            placeholder="Search Airport..."
-            className="text-lg py-3 mb-3 px-4 mx-4 w-[80%] focus:outline-none  focus:border-b-2 bg-inherit border-b-2 "
-          />
+// const SearchQuery = () => {
+//   const [error, setError] = useState("");
+//   const [searchData, setSearchData] = useState();
+//   // let searchInput;
+//   const handleSearchChange = () => {
+//     setError(null);
+//     let searchInput = document.getElementById("searchInput").value;
+//     async function lallala() {
+//       const lala = await fetch(
+//         `https://test.api.amadeus.com/v1/reference-data/locations?subType=CITY,AIRPORT&keyword=${searchInput}&page[limit]=5`,
+//         {
+//           headers: {
+//             Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+//           },
+//         }
+//       );
+//       const lulu = await lala.json();
+//       // console.log(lulu.data);
+//       if (lulu.data[0] == undefined) {
+//         setError("No search results found");
+//         setSearchData([]);
+//         return;
+//       }
+//       setSearchData(lulu.data);
+//     }
+//     lallala();
+//   };
+//   return (
+//     <div id="baggageDetails" className="absolute inset-0 backdrop-blur">
+//       {" "}
+//       <motion.div
+//         key={"nothingmuch"}
+//         initial={{
+//           scale: 0.8,
+//           opacity: 0,
+//           skewX: 5,
+//         }}
+//         whileInView={{
+//           scale: 1,
+//           opacity: 1,
+//           skewX: 0,
+//         }}
+//         transition={{
+//           duration: 0.1,
+//           type: "spring",
+//           stiffness: 50,
+//         }}
+//         className="flex justify-center h-screen w-screen inset-0 items-center"
+//       >
+//         <div className="w-[90vw]  py-5 bg-sky-50 md:w-[40vw] shadow-2xl">
+//           <div className="relative ">
+//             <HiMiniXMark
+//               onClick={() => handleDetails()}
+//               className="absolute top-0 right-0 mr-3 cursor-pointer text-3xl"
+//             />
+//           </div>
+//           <div className="relative">
+//             <div className="absolute top-2 right-20 mr-3 cursor-pointer ">
+//               <FaSearch
+//                 onClick={(e) => {
+//                   e.preventDefault();
+//                   handleSearchChange();
+//                 }}
+//                 className="text-2xl"
+//               />
+//             </div>
+//           </div>
+//           <input
+//             id="searchInput"
+//             placeholder="Search Airport..."
+//             className="text-lg py-3 mb-3 px-4 mx-4 w-[80%] focus:outline-none  focus:border-b-2 bg-inherit border-b-2 "
+//           />
 
-          <div className="w-[95%] mx-auto  my-3">
-            {error ? error : null}
-            {!searchData || !searchData.data == [] ? (
-              <div className=" w-full hover:bg-sky-400/30 rounded  px-3 relative flex py-2">
-                <div className="text-sm">No Data , Search </div>
-              </div>
-            ) : (
-              searchData.map((data) => {
-                if (data.subType == "AIRPORT") {
-                  return (
-                    <div
-                      key={data.id}
-                      className=" w-full cursor-pointer transition-all duration-300 active:scale-95 hover:bg-sky-400/30 rounded  px-3 relative flex py-2"
-                    >
-                      <div className="flex flex-col">
-                        <div>{data.address.cityName}</div>
-                        <div className="text-sm">
-                          {data.name} Airport, {data.address.countryName}
-                        </div>
-                      </div>
-                      <span className="absolute right-0 mr-4">
-                        {data.iataCode}
-                      </span>
-                    </div>
-                  );
-                }
-              })
-            )}
-          </div>
-        </div>
-      </motion.div>
-    </div>
-  );
+//           <div className="w-[95%] mx-auto  my-3">
+//             {error ? error : null}
+//             {!searchData || !searchData.data == [] ? (
+//               <div className=" w-full hover:bg-sky-400/30 rounded  px-3 relative flex py-2">
+//                 <div className="text-sm">No Data , Search </div>
+//               </div>
+//             ) : (
+//               searchData.map((data) => {
+//                 if (data.subType == "AIRPORT") {
+//                   return (
+//                     <div
+//                       key={data.id}
+//                       className=" w-full cursor-pointer transition-all duration-300 active:scale-95 hover:bg-sky-400/30 rounded  px-3 relative flex py-2"
+//                     >
+//                       <div className="flex flex-col">
+//                         <div>{data.address.cityName}</div>
+//                         <div className="text-sm">
+//                           {data.name} Airport, {data.address.countryName}
+//                         </div>
+//                       </div>
+//                       <span className="absolute right-0 mr-4">
+//                         {data.iataCode}
+//                       </span>
+//                     </div>
+//                   );
+//                 }
+//               })
+//             )}
+//           </div>
+//         </div>
+//       </motion.div>
+//     </div>
+//   );
+// };
+
+// export default SearchQuery;
+
+// "use client";
+// import { useEffect } from "react";
+// const page = () => {
+//   const handleClick = async () => {
+//     console.log(localStorage.getItem("access_token"));
+//     const lala = await fetch(
+//       "https://test.api.amadeus.com/v1/reference-data/locations?subType=CITY,AIRPORT&keyword=mi&page[limit]=5",
+//       {
+//         headers: {
+//           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+//           // Authorization: `Bearer CpjU0sEenniHCgPDrndzOSWFk5mN`,
+//         },
+//       }
+//     );
+//     const lulu = await lala.json();
+//     console.log(lulu);
+//   };
+
+//   return (
+//     <div
+//       onClick={() => handleClick()}
+//       className="flex p-4 border cursor-pointer bg-sky-200 justify-center items-center text-5xl"
+//     >
+//       Demo two
+//     </div>
+//   );
+// };
+
+// export default page;
+
+import React from "react";
+
+const page = () => {
+  return <div>Hello</div>;
 };
 
-export default SearchQuery;
+export default page;

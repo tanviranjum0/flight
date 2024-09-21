@@ -37,7 +37,7 @@ const SwipeCarousel = () => {
           return pv + 1;
         });
       }
-    }, AUTO_DELAY);
+    }, [AUTO_DELAY]);
 
     return () => clearInterval(intervalRef);
   }, []);
