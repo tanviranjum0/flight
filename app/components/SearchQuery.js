@@ -8,12 +8,12 @@ export const handleDetails = () => {
   const baggage = document.getElementById("baggageDetails");
   baggage.classList.toggle("hidden");
 };
-const BaggageDetails = () => {
+const SearchQuery = () => {
   return (
     <div id="baggageDetails" className="absolute hidden inset-0 backdrop-blur">
       {" "}
       <motion.div
-        key={"mainbaggageDetails"}
+        key={"mainsearchquery"}
         initial={{
           scale: 0.8,
           opacity: 0,
@@ -39,9 +39,8 @@ const BaggageDetails = () => {
             />
           </div>
 
-          <div className="text-lg py-3 px-4">
-            Dhaka to Chittagong, 4 Sep 2024
-          </div>
+          <input className="text-lg py-3 px-4" />
+
           <div className="border mx-3 p-4">
             <div className="flex">
               <Image
@@ -81,4 +80,4 @@ const BaggageDetails = () => {
   );
 };
 
-export default BaggageDetails;
+export default SearchQuery;

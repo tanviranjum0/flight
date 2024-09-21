@@ -32,6 +32,7 @@ const FareSummary = ({ details, setDetails }) => {
         </div>
       </div>
       <motion.table
+        key={"mainfaresummarymotion"}
         initial={{
           y: -100,
         }}

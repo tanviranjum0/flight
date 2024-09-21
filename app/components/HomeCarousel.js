@@ -55,6 +55,7 @@ const SwipeCarousel = () => {
   return (
     <div className="relative overflow-hidden bg-neutral-950 py-8">
       <motion.div
+        key={"draggingmotion"}
         drag="x"
         dragConstraints={{
           left: 0,
@@ -84,26 +85,29 @@ const Images = ({ imgIndex }) => {
     <>
       {imgs.map((imgSrc, idx) => {
         return (
-          <motion.div
-            key={idx}
-            style={{
-              backgroundImage: `url('../images/carousel-1.png')`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-            animate={{
-              scale: imgIndex === idx ? 0.95 : 0.85,
-            }}
-            transition={SPRING_OPTIONS}
-            className="aspect-video w-screen shrink-0 rounded-xl bg-neutral-800 object-cover"
-          >
-            <Image
-              src={imgSrc}
-              quality={100}
-              fill={true}
-              className="h-full w-full object-cover"
-            />
-          </motion.div>
+          <div key={`${idx} new`}>
+            <motion.div
+              key={(idx, "imagerendering")}
+              style={{
+                backgroundImage: `url('../images/carousel-1.png')`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+              animate={{
+                scale: imgIndex === idx ? 0.95 : 0.85,
+              }}
+              transition={SPRING_OPTIONS}
+              className="aspect-video w-screen relative shrink-0 rounded-xl bg-neutral-800 object-cover"
+            >
+              <Image
+                src={imgSrc}
+                quality={100}
+                alt={imgSrc}
+                fill={true}
+                className="h-full w-full absolute object-cover"
+              />
+            </motion.div>
+          </div>
         );
       })}
     </>
@@ -116,7 +120,7 @@ const Dots = ({ imgIndex, setImgIndex }) => {
       {imgs.map((_, idx) => {
         return (
           <button
-            key={idx}
+            key={`${idx}imageIndex`}
             onClick={() => setImgIndex(idx)}
             className={`h-3 w-3 rounded-full transition-colors ${
               idx === imgIndex ? "bg-neutral-50" : "bg-neutral-500"

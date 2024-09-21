@@ -31,6 +31,7 @@ const FareRules = ({ details, setDetails }) => {
         </div>
       </div>
       <motion.div
+        key={"farerulesmain"}
         initial={{
           y: -100,
         }}

@@ -6,6 +6,7 @@ const Navbar = () => {
   return (
     <div className="flex ">
       <motion.div
+        key={"mainnavbar"}
         initial={{ x: -50, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{
@@ -14,11 +15,12 @@ const Navbar = () => {
         }}
         className="flex pt-10 select-none"
       >
-        <div className="h-10 ml-10">
+        <div className="h-10 w-auto ml-10">
           <Image
             src={logo}
             width={100}
             height={100}
+            className="h-auto w-auto"
             alt="Picture of the author"
           />
         </div>
