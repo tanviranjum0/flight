@@ -16,6 +16,7 @@ const ApiAuth = () => {
       );
       const result = await data;
       const main = await result.json();
+      console.log(main.access_token);
       localStorage.setItem("access_token", main.access_token);
     }
     kaka();

@@ -65,11 +65,11 @@ const SwipeCarousel = () => {
           x: dragX,
         }}
         animate={{
-          translateX: `-${imgIndex * 101}%`,
+          translateX: `-${imgIndex * 101 + 4}%`,
         }}
         transition={SPRING_OPTIONS}
         onDragEnd={onDragEnd}
-        className="flex cursor-grab items-center active:cursor-grabbing"
+        className="flex cursor-grab rounded-md items-center active:cursor-grabbing"
       >
         <Images imgIndex={imgIndex} />
       </motion.div>

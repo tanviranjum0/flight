@@ -1,75 +1,39 @@
 "use client";
 import { motion } from "framer-motion";
-import { useState } from "react";
 import FromOriginInput from "./FromOriginInput";
 import ToOriginInput from "./ToOriginInput";
+import { useContext } from "react";
+import { StoreContext } from "../context/StoreContextMain";
+
 const HomeSearch = ({ modify }) => {
-  const [error, setError] = useState("");
-  // const [searchLoading, setSearchLoading] = useState(false);
-  const [searchFormData, setSearchFormData] = useState({
-    fromOrigin: {
-      name: "Search your location...",
-      address: {
-        cityName: "City",
-        countryName: "Country",
-      },
-    },
-    toOrigin: {
-      name: "Search your destination...",
-      address: {
-        cityName: "City",
-        countryName: "Country",
-      },
-    },
-    departureDate: "",
-    returnDate: "",
-    adults: 1,
-    children: 0,
-    infants: 0,
-  });
-  const [searchData, setSearchData] = useState();
-  const [query, setQuery] = useState({
-    fromInput: false,
-    toInput: false,
-  });
+  const {
+    setSearchData,
+    dates,
+    setDates,
+    setQuery,
+    query,
+    searchFormData,
+    handleFlightSearch,
+    days,
+  } = useContext(StoreContext);
 
   return (
     <div>
       <motion.div
         key={"mainhomesearch"}
-        initial={{ scale: 0.9, y: 100 }}
-        animate={{ scale: 1, y: 0 }}
+        initial={{ opacity: 0.3, y: 100 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{
-          duration: 2,
-          ease: "easeInOut",
+          duration: 1,
           type: "spring",
-          stiffness: 50,
         }}
       >
-        <FromOriginInput
-          searchFormData={searchFormData}
-          setSearchFormData={setSearchFormData}
-          query={query}
-          setQuery={setQuery}
-          error={error}
-          setError={setError}
-          searchData={searchData}
-          setSearchData={setSearchData}
-        />
-        <ToOriginInput
-          searchFormData={searchFormData}
-          setSearchFormData={setSearchFormData}
-          query={query}
-          setQuery={setQuery}
-          error={error}
-          setError={setError}
-          searchData={searchData}
-          setSearchData={setSearchData}
-        />
+        <FromOriginInput />
+        <ToOriginInput />
         <div className="text-center mt-10 text-7xl opacity-70">
           It’s more than just a trip
         </div>
-        <div className="w-[90%] border-2 mt-5 pb-3  bg-white rounded-2xl mx-auto">
+        <div className="w-[90%] border-2 mt-5 pb-3 bg-white rounded-2xl mx-auto">
           <div className="bg-gray-200 py-5 m-2 rounded-xl text-center">
             <span className=" bg-white px-5 py-3 rounded-2xl text-3xl">
               Flight Booking
@@ -123,13 +87,13 @@ const HomeSearch = ({ modify }) => {
             >
               <div className="text-sm opacity-80 ">From</div>
               <div type="text" className="text-sm w-full">
-                {searchFormData.fromOrigin.name}
+                {searchFormData?.fromOrigin.name}
               </div>
 
               <div className="text-xs opacity-80 ">
-                {searchFormData.fromOrigin.address.cityName},
+                {searchFormData?.fromOrigin.address.cityName},
                 <span className="text-xs">
-                  {searchFormData.toOrigin.address.countryName}
+                  {searchFormData?.toOrigin.address.countryName}
                 </span>
               </div>
             </div>
@@ -149,32 +113,55 @@ const HomeSearch = ({ modify }) => {
               <div className="text-sm opacity-80 ">To</div>
 
               <div type="text" className="text-sm  w-full">
-                {searchFormData.toOrigin.name}
+                {searchFormData?.toOrigin.name}
               </div>
               <div className="text-xs opacity-80 ">
-                {searchFormData.toOrigin.address.cityName},
+                {searchFormData?.toOrigin.address.cityName},
                 <span className="text-xs">
-                  {searchFormData.toOrigin.address.countryName}
+                  {searchFormData?.toOrigin.address.countryName}
                 </span>
               </div>
             </div>
             <div className="p-3 border">
               {" "}
               <div className="text-sm opacity-80 ">Departure</div>
-              <input type="date" className="" />
-              <div className="text-sm opacity-80 ">Wednesday</div>
+              <input
+                type="date"
+                className=""
+                id="flightsearchdeparturedate"
+                onChange={(e) => {
+                  let d = new Date(e.target.value);
+                  let day = days[d.getDay()];
+                  setDates({ ...dates, departureDay: day });
+                }}
+              />
+              <div className="text-sm opacity-80 ">{dates.departureDay}</div>
             </div>
             <div className="p-3 border">
-              {" "}
               <div className="text-sm opacity-80 ">Return</div>
-              <input type="date" className="" />
-              <div className="text-sm opacity-80 ">Thursday</div>
+              <input
+                type="date"
+                className=""
+                id="flightsearchreturndate"
+                onChange={(e) => {
+                  let d = new Date(e.target.value);
+                  let day = days[d.getDay()];
+                  setDates({ ...dates, returnDay: day });
+                }}
+              />
+              <div className="text-sm opacity-80 ">{dates.returnDay}</div>
             </div>
             <div className="p-3 border rounded">
               <div className="text-sm opacity-80 ">
                 Travelers & Booking Class
               </div>
-              <div>1 Traveller</div>
+              <input
+                type="number"
+                name="number"
+                defaultValue={1}
+                id="flightsearchadultnumber"
+                className="px-3 border-b-1 focus:border-b-2 focus:outline-none rounded-md w-full"
+              />
               <div className="text-sm opacity-80 ">Economy</div>
             </div>
           </div>
@@ -185,7 +172,10 @@ const HomeSearch = ({ modify }) => {
             <div className="px-3 py-2 bg-sky-100 rounded-lg ">Student</div>
           </div>
           <div className="w-[80%] mx-auto text-center flex justify-center items-center">
-            <span className=" text-center px-7 rounded-lg py-3 text-xl select-none hover:bg-sky-700 hover:text-white transition-all duration-300 bg-sky-300 relative bottom-[-2rem]">
+            <span
+              onClick={(e) => handleFlightSearch(e)}
+              className="active:scale-90  text-center px-7 rounded-lg py-3 text-xl select-none hover:bg-sky-700 hover:text-white transition-all duration-300 bg-sky-300 relative bottom-[-2rem]"
+            >
               {modify ? "Modify Search" : "Search"}
             </span>
           </div>

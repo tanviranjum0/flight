@@ -3,44 +3,13 @@ import { motion } from "framer-motion";
 import { FaSearch } from "react-icons/fa";
 import { HiMiniXMark } from "react-icons/hi2";
 import SearchItem from "./molecule/SearchItem";
-import { useState } from "react";
+import { useContext } from "react";
+import { StoreContext } from "../context/StoreContextMain";
 
-const FromOriginInput = ({
-  searchFormData,
-  setQuery,
-  setSearchFormData,
-  error,
-  setError,
-  searchData,
-  setSearchData,
-}) => {
-  const [fromSearchLoader, setFromSearchLoader] = useState(false);
-  const handleSearchChangeFromOrigin = () => {
-    setFromSearchLoader(true);
-    setSearchData([]);
-    setError("");
-    let searchInput = document.getElementById("searchInputFromOrigin").value;
-    async function lallala() {
-      const lala = await fetch(
-        `https://test.api.amadeus.com/v1/reference-data/locations?subType=CITY,AIRPORT&keyword=${searchInput}&page[limit]=5`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      );
-      const lulu = await lala.json();
-      if (lulu.data[0] == undefined) {
-        setError("No search results found");
-        setSearchData([]);
-        setFromSearchLoader(false);
-        return;
-      }
-      setSearchData(lulu.data);
-      setFromSearchLoader(false);
-    }
-    lallala();
-  };
+const FromOriginInput = () => {
+  const { fromSearchLoader, error, searchData, handleSearchChangeFromOrigin } =
+    useContext(StoreContext);
+
   return (
     <div
       id="searchFormFromOrigin"
@@ -120,7 +89,6 @@ const FromOriginInput = ({
                     transition={{
                       repeat: Infinity,
                       ease: "easeInOut",
-                      // width: ['100%', '50%'],
                       duration: 1,
                     }}
                   />
@@ -140,13 +108,6 @@ const FromOriginInput = ({
                       key={`${ind} larapappa`}
                       data={data}
                       origin={"from"}
-                      searchFormData={searchFormData}
-                      setSearchFormData={setSearchFormData}
-                      setQuery={setQuery}
-                      error={error}
-                      setError={setError}
-                      searchData={searchData}
-                      setSearchData={setSearchData}
                     />
                   );
                 }

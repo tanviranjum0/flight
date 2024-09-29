@@ -3,12 +3,11 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { HiMiniXMark } from "react-icons/hi2";
 import img from "../images/turkish-logo.jpg";
+import { useContext } from "react";
+import { StoreContext } from "../context/StoreContextMain";
 
-export const handleDetails = () => {
-  const baggage = document.getElementById("baggageDetails");
-  baggage.classList.toggle("hidden");
-};
 const SearchQuery = () => {
+  const { handleDetails } = useContext(StoreContext);
   return (
     <div id="baggageDetails" className="absolute hidden inset-0 backdrop-blur">
       {" "}

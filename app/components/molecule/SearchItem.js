@@ -1,34 +1,9 @@
-const SearchItem = ({
-  data,
-  origin,
-  searchFormData,
-  setSearchFormData,
-  setQuery,
-}) => {
-  const handleFromLocation = (data) => {
-    setSearchFormData({
-      ...searchFormData,
-      fromOrigin: data,
-    });
-    document.getElementById("searchFormFromOrigin").classList.toggle("hidden");
-    setQuery({
-      fromInput: true,
-      toInput: false,
-    });
-  };
+"use client";
+import { StoreContext } from "@/app/context/StoreContextMain";
+import { useContext } from "react";
 
-  const handleToSelect = (data) => {
-    setSearchFormData({
-      ...searchFormData,
-      toOrigin: data,
-    });
-    document.getElementById("searchFormToOrigin").classList.toggle("hidden");
-    setQuery({
-      fromInput: false,
-      toInput: true,
-    });
-  };
-
+const SearchItem = ({ data, origin }) => {
+  const { handleFromLocation, handleToSelect } = useContext(StoreContext);
   return (
     <div>
       <div
@@ -43,12 +18,12 @@ const SearchItem = ({
         className=" w-full cursor-pointer transition-all duration-300 active:scale-95 hover:bg-sky-400/30 rounded  px-3 relative flex py-2"
       >
         <div className="flex flex-col">
-          <div>{data.address.cityName}</div>
+          <div>{data?.address.cityName}</div>
           <div className="text-sm">
-            {data.name} Airport, {data.address.countryName}
+            {data?.name} Airport, {data?.address.countryName}
           </div>
         </div>
-        <span className="absolute right-0 mr-4">{data.iataCode}</span>
+        <span className="absolute right-0 mr-4">{data?.iataCode}</span>
       </div>
     </div>
   );
