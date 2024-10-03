@@ -1,14 +1,15 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 import logo from "../../public/logo2.png";
 import FlightDetails from "./FlightDetails";
 import FareSummary from "./FareSummary";
 import FareRules from "./FareRules";
+import { StoreContext } from "../context/StoreContextMain";
 
 const Flight = ({ flight, searchFormData }) => {
-  // console.log(flight);
+  const { handleBookNowClick } = useContext(StoreContext);
   const [details, setDetails] = useState("");
   const [airlineName, setAirlineName] = useState();
   useEffect(() => {
@@ -110,7 +111,12 @@ const Flight = ({ flight, searchFormData }) => {
           </div>
         </div>
         <div className="mt-5">
-          <button className="mt-5 text-center bg-sky-300 hover:bg-sky-800 hover:text-sky-200 px-5 py-3 rounded-md transition-all duration-200 active:scale-95">
+          <button
+            onClick={() => {
+              return handleBookNowClick(flight, airlineName);
+            }}
+            className="mt-5 text-center bg-sky-300 hover:bg-sky-800 hover:text-sky-200 px-5 py-3 rounded-md transition-all duration-200 active:scale-95"
+          >
             Book Now!
           </button>
         </div>

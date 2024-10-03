@@ -1,11 +1,16 @@
+"use client";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
 import img from "../images/turkish-logo.jpg";
 import { IoIosWarning } from "react-icons/io";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
+import { useContext } from "react";
+import { StoreContext } from "../context/StoreContextMain";
 import Footer from "../components/Footer";
 import BaggageButton from "../components/button/BaggageButton";
 const page = () => {
+  const { reviewFlight, searchFormData } = useContext(StoreContext);
+  console.log(reviewFlight);
   return (
     <div>
       <Navbar />
@@ -14,7 +19,18 @@ const page = () => {
         <div className="grid grid-cols-5 w-[90%] mx-auto gap-10">
           <div className="col-span-3 rounded-md border shadow-lg">
             <div className="flex justify-around py-3 border-b">
-              <div className="text-xl">DAC-CGP</div>
+              <div className="text-xl">
+                {/* {reviewFlight?.id} */}
+                {
+                  reviewFlight.flight.itineraries[0].segments[0].departure
+                    .iataCode
+                }
+                -
+                {
+                  reviewFlight.flight.itineraries[0].segments[0].arrival
+                    .iataCode
+                }
+              </div>
               <BaggageButton />
             </div>
             <div className="flex justify-around  py-3 border-b">
@@ -27,26 +43,87 @@ const page = () => {
                   width={80}
                 />
                 <div>
-                  <div className="text-xs pb-3">Turkish Airline</div>
-                  <div className="text-md">BG | 121</div>
+                  <div className="text-xs pb-3">
+                    {" "}
+                    {reviewFlight.airlineName}
+                  </div>
+                  <div className="text-md">
+                    {reviewFlight.flight.itineraries[0].segments[0].carrierCode}{" "}
+                    |{" "}
+                    {
+                      reviewFlight.flight.itineraries[0].segments[0].aircraft
+                        .code
+                    }
+                  </div>
                   <div className="text-sm font-semibold">
                     {" "}
-                    Aircraft : Boeing 737-800 Operated by : BG
+                    Aircraft :{" "}
+                    {
+                      reviewFlight.flight.itineraries[0].segments[0].aircraft
+                        .code
+                    }{" "}
+                    Operated by :{" "}
+                    {reviewFlight.flight.itineraries[0].segments[0].carrierCode}
                   </div>
                 </div>
               </div>
-              <div className="my-auto">Economy</div>
+              <div className="my-auto">
+                {" "}
+                {
+                  reviewFlight.flight.travelerPricings[0]
+                    .fareDetailsBySegment[0].cabin
+                }
+              </div>
             </div>
             <div className="flex justify-between mx-10">
               <div className="py-3">
                 <div className="text-xs">Depart</div>
-                <div className="pb-2 font-semibold">20:00</div>
-                <div className="text-sm">Fri, 20 Sep 2024</div>
-                <div className="pt-1 text-sm">(DAC)</div>
-                <div className="text-sm">Dhaka</div>
+                <div className="pb-2 font-semibold">
+                  {" "}
+                  {new Date(
+                    reviewFlight.flight.itineraries[0].segments[0].departure.at
+                  ).toLocaleTimeString()}{" "}
+                </div>
+                <div className="text-sm">
+                  {" "}
+                  {new Date(
+                    reviewFlight.flight.itineraries[0].segments[0].departure.at
+                  )
+                    .toUTCString()
+                    .slice(0, 17)}
+                </div>
+                <div className="pt-1 text-sm">
+                  (
+                  {
+                    reviewFlight.flight.itineraries[0].segments[0].departure
+                      .iataCode
+                  }
+                  )
+                </div>
+                <div className="text-sm">{searchFormData.fromOrigin.name}</div>
               </div>
               <div className=" my-auto">
-                <div className="text-sm">45 Min</div>
+                <div className="text-sm">
+                  {Math.floor(
+                    (new Date(
+                      reviewFlight.flight.itineraries[0].segments[0].arrival.at
+                    ).getTime() -
+                      new Date(
+                        reviewFlight.flight.itineraries[0].segments[0].departure.at
+                      ).getTime()) /
+                      60000 /
+                      60
+                  )}{" "}
+                  hours{" "}
+                  {((new Date(
+                    reviewFlight.flight.itineraries[0].segments[0].arrival.at
+                  ).getTime() -
+                    new Date(
+                      reviewFlight.flight.itineraries[0].segments[0].departure.at
+                    ).getTime()) /
+                    60000) %
+                    60}{" "}
+                </div>
                 <div className=" ">
                   <MdOutlineArrowRightAlt className="h-10 w-10" />
                 </div>
@@ -54,10 +131,29 @@ const page = () => {
               </div>
               <div className="py-3">
                 <div className="text-xs">Arrive</div>
-                <div className="pb-2 font-semibold">20:45</div>
-                <div className="text-sm">Fri, 20 Sep 2024</div>
-                <div className="pt-1 text-sm">(CGP)</div>
-                <div className="text-sm">Chattogram</div>
+                <div className="pb-2 font-semibold">
+                  {" "}
+                  {new Date(
+                    reviewFlight.flight.itineraries[0].segments[0].arrival.at
+                  ).toLocaleTimeString()}{" "}
+                </div>
+                <div className="text-sm">
+                  {" "}
+                  {new Date(
+                    reviewFlight.flight.itineraries[0].segments[0].arrival.at
+                  )
+                    .toUTCString()
+                    .slice(0, 17)}
+                </div>
+                <div className="pt-1 text-sm">
+                  (
+                  {
+                    reviewFlight.flight.itineraries[0].segments[0].arrival
+                      .iataCode
+                  }
+                  )
+                </div>
+                <div className="text-sm">{searchFormData.toOrigin.name}</div>
               </div>
             </div>
           </div>
@@ -70,42 +166,62 @@ const page = () => {
                 height={80}
                 width={80}
               />
-              <div className="text-md ">Turkish Airline</div>
+              <div className="text-md ">{reviewFlight.airlineName}</div>
             </div>
             <div className="p-5">
               <div className="text-md font-semibold py-2">Fare Summary</div>
-              <div className="text-md">Adult (1 Traveller)</div>
+              <div className="text-md">
+                Adult ({reviewFlight.flight.travelerPricings.length} Traveller)
+              </div>
               <div className="flex pt-3  mx-5 justify-between">
                 <div className="">Base Fare</div>
                 <div className="">
                   <div className="">
-                    BDT <b className="text-md">3277</b>
+                    {reviewFlight.flight.travelerPricings[0].total}{" "}
+                    <b className="text-md">
+                      {reviewFlight.flight.travelerPricings[0].price.base}
+                    </b>
                   </div>
-                  <div className="text-sm text-center">(1x3277)</div>
+                  <div className="text-sm text-center">
+                    ({reviewFlight.flight.travelerPricings.length}x{" "}
+                    {reviewFlight.flight.travelerPricings[0].price.base})
+                  </div>
                 </div>
               </div>
               <div className="flex pb-3 pt-1 border-b mx-5 justify-between">
                 <div className="">Taxes and Fees</div>
                 <div className="">
                   <div className="">
-                    BDT <b className="text-md">989</b>
+                    {reviewFlight.flight.price}{" "}
+                    <b className="text-md">
+                      {reviewFlight.flight.travelerPricings[0].total -
+                        reviewFlight.flight.travelerPricings[0].price.base}
+                    </b>
                   </div>
-                  <div className="text-sm text-center">(1x989)</div>
+                  <div className="text-sm text-center">
+                    ({reviewFlight.flight.travelerPricings.length}x
+                    {reviewFlight.flight.travelerPricings[0].price.base})
+                  </div>
                 </div>
               </div>
               <div className="flex pb-3 items-center pt-1 mx-5 justify-between">
                 <div className="">Sub - Total</div>
                 <div className="">
-                  BDT <b className="text-lg">4277</b>
+                  {reviewFlight.flight.price.currency}{" "}
+                  <b className="text-lg">{reviewFlight.flight.price.total}</b>
                 </div>
               </div>
             </div>
             <div className="flex py-3 items-center bg-sky-100 text-sky-800  justify-around">
               <div className="">
-                You Pay <span className="text-xs pl-3">*For 1 traveller</span>
+                You Pay{" "}
+                <span className="text-xs pl-3">
+                  *For {reviewFlight.flight.travelerPricings.length} traveller
+                </span>
               </div>
               <div className="">
-                BDT <b className="text-lg">4277</b>
+                {reviewFlight.flight.price.currency}{" "}
+                <b className="text-lg">{reviewFlight.flight.price.total}</b>
               </div>
             </div>
           </div>
