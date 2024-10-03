@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import Navbar from "../components/Navbar";
 import img from "../images/turkish-logo.jpg";
@@ -8,9 +9,10 @@ import { useContext } from "react";
 import { StoreContext } from "../context/StoreContextMain";
 import Footer from "../components/Footer";
 import BaggageButton from "../components/button/BaggageButton";
+
 const page = () => {
-  const { reviewFlight, searchFormData } = useContext(StoreContext);
-  console.log(reviewFlight);
+  let { reviewFlight, searchFormData } = useContext(StoreContext);
+
   return (
     <div>
       <Navbar />
