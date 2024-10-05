@@ -5,7 +5,7 @@ export const StoreContext = createContext(null);
 const StoreContextMain = ({ children }) => {
   const router = useRouter();
   const [cabinType, setCabinType] = useState("ECONOMY");
-  const [reviewFlight, setReviewFlight] = useState();
+  const [reviewFlight, setReviewFlight] = useState([]);
   const [returnTrue, setReturnTrue] = useState(false);
   const [flightDepartureDates, setFlightDepartureDates] = useState({
     startDate: null,
@@ -66,12 +66,12 @@ const StoreContextMain = ({ children }) => {
     baggage.classList.toggle("hidden");
   };
 
-  const handleBookNowClick = async (flight, airlineName) => {
+  const handleBookNowClick = (flight, airlineName) => {
     console.log("Flight", flight);
-    setReviewFlight({ flight, airlineName });
-
+    flight.airlineName = airlineName;
+    setReviewFlight([flight]);
     router.push("/review");
-    console.log("FlightState", reviewFlight);
+    // console.log("FlightState", reviewFlight);
   };
 
   const handleFlightSearch = async (e) => {
