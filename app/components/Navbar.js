@@ -11,11 +11,13 @@ const Navbar = () => {
             src={logo}
             width={100}
             height={100}
-            className="h-auto w-auto"
+            className="h-20 w-20 md:h-auto md:w-auto"
             alt="Picture of the author"
           />
         </Link>
-        <div className="text-2xl mt-4 italic ml-[-8px]">MoveSeeks</div>
+        <div className="text-xl md:text-2xl mt-4 italic ml-[-8px]">
+          MoveSeeks
+        </div>
       </div>
       <button className="px-5 navbar-right-animation mt-10 py-3 text-lg text-white bg-orange-700 hover:border-2 border-2 border-orange-700 hover:border-orange-700 hover:bg-orange-100 hover:text-orange-700 transition-colors duration-300 rounded-lg absolute right-[3rem]">
         Sign in

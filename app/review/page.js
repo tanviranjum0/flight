@@ -11,9 +11,11 @@ const page = () => {
     <div>
       <Navbar />
       <div>
-        <div className="text-2xl p-5 text-center">Review Your Booking</div>
+        <div className="text-2xl p-2 my-3  md:p-5  text-sky-700 px-10 md:text-center">Review Your Booking</div>
         <ReviewDetails />
-        <div className="text-2xl p-5 text-center">Enter Traveller Details</div>
+        <div className="text-2xl p-2 my-3  md:p-5  text-sky-700 px-10 md:text-center">
+          Enter Traveller Details
+        </div>
         <div>
           <div className="mx-auto w-[80vw] p-10">
             <div className="text-3xl py-5 text-slate-600">

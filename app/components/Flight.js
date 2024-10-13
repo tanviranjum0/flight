@@ -30,7 +30,7 @@ const Flight = ({ flight, searchFormData }) => {
 
   return (
     <div className="my-5">
-      <div className="grid grid-cols-6 border py-5 rounded-lg bg-sky-100 ">
+      <div className="grid  grid-cols-2 md:grid-cols-6 border py-5 rounded-lg bg-sky-100 ">
         <div className="p-1 pl-5">
           <Image
             src={logo}
@@ -44,7 +44,7 @@ const Flight = ({ flight, searchFormData }) => {
         </div>
         <div className="p-2 mt-10">
           <div className="text-sm"> Depart</div>
-          <div className="pt-2 text-lg">
+          <div className="pt-2 md:text-lg">
             {" "}
             {new Date(flight.itineraries[0].segments[0].departure.at)
               .toLocaleTimeString()
@@ -82,7 +82,7 @@ const Flight = ({ flight, searchFormData }) => {
               60}{" "}
             min
           </div>
-          <div className="text-7xl ">
+          <div className="  text-5xl md:text-7xl ">
             <MdOutlineArrowRightAlt />
           </div>
           <div className="">Non Stop</div>

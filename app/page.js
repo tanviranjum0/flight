@@ -11,7 +11,7 @@ const page = () => {
   return (
     <div className="flex flex-col">
       <ApiAuth />
-      <div className="h-[95vh] pb-10 main-bg text-sky-800">
+      <div className="h-fit pb-10 main-bg text-sky-800">
         {" "}
         <Navbar />
         <HomeSearch modify={false} />

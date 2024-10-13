@@ -35,7 +35,7 @@ const FlightDetails = ({ searchFormData, details, setDetails, flight }) => {
             Fare Rules
           </div>
         </div>
-        <div className="border bg-sky-50  text-lg px-3 py-1">
+        <div className="border bg-sky-50  sm:text-lg px-3 py-1">
           {searchFormData.fromOrigin.address.cityName} to{" "}
           {searchFormData.toOrigin.address.cityName},{" "}
           {new Date(flight.itineraries[0].segments[0].departure.at)
@@ -55,14 +55,14 @@ const FlightDetails = ({ searchFormData, details, setDetails, flight }) => {
           }}
           className="border bg-sky-50"
         >
-          <div className="flex px-14 py-5">
+          <div className="hidden sm:flex px-14 py-5">
             <Image
               className="py-5 mx-5"
               src={logo}
               height={80}
               alt="flight-logo"
             />
-            <div className="flex flex-col">
+            <div className="grid">
               <div className="text-lg">
                 <span className="font-bold">{flight.airlineName}</span>{" "}
                 {flight.itineraries[0].segments[0].carrierCode} |{" "}
@@ -84,7 +84,7 @@ const FlightDetails = ({ searchFormData, details, setDetails, flight }) => {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-6 gap-3 p-8 ml-14 text-sky-950">
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-3 p-4 md:p-8   ml-6 md:ml-14 text-sky-950">
             <div>
               <div className="text-lg">
                 {new Date(

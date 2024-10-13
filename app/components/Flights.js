@@ -8,18 +8,18 @@ const Flights = () => {
   const flights = availableFlights?.data;
   return (
     <div className="w-[90vw] mt-10 mx-auto">
-      <div className="text-center text-4xl">
+      <div className="text-center text-2xl pt-10 md:pt-0 md:text-4xl">
         Flights From {searchFormData.fromOrigin.name} To{" "}
         {searchFormData.toOrigin.name}
       </div>
       <div className="flex gap-10 w-[90vw] mt-5">
-        <div className="rounded-lg border w-full hover:bg-slate-200 transition-all duration-200 text-center p-4">
-          <div className="text-2xl">Cheapest</div>
+        <div className="rounded-lg border w-full hover:bg-slate-200 transition-all duration-200 text-center p-2 md:p-4">
+          <div className="md:text-2xl font-bold">Cheapest</div>
           <div className="">To get available cheapest flights</div>
         </div>
 
-        <div className="rounded-lg border w-full hover:bg-slate-200 transition-all duration-200 text-center p-4">
-          <div className="text-2xl">Shortest</div>
+        <div className="rounded-lg border w-full hover:bg-slate-200 transition-all duration-200 text-center p-2 md:p-4">
+          <div className="md:text-2xl font-bold">Shortest</div>
           <div className="">To get available shortest flights</div>
         </div>
       </div>

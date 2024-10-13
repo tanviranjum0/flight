@@ -15,11 +15,11 @@ const ReviewDetails = () => {
         return (
           <div
             key={`${idx}flightreview`}
-            className="grid grid-cols-5 w-[90%] mx-auto gap-10"
+            className="grid grid-cols-5 w-[90%] mx-auto gap-3 md:gap-10"
           >
-            <div className="col-span-3 rounded-md border shadow-lg">
+            <div className="md:col-span-3 col-span-5 rounded-md border shadow-lg">
               <div className="flex justify-around py-3 border-b">
-                <div className="text-xl">
+                <div className="text-base md:text-xl">
                   {flight.itineraries[0].segments[0].departure.iataCode}-
                   {flight.itineraries[0].segments[0].arrival.iataCode}
                 </div>
@@ -29,14 +29,14 @@ const ReviewDetails = () => {
                 <div className="flex">
                   <Image
                     alt="airline-logo"
-                    className="p-5"
+                    className="md:p-5"
                     src={img}
                     height={80}
                     width={80}
                   />
                   <div>
                     <div className="text-xs pb-3"> {flight.airlineName}</div>
-                    <div className="text-md">
+                    <div className="text-xs">
                       {flight.itineraries[0].segments[0].carrierCode} |{" "}
                       {flight.itineraries[0].segments[0].aircraft.code}
                     </div>
@@ -47,7 +47,7 @@ const ReviewDetails = () => {
                     </div>
                   </div>
                 </div>
-                <div className="my-auto">
+                <div className="my-auto text-md">
                   {flight.travelerPricings[0].fareDetailsBySegment[0].cabin}
                 </div>
               </div>
@@ -97,7 +97,7 @@ const ReviewDetails = () => {
                   <div className=" ">
                     <MdOutlineArrowRightAlt className="h-10 w-10" />
                   </div>
-                  <div className="text sm">Non Stop</div>
+                  <div className="text-sm">Non Stop</div>
                 </div>
                 <div className="py-3">
                   <div className="text-xs">Arrive</div>
@@ -118,7 +118,7 @@ const ReviewDetails = () => {
                 </div>
               </div>
             </div>
-            <div className="border col-span-2 shadow-lg rounded-md">
+            <div className="border col-span-5 md:col-span-2 shadow-lg rounded-md">
               <div className="flex justify-center items-center border-b mx-5">
                 <Image
                   alt="airline-logo"

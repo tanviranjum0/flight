@@ -1,5 +1,4 @@
 "use client";
-// import { motion } from "framer-motion";
 import FromOriginInput from "./FromOriginInput";
 import ToOriginInput from "./ToOriginInput";
 import { useContext } from "react";
@@ -11,7 +10,6 @@ const MIN_DATE = new Date();
 MIN_DATE.setDate(MIN_DATE.getDate() + 1);
 
 const HomeSearch = ({ modify }) => {
-  // console.log(document.querySelector("input[name=rate]:checked"));
   const {
     setSearchData,
     dates,
@@ -36,7 +34,7 @@ const HomeSearch = ({ modify }) => {
       <div className="home-search-animation">
         <FromOriginInput />
         <ToOriginInput />
-        <div className="text-center mt-10 text-7xl opacity-70">
+        <div className="text-center mt-10 mb-5 sm:mb-10 text-4xl md:text-7xl opacity-70">
           It’s more than just a trip
         </div>
         <div className="w-[90%] border-2 shadow-2xl mt-5 pb-3 bg-white rounded-2xl mx-auto">
@@ -73,7 +71,7 @@ const HomeSearch = ({ modify }) => {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-5 mt-3 gap-3 mx-2">
+          <div className="grid grid-cols-2  md:grid-cols-5 mt-3 gap-3 mx-2">
             <div
               onClick={() => {
                 setSearchData([]);
@@ -91,7 +89,7 @@ const HomeSearch = ({ modify }) => {
               }}
               className={`p-3 cursor-pointer ${
                 query.fromInput && "bg-sky-100"
-              } border rounded`}
+              } border rounded col-span-2 md:col-span-1`}
             >
               <div className="text-sm opacity-80 ">From</div>
               <div type="text" className="text-sm w-full">
@@ -122,7 +120,7 @@ const HomeSearch = ({ modify }) => {
               }}
               className={`p-3 cursor-pointer ${
                 query.toInput && "bg-sky-100"
-              } border rounded`}
+              } border rounded col-span-2 md:col-span-1`}
             >
               <div className="text-sm opacity-80 ">To</div>
 
@@ -213,7 +211,7 @@ const HomeSearch = ({ modify }) => {
             <div
               className={`p-3 cursor-pointer ${
                 query.travellersCount && "bg-sky-100"
-              } border rounded`}
+              } border rounded col-span-2 md:col-span-1`}
               onClick={() =>
                 setQuery({
                   fromInput: false,
@@ -233,18 +231,20 @@ const HomeSearch = ({ modify }) => {
                 defaultValue={1}
                 min={0}
                 id="flightsearchadultnumber"
-                className={`px-3 border-b-1 active:border focus:border-b-2 focus:outline-none rounded-md w-full ${
+                className={`px-3  border-b-1  focus:border-b-2 focus:outline-none w-full ${
                   query.travellersCount && "bg-sky-100"
                 }`}
               />
               <div className="text-sm opacity-80 ">Economy</div>
             </div>
           </div>
-          <div className=" mx-auto w-[80%] gap-5 pt-3 flex items-center justify-center">
-            <div className="font-semibold"> Fare Type :</div>
+          <div className=" text-sm md:text-base px-3 mx-auto md:w-[80%]  gap-1 md:gap-5 pt-3 grid grid-cols-2 md:grid-cols-5 items-center justify-center">
+            <div className="font-semibold col-span-2 md:col-span-1">
+              Fare Type :
+            </div>
             <div
               onClick={() => setCabinType("ECONOMY")}
-              className={`px-3 py-2 border hover:bg-sky-300 cursor-pointer rounded-lg ${
+              className={`md:px-3 px-1 py-1 md:py-2 border hover:bg-sky-300 cursor-pointer rounded ${
                 cabinType == "ECONOMY" ? "bg-sky-200" : ""
               }`}
             >
@@ -252,7 +252,7 @@ const HomeSearch = ({ modify }) => {
             </div>
             <div
               onClick={() => setCabinType("PREMIUM_ECONOMY")}
-              className={`px-3 py-2 border hover:bg-sky-300 cursor-pointer rounded-lg ${
+              className={`md:px-3 px-1 py-1 md:py-2  border hover:bg-sky-300 cursor-pointer rounded ${
                 cabinType == "PREMIUM_ECONOMY" ? "bg-sky-200" : ""
               }`}
             >
@@ -260,7 +260,7 @@ const HomeSearch = ({ modify }) => {
             </div>
             <div
               onClick={() => setCabinType("BUSINESS")}
-              className={`px-3 py-2 border hover:bg-sky-300 cursor-pointer rounded-lg ${
+              className={`md:px-3 px-1 py-1 md:py-2  border hover:bg-sky-300 cursor-pointer rounded ${
                 cabinType == "BUSINESS" ? "bg-sky-200" : ""
               }`}
             >
@@ -268,7 +268,7 @@ const HomeSearch = ({ modify }) => {
             </div>
             <div
               onClick={() => setCabinType("FIRST")}
-              className={`px-3 py-2 border hover:bg-sky-300 cursor-pointer rounded-lg ${
+              className={`md:px-3 px-1 py-1 md:py-2  border hover:bg-sky-300 cursor-pointer rounded ${
                 cabinType == "FIRST" ? "bg-sky-200" : ""
               }`}
             >
