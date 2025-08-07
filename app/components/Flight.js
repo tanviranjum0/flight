@@ -15,7 +15,7 @@ const Flight = ({ flight, searchFormData }) => {
   useEffect(() => {
     const newFunc = async () => {
       const newData = await fetch(
-        `https://test.api.amadeus.com/v1/reference-data/airlines?airlineCodes=${flight.validatingAirlineCodes[0]}`,
+        `https://api.amadeus.com/v1/reference-data/airlines?airlineCodes=${flight.validatingAirlineCodes[0]}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access_token")}`,

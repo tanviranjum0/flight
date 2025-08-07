@@ -67,7 +67,7 @@ const StoreContextMain = ({ children }) => {
   };
 
   const handleBookNowClick = (flight, airlineName) => {
-    console.log("Flight", flight);
+    // console.log("Flight", flight);
     flight.airlineName = airlineName;
     setReviewFlight([flight]);
     router.push("/review");
@@ -107,7 +107,7 @@ const StoreContextMain = ({ children }) => {
     url.set("max", 10);
 
     const data = await fetch(
-      `https://test.api.amadeus.com/v2/shopping/flight-offers?${url}`,
+      `https://api.amadeus.com/v2/shopping/flight-offers?${url}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
@@ -115,7 +115,7 @@ const StoreContextMain = ({ children }) => {
       }
     );
     const result = await data.json();
-    console.log(result);
+    // console.log(result);
     setAvailableFlights(result);
   };
 
@@ -126,7 +126,7 @@ const StoreContextMain = ({ children }) => {
     let searchInput = document.getElementById("searchInputToOrigin").value;
     async function lallala() {
       const lala = await fetch(
-        `https://test.api.amadeus.com/v1/reference-data/locations?subType=CITY,AIRPORT&keyword=${searchInput}&page[limit]=5`,
+        `https://api.amadeus.com/v1/reference-data/locations?subType=CITY,AIRPORT&keyword=${searchInput}&page[limit]=5`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access_token")}`,
@@ -135,7 +135,7 @@ const StoreContextMain = ({ children }) => {
       );
 
       const lulu = await lala.json();
-      console.log(lulu);
+      // console.log(lulu);
       if (lulu.data[0] == undefined) {
         setSearchToLoader(false);
         setError("No search results found");
@@ -156,7 +156,7 @@ const StoreContextMain = ({ children }) => {
     let searchInput = document.getElementById("searchInputFromOrigin").value;
     async function lallala() {
       const lala = await fetch(
-        `https://test.api.amadeus.com/v1/reference-data/locations?subType=CITY,AIRPORT&keyword=${searchInput}&page[limit]=5`,
+        `https://api.amadeus.com/v1/reference-data/locations?subType=CITY,AIRPORT&keyword=${searchInput}&page[limit]=5`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access_token")}`,
@@ -164,7 +164,7 @@ const StoreContextMain = ({ children }) => {
         }
       );
       const lulu = await lala.json();
-      console.log(lulu);
+      // console.log(lulu);
       if (lulu.data == undefined) {
         setError("No search results found");
         setSearchData([]);
