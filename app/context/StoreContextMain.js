@@ -156,7 +156,7 @@ const StoreContextMain = ({ children }) => {
     let searchInput = document.getElementById("searchInputFromOrigin").value;
     async function lallala() {
       const lala = await fetch(
-        `https://api.amadeus.com/v1/reference-data/locations?subType=CITY,AIRPORT&keyword=${searchInput}&page[limit]=5`,
+        `https://test.api.amadeus.com/v1/reference-data/locations?subType=CITY&keyword=${searchInput}&page%5Blimit%5D=5&page%5Boffset%5D=0&sort=analytics.travelers.score&view=FULL`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access_token")}`,
@@ -164,7 +164,7 @@ const StoreContextMain = ({ children }) => {
         }
       );
       const lulu = await lala.json();
-      // console.log(lulu);
+      console.log(lulu);
       if (lulu.data == undefined) {
         setError("No search results found");
         setSearchData([]);

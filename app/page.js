@@ -12,7 +12,6 @@ const page = () => {
     <div className="flex flex-col">
       <ApiAuth />
       <div className="h-fit pb-10 main-bg text-sky-800">
-        {" "}
         <Navbar />
         <HomeSearch modify={false} />
       </div>
