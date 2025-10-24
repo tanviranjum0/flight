@@ -1,12 +1,18 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const ApiAuth = () => {
+  const hasAlreadyAuthorization = useRef(false);
   useEffect(() => {
     async function getApiAuthorization() {
-      console.log(
-        `grant_type=client_credentials&client_id=${process.env.NEXT_PUBLIC_CLIENT_ID}&client_secret=${process.env.NEXT_PUBLIC_CLIENT_SECRET}`
-      );
+      if (!hasAlreadyAuthorization.current) {
+        // Your side effect logic that should run only once
+        // console.log("This effect runs only on the initial mount.");
+        hasAlreadyAuthorization.current = true; // Mark as run
+      } else {
+        return;
+      }
+
       const data = await fetch(
         "https://test.api.amadeus.com/v1/security/oauth2/token",
         {

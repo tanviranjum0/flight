@@ -39,7 +39,6 @@ const StoreContextMain = ({ children }) => {
     departureDay: "",
     returnDay: "",
   });
-  // console.log(dates);
 
   const days = [
     "Sunday",
@@ -61,23 +60,30 @@ const StoreContextMain = ({ children }) => {
     travellersCount: false,
   });
 
+  // if (typeof window !== "undefined" && window.localStorage) {
+  //   if (JSON.parse(localStorage.getItem("flights"))) {
+  //     console.log(
+  //       JSON.parse(localStorage.getItem("flights")).dictionaries.carriers
+  //     );
+  //     setAvailableFlights(JSON.parse(localStorage.getItem("flights")));
+  //   }
+  // }
+
   const handleDetails = () => {
     const baggage = document.getElementById("baggageDetails");
     baggage.classList.toggle("hidden");
   };
 
   const handleBookNowClick = (flight, airlineName) => {
-    // console.log("Flight", flight);
     flight.airlineName = airlineName;
     setReviewFlight([flight]);
     router.push("/review");
-    // console.log("FlightState", reviewFlight);
   };
 
   const handleFlightSearch = async (e) => {
     e.preventDefault();
     router.push("/search");
-    setAvailableFlights();
+    setAvailableFlights(null);
     const adultnumber = document.getElementById(
       "flightsearchadultnumber"
     ).value;
@@ -102,12 +108,15 @@ const StoreContextMain = ({ children }) => {
     );
     url.set("currencyCode", "USD");
     url.set("adults", adultnumber);
-    url.set("nonStop", true);
     url.set("travelClass", cabinType);
     url.set("max", 10);
-
+    // if(url.has)
+    console.log(url.has("adults"));
+    console.log(
+      `https://test.api.amadeus.com/v2/shopping/flight-offers?${url}`
+    );
     const data = await fetch(
-      `https://api.amadeus.com/v2/shopping/flight-offers?${url}`,
+      `https://test.api.amadeus.com/v2/shopping/flight-offers?${url}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
@@ -115,7 +124,9 @@ const StoreContextMain = ({ children }) => {
       }
     );
     const result = await data.json();
-    // console.log(result);
+    console.log(result);
+    localStorage.setItem("flights", JSON.stringify(result));
+    console.log("Flights", JSON.parse(localStorage.getItem("flights")));
     setAvailableFlights(result);
   };
 
@@ -124,9 +135,9 @@ const StoreContextMain = ({ children }) => {
     setSearchData([]);
     setError("");
     let searchInput = document.getElementById("searchInputToOrigin").value;
-    async function lallala() {
-      const lala = await fetch(
-        `https://api.amadeus.com/v1/reference-data/locations?subType=CITY,AIRPORT&keyword=${searchInput}&page[limit]=5`,
+    async function getDesiredAirports() {
+      const data = await fetch(
+        `https://test.api.amadeus.com/v1/reference-data/locations?subType=AIRPORT&keyword=${searchInput}&page%5Blimit%5D=5&page%5Boffset%5D=0&sort=analytics.travelers.score&view=FULL`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access_token")}`,
@@ -134,19 +145,20 @@ const StoreContextMain = ({ children }) => {
         }
       );
 
-      const lulu = await lala.json();
-      // console.log(lulu);
-      if (lulu.data[0] == undefined) {
+      const result = await data.json();
+      console.log(result);
+
+      if (result.data == undefined) {
         setSearchToLoader(false);
         setError("No search results found");
         setSearchData([]);
         return;
       }
 
-      setSearchData(lulu.data);
+      setSearchData(result.data);
       setSearchToLoader(false);
     }
-    lallala();
+    getDesiredAirports();
   };
 
   const handleSearchChangeFromOrigin = () => {
@@ -154,27 +166,27 @@ const StoreContextMain = ({ children }) => {
     setSearchData([]);
     setError("");
     let searchInput = document.getElementById("searchInputFromOrigin").value;
-    async function lallala() {
-      const lala = await fetch(
-        `https://test.api.amadeus.com/v1/reference-data/locations?subType=CITY&keyword=${searchInput}&page%5Blimit%5D=5&page%5Boffset%5D=0&sort=analytics.travelers.score&view=FULL`,
+    async function getDesiredAirport() {
+      const data = await fetch(
+        `https://test.api.amadeus.com/v1/reference-data/locations?subType=AIRPORT&keyword=${searchInput}&page%5Blimit%5D=5&page%5Boffset%5D=0&sort=analytics.travelers.score&view=FULL`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access_token")}`,
           },
         }
       );
-      const lulu = await lala.json();
-      console.log(lulu);
-      if (lulu.data == undefined) {
+      const result = await data.json();
+      console.log(result);
+      if (result.data == undefined) {
         setError("No search results found");
         setSearchData([]);
         setFromSearchLoader(false);
         return;
       }
-      setSearchData(lulu.data);
+      setSearchData(result.data);
       setFromSearchLoader(false);
     }
-    lallala();
+    getDesiredAirport();
   };
 
   const handleFromLocation = (data) => {

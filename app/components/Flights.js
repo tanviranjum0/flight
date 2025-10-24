@@ -1,10 +1,12 @@
 "use client";
 import Flight from "./Flight";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { StoreContext } from "../context/StoreContextMain";
 
 const Flights = () => {
-  const { searchFormData, availableFlights } = useContext(StoreContext);
+  const { searchFormData, availableFlights, setAvailableFlights } =
+    useContext(StoreContext);
+
   const flights = availableFlights?.data;
   return (
     <div className="w-[90vw] mt-10 mx-auto">
@@ -27,6 +29,7 @@ const Flights = () => {
         availableFlights.data.map((flight, idx) => {
           return (
             <Flight
+              flights={flights}
               key={`${idx}flightindividual`}
               flight={flight}
               searchFormData={searchFormData}

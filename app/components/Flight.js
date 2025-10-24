@@ -8,25 +8,26 @@ import FareSummary from "./FareSummary";
 import FareRules from "./FareRules";
 import { StoreContext } from "../context/StoreContextMain";
 
-const Flight = ({ flight, searchFormData }) => {
+const Flight = ({ flight, searchFormData, flights }) => {
   const { handleBookNowClick } = useContext(StoreContext);
   const [details, setDetails] = useState("");
   const [airlineName, setAirlineName] = useState();
-  useEffect(() => {
-    const newFunc = async () => {
-      const newData = await fetch(
-        `https://api.amadeus.com/v1/reference-data/airlines?airlineCodes=${flight.validatingAirlineCodes[0]}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      );
-      const flightresult = await newData.json();
-      setAirlineName(flightresult.data[0]?.businessName);
-    };
-    newFunc();
-  }, [flight.validatingAirlineCodes]);
+  // console.log(flight.dictionaries.carriers);
+  // useEffect(() => {
+  //   const newFunc = async () => {
+  //     const newData = await fetch(
+  //       `https://api.amadeus.com/v1/reference-data/airlines?airlineCodes=${flight.validatingAirlineCodes[0]}`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+  //         },
+  //       }
+  //     );
+  //     const flightresult = await newData.json();
+  //     setAirlineName(flightresult.data[0]?.businessName);
+  //   };
+  //   newFunc();
+  // }, [flight.validatingAirlineCodes]);
 
   return (
     <div className="my-5">
