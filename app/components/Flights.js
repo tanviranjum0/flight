@@ -4,8 +4,7 @@ import { useContext, useEffect } from "react";
 import { StoreContext } from "../context/StoreContextMain";
 
 const Flights = () => {
-  const { searchFormData, availableFlights, setAvailableFlights } =
-    useContext(StoreContext);
+  const { searchFormData, availableFlights } = useContext(StoreContext);
 
   const flights = availableFlights?.data;
   return (
@@ -29,7 +28,6 @@ const Flights = () => {
         availableFlights.data.map((flight, idx) => {
           return (
             <Flight
-              flights={flights}
               key={`${idx}flightindividual`}
               flight={flight}
               searchFormData={searchFormData}

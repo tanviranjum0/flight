@@ -7,7 +7,7 @@ import { StoreContext } from "../context/StoreContextMain";
 import { useContext } from "react";
 
 const ToOriginInput = () => {
-  const { handleSearchChangeToOrigin, searchToLoader, searchData, error } =
+  const { handleAirportSearch, searchToLoader, searchData, error } =
     useContext(StoreContext);
   return (
     <div
@@ -44,19 +44,30 @@ const ToOriginInput = () => {
               className="absolute top-0 right-0 mr-3 cursor-pointer text-3xl"
             />
           </div>
-          <div className="relative">
-            <div className="absolute top-2 right-20 mr-3 cursor-pointer ">
-              <FaSearch
-                onClick={() => handleSearchChangeToOrigin()}
-                className="text-2xl"
-              />
+          <form
+            autoComplete="on"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleAirportSearch("searchInputToOrigin");
+            }}
+          >
+            <div className="relative">
+              <div className="absolute top-2 right-20 mr-3 cursor-pointer ">
+                <FaSearch
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleAirportSearch("searchInputToOrigin");
+                  }}
+                  className="text-2xl"
+                />
+              </div>
             </div>
-          </div>
-          <input
-            id="searchInputToOrigin"
-            placeholder="To Where..."
-            className="text-lg py-3 mb-3 px-4 mx-4 w-[80%] focus:outline-none focus:border-b-2 bg-inherit border-b-2"
-          />
+            <input
+              id="searchInputToOrigin"
+              placeholder="To Where..."
+              className="text-lg py-3 mb-3 px-4 mx-4 w-[80%] focus:outline-none focus:border-b-2 bg-inherit border-b-2"
+            />
+          </form>
 
           <div className="w-[95%] mx-auto  my-3">
             {searchToLoader && (

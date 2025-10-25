@@ -3,7 +3,7 @@ import { StoreContext } from "@/app/context/StoreContextMain";
 import { useContext } from "react";
 
 const SearchItem = ({ data, origin }) => {
-  const { handleFromLocation, handleToSelect } = useContext(StoreContext);
+  const { handleFromLocation, handleToLocation } = useContext(StoreContext);
   return (
     <div>
       <div
@@ -11,7 +11,7 @@ const SearchItem = ({ data, origin }) => {
           if (origin == "from") {
             handleFromLocation(data);
           } else if (origin == "to") {
-            handleToSelect(data);
+            handleToLocation(data);
           }
         }}
         key={data.id}

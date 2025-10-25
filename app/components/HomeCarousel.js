@@ -2,10 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { motion, useMotionValue } from "framer-motion";
 import Image from "next/image";
-import img1 from "../images/carousel-1.png";
-import img2 from "../images/carousel-2.png";
-import img3 from "../images/carousel-3.png";
-import img4 from "../images/carousel-4.png";
+import img1 from "/public/images/carousel-1.png";
+import img2 from "/public/images/carousel-2.png";
+import img3 from "/public/images/carousel-3.png";
+import img4 from "/public/images/carousel-4.png";
 
 const imgs = [img1, img2, img3, img4];
 

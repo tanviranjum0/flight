@@ -4,13 +4,13 @@ import HomeSearch from "./components/HomeSearch";
 import HomeCarousel from "./components/HomeCarousel";
 import Footer from "./components/Footer";
 import ActiveAirlines from "./components/ActiveAirlines";
-import ApiAuth from "./components/ApiAuth";
+import InitailLoad from "./components/InitailLoad";
 
 const page = () => {
   // console.log(process.env.NO);
   return (
     <div className="flex flex-col">
-      <ApiAuth />
+      <InitailLoad />
       <div className="h-fit pb-10 main-bg text-sky-800">
         <Navbar />
         <HomeSearch modify={false} />

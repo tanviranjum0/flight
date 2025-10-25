@@ -1,0 +1,37 @@
+"use client";
+import { useContext, useEffect, useRef } from "react";
+import { StoreContext } from "../context/StoreContextMain";
+
+const InitailLoad = () => {
+  const { setSearchFormData } = useContext(StoreContext);
+  useEffect(() => {
+    async function getApiAuthorization() {
+      setSearchFormData(JSON.parse(localStorage.getItem("olderOrigins")));
+      const time = Date.now();
+      const creationTimeDifferenceInMinutes = Math.ceil(
+        Math.abs(localStorage.getItem("access_token_created_at") - time) /
+          (1000 * 60)
+      );
+      if (creationTimeDifferenceInMinutes > 28) {
+        const data = await fetch(
+          "https://api.amadeus.com/v1/security/oauth2/token",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: `grant_type=client_credentials&client_id=${process.env.NEXT_PUBLIC_CLIENT_ID}&client_secret=${process.env.NEXT_PUBLIC_CLIENT_SECRET}`,
+          }
+        );
+        const AuthorizedJSON = await data.json();
+        console.log(AuthorizedJSON);
+        localStorage.setItem("access_token_created_at", Date.now());
+        localStorage.setItem("access_token", AuthorizedJSON.access_token);
+      }
+    }
+    getApiAuthorization();
+  }, []);
+  return <div></div>;
+};
+
+export default InitailLoad;

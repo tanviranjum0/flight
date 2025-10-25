@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 export const StoreContext = createContext(null);
 const StoreContextMain = ({ children }) => {
@@ -32,6 +32,13 @@ const StoreContextMain = ({ children }) => {
     },
   });
 
+  if (typeof window !== "undefined" && window.localStorage) {
+    if (
+      localStorage.getItem("destinationAirport") != null ||
+      localStorage.getItem("originAirport") != null
+    ) {
+    }
+  }
   const [fromSearchLoader, setFromSearchLoader] = useState(false);
   const [availableFlights, setAvailableFlights] = useState();
   const [searchToLoader, setSearchToLoader] = useState(false);
@@ -60,15 +67,13 @@ const StoreContextMain = ({ children }) => {
     travellersCount: false,
   });
 
-  // if (typeof window !== "undefined" && window.localStorage) {
-  //   if (JSON.parse(localStorage.getItem("flights"))) {
-  //     console.log(
-  //       JSON.parse(localStorage.getItem("flights")).dictionaries.carriers
-  //     );
-  //     setAvailableFlights(JSON.parse(localStorage.getItem("flights")));
-  //   }
-  // }
-
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.localStorage) {
+      if (JSON.parse(localStorage.getItem("flights"))) {
+        setAvailableFlights(JSON.parse(localStorage.getItem("flights")));
+      }
+    }
+  }, []);
   const handleDetails = () => {
     const baggage = document.getElementById("baggageDetails");
     baggage.classList.toggle("hidden");
@@ -110,13 +115,8 @@ const StoreContextMain = ({ children }) => {
     url.set("adults", adultnumber);
     url.set("travelClass", cabinType);
     url.set("max", 10);
-    // if(url.has)
-    console.log(url.has("adults"));
-    console.log(
-      `https://test.api.amadeus.com/v2/shopping/flight-offers?${url}`
-    );
     const data = await fetch(
-      `https://test.api.amadeus.com/v2/shopping/flight-offers?${url}`,
+      `https://api.amadeus.com/v2/shopping/flight-offers?${url}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
@@ -124,20 +124,24 @@ const StoreContextMain = ({ children }) => {
       }
     );
     const result = await data.json();
-    console.log(result);
     localStorage.setItem("flights", JSON.stringify(result));
     console.log("Flights", JSON.parse(localStorage.getItem("flights")));
     setAvailableFlights(result);
   };
 
-  const handleSearchChangeToOrigin = () => {
-    setSearchToLoader(true);
+  const handleAirportSearch = (origin) => {
+    console.log(origin);
+    if (origin == "searchInputToOrigin") {
+      setSearchToLoader(true);
+    } else {
+      setFromSearchLoader(true);
+    }
+    const searchInput = document.getElementById(origin).value;
     setSearchData([]);
     setError("");
-    let searchInput = document.getElementById("searchInputToOrigin").value;
     async function getDesiredAirports() {
       const data = await fetch(
-        `https://test.api.amadeus.com/v1/reference-data/locations?subType=AIRPORT&keyword=${searchInput}&page%5Blimit%5D=5&page%5Boffset%5D=0&sort=analytics.travelers.score&view=FULL`,
+        `https://api.amadeus.com/v1/reference-data/locations?subType=AIRPORT&keyword=${searchInput}&page%5Blimit%5D=5&page%5Boffset%5D=0&sort=analytics.travelers.score&view=FULL`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access_token")}`,
@@ -146,54 +150,48 @@ const StoreContextMain = ({ children }) => {
       );
 
       const result = await data.json();
-      console.log(result);
 
       if (result.data == undefined) {
-        setSearchToLoader(false);
+        if (origin == "searchInputToOrigin") {
+          setSearchToLoader(false);
+        } else {
+          setFromSearchLoader(false);
+        }
         setError("No search results found");
         setSearchData([]);
         return;
       }
-
+      // if (typeof window !== "undefined" && window.localStorage) {
+      //   localStorage.setItem("destinationAirport", result.data);
+      // }
+      console.log(result.data);
       setSearchData(result.data);
-      setSearchToLoader(false);
+      if (origin == "searchInputToOrigin") {
+        setSearchToLoader(false);
+      } else {
+        setFromSearchLoader(false);
+      }
     }
     getDesiredAirports();
   };
 
-  const handleSearchChangeFromOrigin = () => {
-    setFromSearchLoader(true);
-    setSearchData([]);
-    setError("");
-    let searchInput = document.getElementById("searchInputFromOrigin").value;
-    async function getDesiredAirport() {
-      const data = await fetch(
-        `https://test.api.amadeus.com/v1/reference-data/locations?subType=AIRPORT&keyword=${searchInput}&page%5Blimit%5D=5&page%5Boffset%5D=0&sort=analytics.travelers.score&view=FULL`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      );
-      const result = await data.json();
-      console.log(result);
-      if (result.data == undefined) {
-        setError("No search results found");
-        setSearchData([]);
-        setFromSearchLoader(false);
-        return;
-      }
-      setSearchData(result.data);
-      setFromSearchLoader(false);
-    }
-    getDesiredAirport();
-  };
-
   const handleFromLocation = (data) => {
-    setSearchFormData({
-      ...searchFormData,
-      fromOrigin: data,
+    setSearchFormData((prev) => {
+      if (typeof window !== "undefined" && window.localStorage) {
+        localStorage.setItem(
+          "olderOrigins",
+          JSON.stringify({
+            ...prev,
+            fromOrigin: data,
+          })
+        );
+      }
+      return {
+        ...prev,
+        fromOrigin: data,
+      };
     });
+
     document.getElementById("searchFormFromOrigin").classList.toggle("hidden");
     setQuery({
       fromInput: true,
@@ -201,21 +199,33 @@ const StoreContextMain = ({ children }) => {
     });
   };
 
-  const handleToSelect = (data) => {
-    setSearchFormData({
-      ...searchFormData,
-      toOrigin: data,
+  const handleToLocation = (data) => {
+    setSearchFormData((prev) => {
+      if (typeof window !== "undefined" && window.localStorage) {
+        localStorage.setItem(
+          "olderOrigins",
+          JSON.stringify({
+            ...prev,
+            toOrigin: data,
+          })
+        );
+      }
+      return {
+        ...prev,
+        toOrigin: data,
+      };
     });
+
     document.getElementById("searchFormToOrigin").classList.toggle("hidden");
     setQuery({
       fromInput: false,
       toInput: true,
     });
+    console.log(searchFormData);
   };
 
   const contextValue = {
-    handleToSelect,
-    handleSearchChangeFromOrigin,
+    handleToLocation,
     handleFromLocation,
     handleFlightSearch,
     searchData,
@@ -226,7 +236,7 @@ const StoreContextMain = ({ children }) => {
     setReviewFlight,
     searchFormData,
     setSearchFormData,
-    handleSearchChangeToOrigin,
+    handleAirportSearch,
     cabinType,
     setCabinType,
     fromSearchLoader,
