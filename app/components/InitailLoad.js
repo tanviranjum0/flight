@@ -29,7 +29,7 @@ const InitailLoad = () => {
         localStorage.setItem("access_token", AuthorizedJSON.access_token);
       }
     }
-    // getApiAuthorization();
+    getApiAuthorization();
   }, []);
   return <div></div>;
 };
