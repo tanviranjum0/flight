@@ -7,14 +7,13 @@ const StoreContextMain = ({ children }) => {
   const [cabinType, setCabinType] = useState("ECONOMY");
   const [reviewFlight, setReviewFlight] = useState([]);
   const [returnTrue, setReturnTrue] = useState(false);
+  // let later = new Date();
+  // later.setDate(later.getDate() + 8);
   const [flightDepartureDates, setFlightDepartureDates] = useState({
     startDate: null,
     endDate: null,
   });
-  const [flightReturnDates, setflightReturnDates] = useState({
-    startDate: null,
-    endDate: null,
-  });
+
   const [searchFormData, setSearchFormData] = useState({
     fromOrigin: {
       name: "Search your location...",
@@ -96,10 +95,10 @@ const StoreContextMain = ({ children }) => {
     let url = new URLSearchParams();
 
     if (returnTrue) {
-      if (flightReturnDates.startDate != null) {
+      if (flightDepartureDates.endDate != null) {
         url.set(
           "returnDate",
-          flightReturnDates.startDate?.toISOString().slice(0, 10)
+          flightDepartureDates.endDate?.toISOString().slice(0, 10)
         );
       } else {
         return alert("Please add a return date");
@@ -244,8 +243,6 @@ const StoreContextMain = ({ children }) => {
     query,
     flightDepartureDates,
     setFlightDepartureDates,
-    flightReturnDates,
-    setflightReturnDates,
     setQuery,
     error,
     days,

@@ -3,8 +3,24 @@ import { useContext, useEffect, useRef } from "react";
 import { StoreContext } from "../context/StoreContextMain";
 
 const InitailLoad = () => {
-  const { setSearchFormData } = useContext(StoreContext);
+  const isAlreadyRenderred = useRef(false);
+
+  const { setSearchFormData, setFlightDepartureDates, setflightReturnDates } =
+    useContext(StoreContext);
+
   useEffect(() => {
+    const InitialDate = new Date();
+    InitialDate.setDate(InitialDate.getDate() + 7);
+    setFlightDepartureDates({
+      startDate: InitialDate,
+      endDate: InitialDate,
+    });
+    if (!isAlreadyRenderred.current) {
+      isAlreadyRenderred.current = true;
+    } else {
+      return;
+    }
+
     async function getApiAuthorization() {
       setSearchFormData(JSON.parse(localStorage.getItem("olderOrigins")));
       const time = Date.now();

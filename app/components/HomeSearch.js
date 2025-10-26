@@ -2,10 +2,11 @@
 import FromOriginInput from "./FromOriginInput";
 import ToOriginInput from "./ToOriginInput";
 import { useContext } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { StoreContext } from "../context/StoreContextMain";
 import Datepicker from "react-tailwindcss-datepicker";
 const START_FROM = new Date();
-START_FROM.setMonth(START_FROM.getMonth() + 1);
+START_FROM.setMonth(START_FROM.getMonth());
 const MIN_DATE = new Date();
 MIN_DATE.setDate(MIN_DATE.getDate() + 1);
 
@@ -20,8 +21,6 @@ const HomeSearch = ({ modify }) => {
     setReturnTrue,
     flightDepartureDates,
     setFlightDepartureDates,
-    flightReturnDates,
-    setflightReturnDates,
     setQuery,
     query,
     searchFormData,
@@ -35,7 +34,7 @@ const HomeSearch = ({ modify }) => {
         <FromOriginInput />
         <ToOriginInput />
         <div className="text-center mt-10 mb-5 sm:mb-10 text-4xl md:text-7xl opacity-70">
-          It’s more than just a trip
+          It&apos;s more than just a trip
         </div>
         <div className="w-[90%] border-2 shadow-2xl mt-5 pb-3 bg-white rounded-2xl mx-auto">
           <div className="bg-gray-200 py-5 m-2 rounded-xl text-center">
@@ -47,8 +46,8 @@ const HomeSearch = ({ modify }) => {
             <div className="flex items-center ">
               <div
                 onClick={() => setReturnTrue(false)}
-                className={`w-4 h-4 rounded-full border-2 cursor-pointer text-sky-300 ${
-                  returnTrue ? "bg-gray-100" : "bg-black"
+                className={`w-4 h-4 rounded-full border-2 cursor-pointer ${
+                  returnTrue ? "bg-gray-100" : "bg-sky-700"
                 } border-gray-300`}
               ></div>
               <div
@@ -59,8 +58,8 @@ const HomeSearch = ({ modify }) => {
               </div>
               <div
                 onClick={() => setReturnTrue(true)}
-                className={`w-4 h-4 rounded-full border-2 cursor-pointer text-sky-300  ${
-                  returnTrue ? "bg-black" : "bg-gray-100"
+                className={`w-4 h-4 rounded-full border-2 cursor-pointer  ${
+                  returnTrue ? "bg-sky-700" : "bg-gray-100"
                 } border-gray-300`}
               ></div>
               <div
@@ -71,8 +70,9 @@ const HomeSearch = ({ modify }) => {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-2  md:grid-cols-5 mt-3 gap-3 mx-2">
+          <div className="flex flex-col lg:flex-row gap-3 mt-3 mx-2">
             <div
+              key={"origininputkey"}
               onClick={() => {
                 setSearchData([]);
                 setQuery({
@@ -89,7 +89,7 @@ const HomeSearch = ({ modify }) => {
               }}
               className={`p-3 cursor-pointer ${
                 query.fromInput && "bg-sky-100"
-              } border rounded col-span-2 md:col-span-1`}
+              } border rounded w-full`}
             >
               <div className="text-sm opacity-80 ">From</div>
               <div type="text" className="text-sm w-full">
@@ -99,11 +99,12 @@ const HomeSearch = ({ modify }) => {
               <div className="text-xs opacity-80 ">
                 {searchFormData?.fromOrigin.address.cityName},
                 <span className="text-xs">
-                  {searchFormData?.toOrigin.address.countryName}
+                  {searchFormData?.fromOrigin.address.countryName}
                 </span>
               </div>
             </div>
             <div
+              key={"destinationinputkey"}
               onClick={() => {
                 setSearchData([]);
                 setQuery({
@@ -120,7 +121,7 @@ const HomeSearch = ({ modify }) => {
               }}
               className={`p-3 cursor-pointer ${
                 query.toInput && "bg-sky-100"
-              } border rounded col-span-2 md:col-span-1`}
+              } border rounded w-full`}
             >
               <div className="text-sm opacity-80 ">To</div>
 
@@ -135,9 +136,10 @@ const HomeSearch = ({ modify }) => {
               </div>
             </div>
             <div
+              key={"departuredate"}
               className={`p-3 cursor-pointer ${
                 query.departureDateInput && "bg-sky-100"
-              } border rounded`}
+              } border rounded w-full`}
               onClick={() =>
                 setQuery({
                   fromInput: false,
@@ -153,12 +155,14 @@ const HomeSearch = ({ modify }) => {
                 inputClassName={`w-full focus:outline-none active:border ${
                   query.departureDateInput && "bg-sky-100"
                 }`}
-                useRange={false}
+                // useRange={false}
+                primaryColor={"sky"}
                 minDate={MIN_DATE}
                 startFrom={START_FROM}
                 value={flightDepartureDates}
-                asSingle={true}
+                asSingle={!returnTrue}
                 onChange={(newValue) => {
+                  console.log(newValue);
                   setFlightDepartureDates(newValue);
                   let d = new Date(newValue.startDate);
                   let day = days[d.getDay()];
@@ -167,51 +171,70 @@ const HomeSearch = ({ modify }) => {
               />
               <div className="text-sm opacity-80 ">{dates.departureDay}</div>
             </div>
-            <div
-              className={`p-3 cursor-pointer  ${
-                returnTrue ? "" : "bg-gray-200 cursor-not-allowed"
-              } ${query.returnDateInput && "bg-sky-100"} border rounded`}
-              onClick={() => {
-                if (!returnTrue) {
-                  return;
-                }
-                setQuery({
-                  fromInput: false,
-                  toInput: false,
-                  departureDateInput: false,
-                  travellersCount: false,
-                  returnDateInput: true,
-                });
-              }}
-            >
-              <div className={`text-sm opacity-80`}>Return</div>
 
-              <Datepicker
-                disabled={!returnTrue}
-                inputClassName={`w-full focus:outline-none active:border ${
-                  query.returnDateInput && "bg-sky-100"
-                }`}
-                useRange={false}
-                minDate={MIN_DATE}
-                startFrom={START_FROM}
-                classNames={` ${
-                  returnTrue ? "" : "bg-gray-200 cursor-not-allowed"
-                }`}
-                value={flightReturnDates}
-                asSingle={true}
-                onChange={(newValue) => {
-                  setflightReturnDates(newValue);
-                  let d = new Date(newValue.startDate);
-                  let day = days[d.getDay()];
-                  setDates({ ...dates, returnDay: day });
+            {/* {returnTrue && (
+              <motion.div
+                key={"returningdate"}
+                initial={{
+                  y: -10,
+                  opacity: 0,
                 }}
-              />
-              <div className="text-sm opacity-80 ">{dates.returnDay}</div>
-            </div>
+                animate={{
+                  y: 0,
+                  opacity: 1,
+                }}
+                transition={{
+                  duration: 0.5,
+                }}
+                className={`p-3 cursor-pointer ${
+                  returnTrue ? "" : "bg-gray-200 cursor-not-allowed"
+                } ${
+                  query.returnDateInput && "bg-sky-100"
+                } border rounded w-full`}
+                onClick={() => {
+                  if (!returnTrue) {
+                    return;
+                  }
+                  setQuery({
+                    fromInput: false,
+                    toInput: false,
+                    departureDateInput: false,
+                    travellersCount: false,
+                    returnDateInput: true,
+                  });
+                }}
+              >
+                <div className={`text-sm opacity-80`}>Return</div>
+
+                <Datepicker
+                  disabled={!returnTrue}
+                  primaryColor={"blue"}
+                  inputClassName={`w-full focus:outline-none active:border ${
+                    query.returnDateInput && "bg-sky-100"
+                  }`}
+                  useRange={false}
+                  minDate={MIN_DATE}
+                  startFrom={START_FROM}
+                  classNames={` ${
+                    returnTrue ? "" : "bg-gray-200 cursor-not-allowed"
+                  }`}
+                  value={flightReturnDates}
+                  asSingle={true}
+                  onChange={(newValue) => {
+                    setflightReturnDates(newValue);
+                    let d = new Date(newValue.startDate);
+                    let day = days[d.getDay()];
+                    setDates({ ...dates, returnDay: day });
+                  }}
+                />
+                <div className="text-sm opacity-80 ">{dates.returnDay}</div>
+              </motion.div>
+            )} */}
             <div
+              key={"travellernumber"}
               className={`p-3 cursor-pointer ${
                 query.travellersCount && "bg-sky-100"
-              } border rounded col-span-2 md:col-span-1`}
+              } border rounded w-full`}
               onClick={() =>
                 setQuery({
                   fromInput: false,
@@ -239,9 +262,7 @@ const HomeSearch = ({ modify }) => {
             </div>
           </div>
           <div className=" text-sm md:text-base px-3 mx-auto md:w-[80%]  gap-1 md:gap-5 pt-3 grid grid-cols-2 md:grid-cols-5 items-center justify-center">
-            <div className="font-semibold col-span-2 md:col-span-1">
-              Fare Type :
-            </div>
+            <div className="font-semibold w-full">Fare Type :</div>
             <div
               onClick={() => setCabinType("ECONOMY")}
               className={`md:px-3 px-1 py-1 md:py-2 border hover:bg-sky-300 cursor-pointer rounded ${

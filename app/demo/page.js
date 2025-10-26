@@ -201,28 +201,25 @@
 import { useState } from "react";
 import Datepicker from "react-tailwindcss-datepicker";
 const START_FROM = new Date();
-START_FROM.setMonth(START_FROM.getMonth() + 1);
+START_FROM.setMonth(START_FROM.getMonth());
 const MIN_DATE = new Date();
-MIN_DATE.setDate(MIN_DATE.getDate() - 4);
+MIN_DATE.setDate(MIN_DATE.getDate() + 1);
+const InitialDate = new Date();
+InitialDate.setDate(InitialDate.getDate() + 7);
+console.log(InitialDate);
+// const later = new Date().setDate(MIN_DATE.getDate() + 7);
+// console.log(later);
 const App = () => {
   const [value, setValue] = useState({
-    startDate: null,
-    endDate: null,
+    startDate: InitialDate,
+    endDate: InitialDate,
   });
-  console.log(value.startDate?.toISOString().slice(0, 10));
-  console.log(value);
+
   return (
     <div className="flex justify-center items-center">
-      <input
-        type="date"
-        onChange={(e) => {
-          console.log(e.target.value);
-        }}
-        id="testingDate"
-      />
-      <div className="w-[10%] h-[10vw]">
+      <div className="w-[10%] mt-36 h-[10vw]">
         <Datepicker
-          inputClassName="w-full bg-sky-400 h-24"
+          inputClassName="w-full h-24"
           useRange={false}
           minDate={MIN_DATE}
           startFrom={START_FROM}
