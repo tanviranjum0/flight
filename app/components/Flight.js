@@ -32,7 +32,7 @@ const Flight = ({ flight, searchFormData }) => {
           <div className="text-green-600">Partially Refundable</div>
         </div>
         <div className="p-2 mt-10">
-          <div className="text-sm"> Depart</div>
+          <div className="text-sm">Depart</div>
           <div className="pt-2 md:text-lg">
             {new Date(flight.itineraries[0].segments[0].departure.at)
               .toLocaleTimeString()
@@ -49,40 +49,6 @@ const Flight = ({ flight, searchFormData }) => {
         </div>
         <div className="p-2 mt-10 flex items-center justify-center flex-col">
           <div className="text-sm">
-            {/* {flight.itineraries[0].duration} */}
-            {/* {Math.floor(
-              (new Date(
-                flight.itineraries[0].segments[0].arrival.at
-              ).getTime() -
-                new Date(
-                  flight.itineraries[0].segments[0].departure.at
-                ).getTime()) /
-                60000 /
-                60
-            )}
-            hour
-            {((new Date(
-              flight.itineraries[0].segments[0].arrival.at
-            ).getTime() -
-              new Date(
-                flight.itineraries[0].segments[0].departure.at
-              ).getTime()) /
-              60000) %
-              60}
-            min */}
-          </div>
-          <div className="text-5xl md:text-7xl">
-            <MdOutlineArrowRightAlt />
-          </div>
-          <div className="">
-            {flight?.itineraries[0]?.segments?.length > 1
-              ? `${flight?.itineraries[0]?.segments?.length} Stops`
-              : "Non Stop"}
-          </div>
-        </div>
-        <div className="p-2 mt-10">
-          <div className="text-sm"> Arrive</div>
-          <div className="pt-2 text-lg">
             {`${flight.itineraries[0].duration.slice(2).split("H")[0]} Hours ${
               flight.itineraries[0].duration
                 .slice(2)
@@ -97,14 +63,35 @@ const Flight = ({ flight, searchFormData }) => {
                 : ""
             }
               `}
-            {/* {new Date(flight.itineraries[0].segments[0].arrival.at)
+          </div>
+          <div className="text-5xl md:text-7xl">
+            <MdOutlineArrowRightAlt />
+          </div>
+          <div className="">
+            {flight?.itineraries[0]?.segments?.length > 1
+              ? `${flight?.itineraries[0]?.segments?.length} Stops`
+              : "Non Stop"}
+          </div>
+        </div>
+        <div className="p-2 mt-10">
+          <div className="text-sm"> Arrive</div>
+          <div className="pt-2 text-lg">
+            {new Date(
+              flight.itineraries[0].segments[
+                flight.itineraries[0].segments.length - 1
+              ].arrival.at
+            )
               .toLocaleTimeString()
               .replace(":00", "")}
           </div>
           <div className="">
-            {new Date(flight.itineraries[0].segments[0].arrival.at)
+            {new Date(
+              flight.itineraries[0].segments[
+                flight.itineraries[0].segments.length - 1
+              ].arrival.at
+            )
               .toUTCString()
-              .slice(0, 17)} */}
+              .slice(0, 17)}
           </div>
           <div className="text-sm my-auto">{searchFormData.toOrigin.name}</div>
         </div>

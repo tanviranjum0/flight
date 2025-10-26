@@ -158,9 +158,6 @@ const StoreContextMain = ({ children }) => {
         setSearchData([]);
         return;
       }
-      // if (typeof window !== "undefined" && window.localStorage) {
-      //   localStorage.setItem("destinationAirport", result.data);
-      // }
       console.log(result.data);
       setSearchData(result.data);
       if (origin == "searchInputToOrigin") {

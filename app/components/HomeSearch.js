@@ -8,7 +8,7 @@ import Datepicker from "react-tailwindcss-datepicker";
 const START_FROM = new Date();
 START_FROM.setMonth(START_FROM.getMonth());
 const MIN_DATE = new Date();
-// MIN_DATE.setDate(MIN_DATE.getDate() + 1);
+MIN_DATE.setDate(MIN_DATE.getDate() + 1);
 
 const HomeSearch = ({ modify }) => {
   const {
@@ -48,7 +48,6 @@ const HomeSearch = ({ modify }) => {
             <div className="flex items-center ">
               <div
                 onClick={() => {
-                  document.getElementById("datePicker").click();
                   setReturnTrue(false);
                 }}
                 className={`w-4 h-4 rounded-full border-2 cursor-pointer ${
@@ -57,7 +56,6 @@ const HomeSearch = ({ modify }) => {
               ></div>
               <div
                 onClick={() => {
-                  document.getElementById("datePicker").click();
                   setReturnTrue(false);
                 }}
                 className="px-3 cursor-pointer text-gray-900 text-xl font-medium opacity-70 "
@@ -66,7 +64,6 @@ const HomeSearch = ({ modify }) => {
               </div>
               <div
                 onClick={() => {
-                  document.getElementById("datePicker").click();
                   setReturnTrue(true);
                 }}
                 className={`w-4 h-4 rounded-full border-2 cursor-pointer  ${
@@ -75,7 +72,6 @@ const HomeSearch = ({ modify }) => {
               ></div>
               <div
                 onClick={() => {
-                  document.getElementById("datePicker").click();
                   setReturnTrue(true);
                 }}
                 className="px-3 cursor-pointer text-xl opacity-70 font-medium text-gray-900"
@@ -168,12 +164,14 @@ const HomeSearch = ({ modify }) => {
               <Datepicker
                 id="datePicker"
                 inputClassName={`w-full ${
-                  !returnTrue && "text-2xl"
+                  !returnTrue && "text-xl"
                 } focus:outline-none active:border ${
                   query.departureDateInput && "bg-sky-100"
                 }`}
+                useRange={returnTrue}
                 primaryColor={"sky"}
                 separator="and"
+                placeholder="Select Date"
                 minDate={MIN_DATE}
                 startFrom={START_FROM}
                 value={flightDepartureDates}
@@ -217,7 +215,7 @@ const HomeSearch = ({ modify }) => {
                     returnDateInput: false,
                   })
                 }
-                className="h-12 bg-sky-100 w-40 flex justify-around items-center gap-1 px-1.5 rounded-full"
+                className="h-12 bg-sky-50 w-40 flex justify-around items-center gap-1 px-1.5 rounded-full"
               >
                 <div
                   onClick={() => {
