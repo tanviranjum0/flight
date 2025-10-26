@@ -8,7 +8,7 @@ import Datepicker from "react-tailwindcss-datepicker";
 const START_FROM = new Date();
 START_FROM.setMonth(START_FROM.getMonth());
 const MIN_DATE = new Date();
-MIN_DATE.setDate(MIN_DATE.getDate() + 1);
+// MIN_DATE.setDate(MIN_DATE.getDate() + 1);
 
 const HomeSearch = ({ modify }) => {
   const {
