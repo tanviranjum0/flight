@@ -10,7 +10,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true}>
       <body className={inter.className}>
         <div className="fixed top-0 left-0 right-0 bg-white shadow text-black text-sm text-center h-5">
           **This site is not fully functional

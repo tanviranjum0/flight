@@ -341,7 +341,7 @@ const ReviewForm = () => {
               <option value="South Georgia">
                 South Georgia and the South Sandwich Islands
               </option>
-              <option value="Span">Spain</option>
+              <option value="Spain">Spain</option>
               <option value="Sri Lanka">Sri Lanka</option>
               <option value="St. Helena">St. Helena</option>
               <option value="St. Pierre and Miguelon">

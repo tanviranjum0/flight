@@ -1,7 +1,7 @@
 "use client";
 import FromOriginInput from "./FromOriginInput";
 import ToOriginInput from "./ToOriginInput";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { StoreContext } from "../context/StoreContextMain";
 import Datepicker from "react-tailwindcss-datepicker";
@@ -12,6 +12,8 @@ MIN_DATE.setDate(MIN_DATE.getDate() + 1);
 
 const HomeSearch = ({ modify }) => {
   const {
+    adultNumber,
+    setAdultNumber,
     setSearchData,
     dates,
     cabinType,
@@ -45,25 +47,37 @@ const HomeSearch = ({ modify }) => {
           <div className="flex pt-3 pl-5 gap-2">
             <div className="flex items-center ">
               <div
-                onClick={() => setReturnTrue(false)}
+                onClick={() => {
+                  document.getElementById("datePicker").click();
+                  setReturnTrue(false);
+                }}
                 className={`w-4 h-4 rounded-full border-2 cursor-pointer ${
                   returnTrue ? "bg-gray-100" : "bg-sky-700"
                 } border-gray-300`}
               ></div>
               <div
-                onClick={() => setReturnTrue(false)}
+                onClick={() => {
+                  document.getElementById("datePicker").click();
+                  setReturnTrue(false);
+                }}
                 className="px-3 cursor-pointer text-gray-900 text-xl font-medium opacity-70 "
               >
                 One Way
               </div>
               <div
-                onClick={() => setReturnTrue(true)}
+                onClick={() => {
+                  document.getElementById("datePicker").click();
+                  setReturnTrue(true);
+                }}
                 className={`w-4 h-4 rounded-full border-2 cursor-pointer  ${
                   returnTrue ? "bg-sky-700" : "bg-gray-100"
                 } border-gray-300`}
               ></div>
               <div
-                onClick={() => setReturnTrue(true)}
+                onClick={() => {
+                  document.getElementById("datePicker").click();
+                  setReturnTrue(true);
+                }}
                 className="px-3 cursor-pointer text-xl opacity-70 font-medium text-gray-900"
               >
                 Round Trip
@@ -152,11 +166,14 @@ const HomeSearch = ({ modify }) => {
             >
               <div className="text-sm opacity-80 ">Departure</div>{" "}
               <Datepicker
-                inputClassName={`w-full focus:outline-none active:border ${
+                id="datePicker"
+                inputClassName={`w-full ${
+                  !returnTrue && "text-2xl"
+                } focus:outline-none active:border ${
                   query.departureDateInput && "bg-sky-100"
                 }`}
-                // useRange={false}
                 primaryColor={"sky"}
+                separator="and"
                 minDate={MIN_DATE}
                 startFrom={START_FROM}
                 value={flightDepartureDates}
@@ -172,64 +189,6 @@ const HomeSearch = ({ modify }) => {
               <div className="text-sm opacity-80 ">{dates.departureDay}</div>
             </div>
 
-            {/* {returnTrue && (
-              <motion.div
-                key={"returningdate"}
-                initial={{
-                  y: -10,
-                  opacity: 0,
-                }}
-                animate={{
-                  y: 0,
-                  opacity: 1,
-                }}
-                transition={{
-                  duration: 0.5,
-                }}
-                className={`p-3 cursor-pointer ${
-                  returnTrue ? "" : "bg-gray-200 cursor-not-allowed"
-                } ${
-                  query.returnDateInput && "bg-sky-100"
-                } border rounded w-full`}
-                onClick={() => {
-                  if (!returnTrue) {
-                    return;
-                  }
-                  setQuery({
-                    fromInput: false,
-                    toInput: false,
-                    departureDateInput: false,
-                    travellersCount: false,
-                    returnDateInput: true,
-                  });
-                }}
-              >
-                <div className={`text-sm opacity-80`}>Return</div>
-
-                <Datepicker
-                  disabled={!returnTrue}
-                  primaryColor={"blue"}
-                  inputClassName={`w-full focus:outline-none active:border ${
-                    query.returnDateInput && "bg-sky-100"
-                  }`}
-                  useRange={false}
-                  minDate={MIN_DATE}
-                  startFrom={START_FROM}
-                  classNames={` ${
-                    returnTrue ? "" : "bg-gray-200 cursor-not-allowed"
-                  }`}
-                  value={flightReturnDates}
-                  asSingle={true}
-                  onChange={(newValue) => {
-                    setflightReturnDates(newValue);
-                    let d = new Date(newValue.startDate);
-                    let day = days[d.getDay()];
-                    setDates({ ...dates, returnDay: day });
-                  }}
-                />
-                <div className="text-sm opacity-80 ">{dates.returnDay}</div>
-              </motion.div>
-            )} */}
             <div
               key={"travellernumber"}
               className={`p-3 cursor-pointer ${
@@ -248,17 +207,40 @@ const HomeSearch = ({ modify }) => {
               <div className="text-sm opacity-80 ">
                 Travelers & Booking Class
               </div>
-              <input
-                type="number"
-                name="number"
-                defaultValue={1}
-                min={0}
-                id="flightsearchadultnumber"
-                className={`px-3  border-b-1  focus:border-b-2 focus:outline-none w-full ${
-                  query.travellersCount && "bg-sky-100"
-                }`}
-              />
-              <div className="text-sm opacity-80 ">Economy</div>
+              <div
+                onClick={() =>
+                  setQuery({
+                    fromInput: false,
+                    toInput: false,
+                    departureDateInput: true,
+                    travellersCount: false,
+                    returnDateInput: false,
+                  })
+                }
+                className="h-12 bg-sky-100 w-40 flex justify-around items-center gap-1 px-1.5 rounded-full"
+              >
+                <div
+                  onClick={() => {
+                    if (adultNumber < 2) return;
+                    setAdultNumber((prev) => prev - 1);
+                  }}
+                  className="h-10 select-none cursor-pointer w-full flex justify-center items-center font-bold text-3xl rounded-full bg-[#0cdcf733]"
+                >
+                  -
+                </div>
+                <div className="h-10 select-none cursor-pointer w-full px-1.5 flex justify-center items-center font-bold text-4xl rounded-full">
+                  {adultNumber}
+                </div>
+                <div
+                  onClick={() => {
+                    if (adultNumber > 6) return;
+                    setAdultNumber((prev) => prev + 1);
+                  }}
+                  className="h-10 select-none cursor-pointer w-full flex justify-center items-center font-bold text-3xl rounded-full bg-[#0cdcf733]"
+                >
+                  +
+                </div>
+              </div>
             </div>
           </div>
           <div className=" text-sm md:text-base px-3 mx-auto md:w-[80%]  gap-1 md:gap-5 pt-3 grid grid-cols-2 md:grid-cols-5 items-center justify-center">

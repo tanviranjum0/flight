@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 export const StoreContext = createContext(null);
 const StoreContextMain = ({ children }) => {
   const router = useRouter();
+
+  const [adultNumber, setAdultNumber] = useState(1);
   const [cabinType, setCabinType] = useState("ECONOMY");
   const [reviewFlight, setReviewFlight] = useState([]);
   const [returnTrue, setReturnTrue] = useState(false);
@@ -88,10 +90,6 @@ const StoreContextMain = ({ children }) => {
     e.preventDefault();
     router.push("/search");
     setAvailableFlights(null);
-    const adultnumber = document.getElementById(
-      "flightsearchadultnumber"
-    ).value;
-
     let url = new URLSearchParams();
 
     if (returnTrue) {
@@ -111,7 +109,7 @@ const StoreContextMain = ({ children }) => {
       flightDepartureDates.startDate?.toISOString().slice(0, 10)
     );
     url.set("currencyCode", "USD");
-    url.set("adults", adultnumber);
+    url.set("adults", adultNumber);
     url.set("travelClass", cabinType);
     url.set("max", 10);
     const data = await fetch(
@@ -247,6 +245,8 @@ const StoreContextMain = ({ children }) => {
     error,
     days,
     availableFlights,
+    adultNumber,
+    setAdultNumber,
     handleBookNowClick,
     setAvailableFlights,
     setError,
