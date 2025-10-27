@@ -1,144 +1,178 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { motion, useMotionValue } from "framer-motion";
+import findingSeat from "../images/findingSeat.png";
+import planeInterior from "../images/planeInterior.png";
+import planeWindow from "../images/planeWindow.png";
+import familyReunion from "../images/familyReunion.png";
+import memoriesWall from "../images/memoriesWall.png";
+import insidePlane from "../images/insidePlane.png";
 import Image from "next/image";
-import img1 from "/public/images/carousel-1.png";
-import img2 from "/public/images/carousel-2.png";
-import img3 from "/public/images/carousel-3.png";
-import img4 from "/public/images/carousel-4.png";
+import React, { useEffect, useRef, useState } from "react";
+import { motion, useMotionValue, animate } from "motion/react";
+export const items = [
+  {
+    id: 1,
+    url: findingSeat,
+    title: "Misty Mountain Majesty",
+  },
+  {
+    id: 2,
+    url: planeInterior,
+    title: "Winter Wonderland",
+  },
+  {
+    id: 3,
+    url: planeWindow,
+    title: "Autumn Mountain Retreat",
+  },
+  {
+    id: 4,
+    url: familyReunion,
+    title: "Tranquil Lake Reflection",
+  },
+  {
+    id: 5,
+    url: memoriesWall,
+    title: "Misty Mountain Peaks",
+  },
+  {
+    id: 6,
+    url: insidePlane,
+    title: "Golden Hour Glow",
+  },
+];
+export default function FramerDraggableCarousel() {
+  const [index, setIndex] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const containerRef = useRef(null);
 
-const imgs = [img1, img2, img3, img4];
-
-const ONE_SECOND = 1000;
-const AUTO_DELAY = ONE_SECOND * 10;
-const DRAG_BUFFER = 100;
-
-const SPRING_OPTIONS = {
-  type: "spring",
-  mass: 3,
-  stiffness: 400,
-  damping: 50,
-};
-
-const SwipeCarousel = () => {
-  const [imgIndex, setImgIndex] = useState(0);
-
-  const dragX = useMotionValue(0);
-
+  const x = useMotionValue(0);
+  console.log(index);
   useEffect(() => {
-    const intervalRef = setInterval(() => {
-      const x = dragX.get();
-
-      if (x === 0) {
-        setImgIndex((pv) => {
-          if (pv === imgs.length - 1) {
-            return 0;
-          }
-          return pv + 1;
-        });
+    const timerId = setTimeout(() => {
+      if (index == 3) {
+        setIndex(0);
+      } else {
+        setIndex((i) => Math.max(0, i + 1));
       }
-    }, [AUTO_DELAY]);
-
-    return () => clearInterval(intervalRef);
-  }, [dragX]);
-
-  const onDragEnd = () => {
-    const x = dragX.get();
-
-    if (x <= -DRAG_BUFFER && imgIndex < imgs.length - 1) {
-      setImgIndex((pv) => pv + 1);
-    } else if (x >= DRAG_BUFFER && imgIndex > 0) {
-      setImgIndex((pv) => pv - 1);
+    }, 3000);
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [index]);
+  useEffect(() => {
+    if (!isDragging && containerRef.current) {
+      const containerWidth = containerRef.current.offsetWidth || 1;
+      const targetX = -index * containerWidth;
+      animate(x, targetX, {
+        type: "spring",
+        stiffness: 300,
+        damping: 30,
+      });
     }
-  };
+  }, [index, x, isDragging]);
 
   return (
-    <div className="relative overflow-hidden bg-neutral-950 py-3 md:py-8">
-      <motion.div
-        key={"draggingmotion"}
-        drag="x"
-        dragConstraints={{
-          left: 0,
-          right: 0,
-        }}
-        style={{
-          x: dragX,
-        }}
-        animate={{
-          translateX: `-${imgIndex * 101 + 4}%`,
-        }}
-        transition={SPRING_OPTIONS}
-        onDragEnd={onDragEnd}
-        className="flex cursor-grab rounded-md items-center active:cursor-grabbing"
-      >
-        <Images imgIndex={imgIndex} />
-      </motion.div>
+    <div className="w-full h-[100vh] bg-gray-800 lg:p-10 sm:p-4 p-2">
+      <div className="flex flex-col gap-3">
+        <div className="relative overflow-hidden rounded-lg" ref={containerRef}>
+          <motion.div
+            className="flex"
+            drag="x"
+            dragElastic={0.2}
+            dragMomentum={false}
+            onDragStart={() => setIsDragging(true)}
+            onDragEnd={(e, info) => {
+              setIsDragging(false);
+              const containerWidth = containerRef.current?.offsetWidth || 1;
+              const offset = info.offset.x;
+              const velocity = info.velocity.x;
+              let newIndex = index;
+              if (Math.abs(velocity) > 500) {
+                newIndex = velocity > 0 ? index - 1 : index + 1;
+              } else if (Math.abs(offset) > containerWidth * 0.3) {
+                newIndex = offset > 0 ? index - 1 : index + 1;
+              }
+              newIndex = Math.max(0, Math.min(items.length - 1, newIndex));
+              setIndex(newIndex);
+            }}
+            style={{ x }}
+          >
+            {items.map((item) => (
+              <div key={item.id} className="shrink-0 w-full h-[90vh]">
+                <Image
+                  src={item.url}
+                  alt={item.title}
+                  // fill={true}
+                  className="w-full h-full object-cover rounded-lg select-none pointer-events-none"
+                  draggable={false}
+                />
+              </div>
+            ))}
+          </motion.div>
 
-      <Dots imgIndex={imgIndex} setImgIndex={setImgIndex} />
-      <GradientEdges />
-    </div>
-  );
-};
-
-const Images = ({ imgIndex }) => {
-  return (
-    <>
-      {imgs.map((imgSrc, idx) => {
-        return (
-          <div key={`${idx} new`}>
-            <motion.div
-              key={(idx, "imagerendering")}
-              style={{
-                backgroundImage: `url('../images/carousel-1.png')`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-              animate={{
-                scale: imgIndex === idx ? 0.95 : 0.85,
-              }}
-              transition={SPRING_OPTIONS}
-              className="aspect-video w-screen relative shrink-0 rounded-xl bg-neutral-800 object-cover"
+          <motion.button
+            disabled={index === 0}
+            onClick={() => setIndex((i) => Math.max(0, i - 1))}
+            className={`absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-transform z-10
+              ${
+                index === 0
+                  ? "opacity-40 cursor-not-allowed"
+                  : "bg-white hover:scale-110 hover:opacity-100 opacity-70"
+              }`}
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              <Image
-                src={imgSrc}
-                quality={100}
-                alt={imgSrc}
-                fill={true}
-                className="h-full w-full absolute object-cover"
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
               />
-            </motion.div>
-          </div>
-        );
-      })}
-    </>
-  );
-};
+            </svg>
+          </motion.button>
 
-const Dots = ({ imgIndex, setImgIndex }) => {
-  return (
-    <div className="mt-4 flex w-full justify-center gap-2">
-      {imgs.map((_, idx) => {
-        return (
-          <button
-            key={`${idx}imageIndex`}
-            onClick={() => setImgIndex(idx)}
-            className={`h-3 w-3 rounded-full transition-colors ${
-              idx === imgIndex ? "bg-neutral-50" : "bg-neutral-500"
-            }`}
-          />
-        );
-      })}
+          <motion.button
+            disabled={index === items.length - 1}
+            onClick={() => setIndex((i) => Math.min(items.length - 1, i + 1))}
+            className={`absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-transform z-10
+              ${
+                index === items.length - 1
+                  ? "opacity-40 cursor-not-allowed"
+                  : "bg-white hover:scale-110 hover:opacity-100 opacity-70"
+              }`}
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </motion.button>
+
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+            {items.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setIndex(i)}
+                className={`h-2 rounded-full transition-all ${
+                  i === index ? "w-8 bg-white" : "w-2 bg-white/50"
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
-};
-
-const GradientEdges = () => {
-  return (
-    <>
-      <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-[10vw] max-w-[100px] bg-gradient-to-r from-neutral-950/50 to-neutral-950/0" />
-      <div className="pointer-events-none absolute bottom-0 right-0 top-0 w-[10vw] max-w-[100px] bg-gradient-to-l from-neutral-950/50 to-neutral-950/0" />
-    </>
-  );
-};
-
-export default SwipeCarousel;
+}

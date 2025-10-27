@@ -14,16 +14,15 @@ const Flight = ({ flight, searchFormData }) => {
   const { handleBookNowClick, availableFlights } = useContext(StoreContext);
   const [details, setDetails] = useState("details");
   const [isTabOpen, setIsTabopen] = useState(false);
+
   return (
     <div className="my-5">
       <div className="grid  grid-cols-2 md:grid-cols-6 border py-5 rounded-lg bg-sky-100 ">
         <div className="p-1 pl-5">
-          <Image
-            src={logo}
-            width={80}
-            height={80}
+          <img
+            src={`https://content.airhex.com/content/logos/airlines_${flight.itineraries[0].segments[0].operating.carrierCode}_200_100_r.png`}
             alt={logo}
-            className="py-5"
+            className="py-5 object-cover bg-transparent max-w-40"
           />
           <div className="text-sm">
             {

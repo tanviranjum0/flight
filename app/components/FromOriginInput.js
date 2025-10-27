@@ -13,25 +13,22 @@ const FromOriginInput = () => {
   return (
     <div
       id="searchFormFromOrigin"
-      className={`absolute hidden z-20 inset-0 backdrop-blur`}
+      className={`absolute hidden  overflow-hidden z-20 inset-0 backdrop-blur`}
     >
       {" "}
       <motion.div
         key={"fromoriginalinput"}
         initial={{
-          scale: 0.8,
-          opacity: 0,
-          skewX: 5,
+          scale: 0.9,
+          opacity: 0.7,
         }}
         whileInView={{
           scale: 1,
           opacity: 1,
-          skewX: 0,
         }}
         transition={{
-          duration: 0.1,
-          type: "spring",
-          stiffness: 50,
+          duration: 0.5,
+          type: "tween",
         }}
         className="flex justify-center h-screen w-screen inset-0 items-center"
       >

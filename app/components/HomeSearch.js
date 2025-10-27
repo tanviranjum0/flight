@@ -35,7 +35,7 @@ const HomeSearch = ({ modify }) => {
       <div className="home-search-animation">
         <FromOriginInput />
         <ToOriginInput />
-        <div className="text-center mt-10 mb-5 sm:mb-10 text-4xl md:text-7xl opacity-70">
+        <div className="text-center mt-10 mb-5 sm:mb-10 text-4xl md:text-7xl ">
           It&apos;s more than just a trip
         </div>
         <div className="w-[90%] border-2 shadow-2xl mt-5 pb-3 bg-white rounded-2xl mx-auto">

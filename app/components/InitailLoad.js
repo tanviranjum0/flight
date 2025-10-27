@@ -1,10 +1,9 @@
 "use client";
 import { useContext, useEffect, useRef } from "react";
-import { StoreContext } from "../context/StoreContextMain";
+import { StoreContext } from "../context/StoreContextMain.js";
 
 const InitailLoad = () => {
   const isAlreadyRenderred = useRef(false);
-
   const { setSearchFormData, setFlightDepartureDates, setflightReturnDates } =
     useContext(StoreContext);
 

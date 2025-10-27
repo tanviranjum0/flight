@@ -33,28 +33,29 @@ const Footer = () => {
         </div>
         <div>
           <div className="text-lg pt-5 border-b-2">Contact Us</div>
-          <ul className="list-none pt-5 text-sm">
+          <ul className="list-none pt-5 cursor-pointer text-sm">
             <li>Email : moveseeks@official.com</li>
             <li>Tel : +01 11111111111</li>
             <li>
               {" "}
-              Whatsapp : <span className="text-blue-500">Message Us</span>
+              Whatsapp :{" "}
+              <span className="text-blue-500 cursor-pointer">Message Us</span>
             </li>
             <li className="flex gap-5 mt-3">
-              <FaFacebook className="scale-125 hover:text-sky-700" />
-              <FaSquareInstagram className="scale-125 hover:text-sky-700" />
-              <RiTwitterXFill className="scale-125 hover:text-sky-700" />
-              <FaLinkedin className="scale-125 hover:text-sky-700" />
+              <FaFacebook className="scale-125 cursor-pointer hover:text-sky-700" />
+              <FaSquareInstagram className="scale-125 cursor-pointer hover:text-sky-700" />
+              <RiTwitterXFill className="scale-125 cursor-pointer hover:text-sky-700" />
+              <FaLinkedin className="scale-125 cursor-pointer hover:text-sky-700" />
             </li>
           </ul>
         </div>
         <div>
           <div className="text-lg pt-5 border-b-2">Useful Links</div>
-          <ul className="list-none text-sm pt-5">
-            <li>Travel Guide</li>
-            <li>Travel Advisory</li>
-            <li> Visa Application</li>
-            <li>Visa Guide</li>
+          <ul className="list-none cursor-pointer text-sm pt-5">
+            <li className="hover:underline">Travel Guide</li>
+            <li className="hover:underline">Travel Advisory</li>
+            <li className="hover:underline"> Visa Application</li>
+            <li className="hover:underline">Visa Guide</li>
           </ul>
         </div>
         <div>
@@ -159,7 +160,7 @@ const Footer = () => {
       </div>
       <hr />
       <div className="col-span-12 text-center py-8 text-gray-600">
-        Copyright @2024 Roksana. All rights reserved by MoveSeeks
+        Copyright @2026 Tanvir Anjum. All rights reserved by MoveSeeks
       </div>
     </div>
   );

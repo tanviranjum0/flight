@@ -2,7 +2,6 @@
 import Image from "next/image";
 import BaggageButton from "./button/BaggageButton";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
-import img from "../../public/logo2.png";
 import { StoreContext } from "../context/StoreContextMain";
 import { useContext } from "react";
 const ReviewDetails = () => {
@@ -27,12 +26,9 @@ const ReviewDetails = () => {
               </div>
               <div className="flex justify-around  py-3 border-b">
                 <div className="flex">
-                  <Image
-                    alt="airline-logo"
-                    className="md:p-5"
-                    src={img}
-                    height={80}
-                    width={80}
+                  <img
+                    src={`https://content.airhex.com/content/logos/airlines_${flight.itineraries[0].segments[0].operating.carrierCode}_200_100_r.png`}
+                    className="py-5 object-cover bg-transparent max-w-40"
                   />
                   <div>
                     <div className="text-xs pb-3"> {flight.airlineName}</div>
@@ -120,12 +116,9 @@ const ReviewDetails = () => {
             </div>
             <div className="border col-span-5 md:col-span-2 shadow-lg rounded-md">
               <div className="flex justify-center items-center border-b mx-5">
-                <Image
-                  alt="airline-logo"
-                  className="p-3"
-                  src={img}
-                  height={80}
-                  width={80}
+                <img
+                  src={`https://content.airhex.com/content/logos/airlines_${flight.itineraries[0].segments[0].operating.carrierCode}_200_100_r.png`}
+                  className="py-5 object-cover bg-transparent max-w-40"
                 />
                 <div className="text-md ">{flight.airlineName}</div>
               </div>
@@ -153,7 +146,6 @@ const ReviewDetails = () => {
                   <div className="">Taxes and Fees</div>
                   <div className="">
                     <div className="">
-                      {/* {flight.price}{" "} Flight Price */}
                       <b className="text-md">
                         {(
                           flight.travelerPricings[0].price.total -

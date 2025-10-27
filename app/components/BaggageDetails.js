@@ -7,26 +7,27 @@ import img from "../images/turkish-logo.jpg";
 import { StoreContext } from "../context/StoreContextMain";
 
 const BaggageDetails = () => {
-  const { handleDetails } = useContext(StoreContext);
+  const { handleDetails, reviewFlight } = useContext(StoreContext);
+  console.log("Review Flight :", reviewFlight[0]);
   return (
-    <div id="baggageDetails" className="absolute hidden inset-0 backdrop-blur">
+    <div
+      id="baggageDetails"
+      className="absolute hidden overflow-hidden inset-0 backdrop-blur"
+    >
       {" "}
       <motion.div
         key={"mainbaggageDetails"}
         initial={{
-          scale: 0.8,
-          opacity: 0,
-          skewX: 5,
+          scale: 0.9,
+          opacity: 0.7,
         }}
         whileInView={{
           scale: 1,
           opacity: 1,
-          skewX: 0,
         }}
         transition={{
-          duration: 1,
-          type: "spring",
-          stiffness: 50,
+          duration: 0.5,
+          type: "tween",
         }}
         className="flex justify-center h-screen w-screen inset-0 items-center"
       >
@@ -43,15 +44,14 @@ const BaggageDetails = () => {
           </div>
           <div className="border mx-3 p-4">
             <div className="flex">
-              <Image
-                alt="airline-logo"
-                className="p-5"
-                src={img}
-                height={80}
-                width={80}
+              <img
+                src={`https://content.airhex.com/content/logos/airlines_${reviewFlight[0].itineraries[0].segments[0].operating.carrierCode}_200_100_r.png`}
+                className="py-5 object-cover bg-transparent max-w-20 m-3"
               />
               <div>
-                <div className="text-xs pb-3">Turkish Airline</div>
+                <div className="text-xs pb-3">
+                  {reviewFlight[0].airlineName}
+                </div>
                 <div className="text-md">BG | 121</div>
                 <div className="text-sm font-semibold">
                   {" "}

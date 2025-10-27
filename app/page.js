@@ -7,7 +7,6 @@ import ActiveAirlines from "./components/ActiveAirlines";
 import InitailLoad from "./components/InitailLoad";
 
 const page = () => {
-  // console.log(process.env.NO);
   return (
     <div className="flex flex-col">
       <InitailLoad />
