@@ -2,6 +2,7 @@ import Navbar from "../components/Navbar";
 import HomeSearch from "../components/HomeSearch";
 import Flights from "../components/Flights";
 import Footer from "../components/Footer";
+import InitailLoad from "../components/InitailLoad";
 
 const page = () => {
   return (
@@ -12,6 +13,7 @@ const page = () => {
       </div>
       <Flights />
       <Footer />
+      <InitailLoad />
     </div>
   );
 };

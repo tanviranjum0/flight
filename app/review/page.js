@@ -11,7 +11,9 @@ const page = () => {
     <div>
       <Navbar />
       <div>
-        <div className="text-2xl p-2 my-3  md:p-5  text-sky-700 px-10 md:text-center">Review Your Booking</div>
+        <div className="text-2xl p-2 my-3  md:p-5  text-sky-700 px-10 md:text-center">
+          Review Your Booking
+        </div>
         <ReviewDetails />
         <div className="text-2xl p-2 my-3  md:p-5  text-sky-700 px-10 md:text-center">
           Enter Traveller Details

@@ -15,6 +15,8 @@ const InitailLoad = () => {
       startDate: InitialDate,
       endDate: InitialDate,
     });
+
+    setSearchFormData(JSON.parse(localStorage.getItem("olderOrigins")));
     if (!isAlreadyRenderred.current) {
       isAlreadyRenderred.current = true;
     } else {
@@ -22,7 +24,6 @@ const InitailLoad = () => {
     }
 
     async function getApiAuthorization() {
-      setSearchFormData(JSON.parse(localStorage.getItem("olderOrigins")));
       const time = Date.now();
       const creationTimeDifferenceInMinutes = Math.ceil(
         Math.abs(localStorage.getItem("access_token_created_at") - time) /

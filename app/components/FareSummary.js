@@ -1,9 +1,12 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
+
+import FlightDetailsTab from "./molecule/FlightDetailsTab";
 const FareSummary = ({ details, setDetails, flight, searchFormData }) => {
   return (
-    <div className="relative mt-5 overflow-x-auto shadow-md sm:rounded-lg">
-      <div className="flex my-3 justify-center items-center cursor-pointer ">
+    <div className="relative mt-5 overflow-hidden shadow-md sm:rounded-lg">
+      {/* <div className="flex my-3 justify-center items-center cursor-pointer ">
+       
         <div
           onClick={() => setDetails("details")}
           className={`px-3 py-2 border rounded shadow-lg ${
@@ -29,20 +32,12 @@ const FareSummary = ({ details, setDetails, flight, searchFormData }) => {
         >
           Fare Rules
         </div>
-      </div>
+      </div> */}
       <motion.table
         key={"mainfaresummarymotion"}
-        initial={{
-          y: -100,
-        }}
-        animate={{
-          y: 0,
-        }}
-        transition={{
-          duraion: 1,
-          type: "tween",
-        }}
-        className="w-full text-sm text-left rtl:text-right text-gray-500 "
+        initial={{ filter: "blur(10px)", scaleY: 0 }}
+        animate={{ filter: "none", scaleY: 1 }}
+        className="w-full text-sm text-left overflow-hidden rtl:text-right text-gray-500 "
       >
         <thead className="text-xs text-gray-800 uppercase bg-gray-200  ">
           <tr>

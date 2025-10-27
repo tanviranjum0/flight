@@ -1,14 +1,15 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import Image from "next/image";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 import logo from "../../public/logo2.png";
-
+import FlightDetailsTab from "./molecule/FlightDetailsTab";
 const FlightDetails = ({ searchFormData, details, setDetails, flight }) => {
   return (
     <div>
       <div className="p-5 shadow-md">
-        <div className="flex my-3 justify-center items-center cursor-pointer ">
+        {/* <div className="flex my-3 justify-center items-center cursor-pointer">
+       
           <div
             onClick={() => setDetails("details")}
             className={`px-3 py-2 border rounded shadow-lg ${
@@ -34,7 +35,7 @@ const FlightDetails = ({ searchFormData, details, setDetails, flight }) => {
           >
             Fare Rules
           </div>
-        </div>
+        </div> */}
         <div className="border bg-sky-50  sm:text-lg px-3 py-1">
           {searchFormData.fromOrigin.address.cityName} to{" "}
           {searchFormData.toOrigin.address.cityName},{" "}
@@ -43,16 +44,8 @@ const FlightDetails = ({ searchFormData, details, setDetails, flight }) => {
             .slice(0, 17)}
         </div>
         <motion.div
-          initial={{
-            y: -100,
-          }}
-          animate={{
-            y: 0,
-          }}
-          transition={{
-            duration: 0.2,
-            type: "tween",
-          }}
+          initial={{ filter: "blur(10px)", scaleY: 0 }}
+          animate={{ filter: "none", scaleY: 1 }}
           className="border bg-sky-50"
         >
           <div className="hidden sm:flex px-14 py-5">
@@ -155,7 +148,7 @@ const FlightDetails = ({ searchFormData, details, setDetails, flight }) => {
               <div className="text-sm">
                 Terminal - {flight.itineraries[0].segments[0].arrival.terminal}
               </div>
-              <div className="text-sm">Patenga</div>
+              <div className="text-sm">{searchFormData.toOrigin.name}</div>
               <div className="text-xs pt-2">
                 {" "}
                 {searchFormData.toOrigin.address.cityName},
@@ -169,15 +162,16 @@ const FlightDetails = ({ searchFormData, details, setDetails, flight }) => {
             <div className="">
               <div className="font-semi-bold text-xl">Check In </div>
               <div className="text-sm">
-                {
+                {/* {
                   flight.travelerPricings[0].fareDetailsBySegment[0]
                     .amenities[0].description
-                }
+                } */}
+                {/* Hello */}1
               </div>
             </div>
             <div className="">
               <div className="font-semi-bold text-xl">Cabin</div>
-              <div className="text-sm">15 lb(s)</div>
+              <div className="text-sm">1 (30 KG)</div>
             </div>
           </div>
         </motion.div>

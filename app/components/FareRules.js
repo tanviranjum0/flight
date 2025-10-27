@@ -1,13 +1,12 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useContext } from "react";
 import { StoreContext } from "../context/StoreContextMain";
-
+import FlightDetailsTab from "./molecule/FlightDetailsTab";
 const FareRules = ({ details, setDetails }) => {
-  // const { details, setDetails } = useContext(StoreContext);
   return (
     <div className="flex mt-5 flex-col">
-      <div className="flex my-3 justify-center items-center cursor-pointer">
+      {/* <div className="flex my-3 justify-center items-center cursor-pointer">
         <div
           onClick={() => setDetails("details")}
           className={`px-3 py-2 border rounded shadow-lg ${
@@ -33,19 +32,11 @@ const FareRules = ({ details, setDetails }) => {
         >
           Fare Rules
         </div>
-      </div>
+      </div> */}
       <motion.div
         key={"farerulesmain"}
-        initial={{
-          y: -100,
-        }}
-        animate={{
-          y: 0,
-        }}
-        transition={{
-          duration: 0.5,
-          type: "tween",
-        }}
+        initial={{ filter: "blur(10px)", scaleY: 0 }}
+        animate={{ filter: "none", scaleY: 1 }}
         className=" bg-yellow-200 p-5 rounded"
       >
         Important Note :{" "}

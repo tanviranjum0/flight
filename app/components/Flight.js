@@ -3,14 +3,17 @@ import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 import logo from "../../public/logo2.png";
+import { motion, AnimatePresence } from "motion/react";
 import FlightDetails from "./FlightDetails";
 import FareSummary from "./FareSummary";
 import FareRules from "./FareRules";
+import FlightDetailsTab from "./molecule/FlightDetailsTab";
 import { StoreContext } from "../context/StoreContextMain";
 
 const Flight = ({ flight, searchFormData }) => {
   const { handleBookNowClick, availableFlights } = useContext(StoreContext);
-  const [details, setDetails] = useState("");
+  const [details, setDetails] = useState("details");
+  const [isTabOpen, setIsTabopen] = useState(false);
   return (
     <div className="my-5">
       <div className="grid  grid-cols-2 md:grid-cols-6 border py-5 rounded-lg bg-sky-100 ">
@@ -123,39 +126,41 @@ const Flight = ({ flight, searchFormData }) => {
       <div className="absolute right-20 ">
         <div
           onClick={() => {
-            if (details == "") setDetails("details");
-            else {
-              setDetails("");
-            }
+            setIsTabopen((prev) => !prev);
           }}
           className="relative bottom-10 hover:text-black cursor-pointer semi-bold text-sky-800"
         >
           Flight Details &#8595;
         </div>
       </div>
-      {details == "details" && (
-        <FlightDetails
-          details={details}
-          flight={flight}
-          searchFormData={searchFormData}
-          setDetails={setDetails}
-        />
-      )}
-      {details == "fare" && (
-        <FareSummary
-          details={details}
-          flight={flight}
-          searchFormData={searchFormData}
-          setDetails={setDetails}
-        />
-      )}
-      {details == "rule" && (
-        <FareRules
-          details={details}
-          searchFormData={searchFormData}
-          flight={flight}
-          setDetails={setDetails}
-        />
+      {isTabOpen && (
+        <div>
+          <FlightDetailsTab details={details} setDetails={setDetails} />
+          {details == "details" && (
+            <FlightDetails
+              details={details}
+              flight={flight}
+              searchFormData={searchFormData}
+              setDetails={setDetails}
+            />
+          )}
+          {details == "fare" && (
+            <FareSummary
+              details={details}
+              flight={flight}
+              searchFormData={searchFormData}
+              setDetails={setDetails}
+            />
+          )}
+          {details == "rule" && (
+            <FareRules
+              details={details}
+              searchFormData={searchFormData}
+              flight={flight}
+              setDetails={setDetails}
+            />
+          )}
+        </div>
       )}
     </div>
   );

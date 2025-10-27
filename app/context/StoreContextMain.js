@@ -9,8 +9,6 @@ const StoreContextMain = ({ children }) => {
   const [cabinType, setCabinType] = useState("ECONOMY");
   const [reviewFlight, setReviewFlight] = useState([]);
   const [returnTrue, setReturnTrue] = useState(false);
-  // let later = new Date();
-  // later.setDate(later.getDate() + 8);
   const [flightDepartureDates, setFlightDepartureDates] = useState({
     startDate: null,
     endDate: null,
