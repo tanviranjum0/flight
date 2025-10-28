@@ -13,7 +13,7 @@ const page = () => {
       </div>
       <Flights />
       <Footer />
-      <InitailLoad />
+      <InitailLoad page={"search"} />
     </div>
   );
 };

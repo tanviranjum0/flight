@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import Image from "next/image";
 import { HiMiniXMark } from "react-icons/hi2";
 import { useContext } from "react";
@@ -7,14 +7,13 @@ import img from "../images/turkish-logo.jpg";
 import { StoreContext } from "../context/StoreContextMain";
 
 const BaggageDetails = () => {
-  const { handleDetails, reviewFlight } = useContext(StoreContext);
-  console.log("Review Flight :", reviewFlight[0]);
+  const { handleDetails, searchFormData, reviewFlight } =
+    useContext(StoreContext);
   return (
     <div
       id="baggageDetails"
       className="absolute hidden overflow-hidden inset-0 backdrop-blur"
     >
-      {" "}
       <motion.div
         key={"mainbaggageDetails"}
         initial={{
@@ -40,22 +39,35 @@ const BaggageDetails = () => {
           </div>
 
           <div className="text-lg py-3 px-4">
-            Dhaka to Chittagong, 4 Sep 2024
+            {searchFormData.fromOrigin.name} (
+            {reviewFlight.itineraries[0].segments[0].departure.iataCode}) to{" "}
+            {searchFormData.toOrigin.name} (
+            {reviewFlight.itineraries[0].segments[0].arrival.iataCode}),
+          </div>
+          <div className="text-lg  px-4">
+            {" "}
+            {new Date(reviewFlight.itineraries[0].segments[0].departure.at)
+              .toUTCString()
+              .slice(0, 17)}
           </div>
           <div className="border mx-3 p-4">
             <div className="flex">
               <img
-                src={`https://content.airhex.com/content/logos/airlines_${reviewFlight[0].itineraries[0].segments[0].operating.carrierCode}_200_100_r.png`}
+                src={`https://content.airhex.com/content/logos/airlines_${reviewFlight.itineraries[0].segments[0].operating.carrierCode}_200_100_r.png`}
                 className="py-5 object-cover bg-transparent max-w-20 m-3"
               />
               <div>
-                <div className="text-xs pb-3">
-                  {reviewFlight[0].airlineName}
+                <div className="text-xs pb-3">{reviewFlight.airlineName}</div>
+                <div className="text-md">
+                  {" "}
+                  {reviewFlight.itineraries[0].segments[0].carrierCode} |{" "}
+                  {reviewFlight.itineraries[0].segments[0].aircraft.code}
                 </div>
-                <div className="text-md">BG | 121</div>
                 <div className="text-sm font-semibold">
                   {" "}
-                  Aircraft : Boeing 737-800 Operated by : BG
+                  Aircraft :{" "}
+                  {reviewFlight.itineraries[0].segments[0].aircraft.code}{" "}
+                  Operated by : {reviewFlight.airlineName}
                 </div>
               </div>
             </div>

@@ -2,25 +2,33 @@
 import { useContext, useEffect, useRef } from "react";
 import { StoreContext } from "../context/StoreContextMain.js";
 
-const InitailLoad = () => {
+const InitailLoad = ({ page }) => {
   const isAlreadyRenderred = useRef(false);
-  const { setSearchFormData, setFlightDepartureDates, setflightReturnDates } =
-    useContext(StoreContext);
+  const {
+    setSearchFormData,
+    setReviewFlight,
+    setFlightDepartureDates,
+    setflightReturnDates,
+  } = useContext(StoreContext);
 
   useEffect(() => {
+    if (!isAlreadyRenderred.current) {
+      isAlreadyRenderred.current = true;
+    } else {
+      return;
+    }
     const InitialDate = new Date();
     InitialDate.setDate(InitialDate.getDate() + 7);
     setFlightDepartureDates({
       startDate: InitialDate,
       endDate: InitialDate,
     });
+    if (page == "review") {
+      console.log("seting from localstorage");
+      setReviewFlight(JSON.parse(localStorage.getItem("reviewFlight")));
+    }
 
     setSearchFormData(JSON.parse(localStorage.getItem("olderOrigins")));
-    if (!isAlreadyRenderred.current) {
-      isAlreadyRenderred.current = true;
-    } else {
-      return;
-    }
 
     async function getApiAuthorization() {
       const time = Date.now();
@@ -28,6 +36,7 @@ const InitailLoad = () => {
         Math.abs(localStorage.getItem("access_token_created_at") - time) /
           (1000 * 60)
       );
+
       if (creationTimeDifferenceInMinutes > 28) {
         const data = await fetch(
           "https://api.amadeus.com/v1/security/oauth2/token",

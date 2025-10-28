@@ -9,7 +9,7 @@ import InitailLoad from "./components/InitailLoad";
 const page = () => {
   return (
     <div className="flex flex-col">
-      <InitailLoad />
+      <InitailLoad page={"home"} />
       <div className="h-fit pb-10 main-bg text-sky-800">
         <Navbar />
         <HomeSearch modify={false} />

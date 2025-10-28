@@ -7,7 +7,136 @@ const StoreContextMain = ({ children }) => {
 
   const [adultNumber, setAdultNumber] = useState(1);
   const [cabinType, setCabinType] = useState("ECONOMY");
-  const [reviewFlight, setReviewFlight] = useState([]);
+  const [reviewFlight, setReviewFlight] = useState({
+    type: "loading",
+    id: "loading",
+    source: "loading",
+    instantTicketingRequired: false,
+    nonHomogeneous: false,
+    oneWay: false,
+    isUpsellOffer: false,
+    lastTicketingDate: "loading",
+    lastTicketingDateTime: "loading",
+    numberOfBookableSeats: 9,
+    itineraries: [
+      {
+        duration: "loading",
+        segments: [
+          {
+            departure: {
+              iataCode: "loading",
+              terminal: "loading",
+              at: "loading",
+            },
+            arrival: {
+              iataCode: "loading",
+              terminal: "loading",
+              at: "loading",
+            },
+            carrierCode: "loading",
+            number: "loading",
+            aircraft: {
+              code: "loading",
+            },
+            operating: {
+              carrierCode: "loading",
+            },
+            duration: "loading",
+            id: "loading",
+            numberOfStops: 0,
+            blacklistedInEU: false,
+          },
+          {
+            departure: {
+              iataCode: "loading",
+              terminal: "loading",
+              at: "loading",
+            },
+            arrival: {
+              iataCode: "loading",
+              at: "loading",
+            },
+            carrierCode: "loading",
+            number: "loading",
+            aircraft: {
+              code: "loading",
+            },
+            operating: {
+              carrierCode: "loading",
+            },
+            duration: "loading",
+            id: "loading",
+            numberOfStops: 0,
+            blacklistedInEU: false,
+          },
+        ],
+      },
+    ],
+    price: {
+      currency: "loading",
+      total: "loading",
+      base: "loading",
+      fees: [
+        {
+          amount: "loading",
+          type: "loading",
+        },
+        {
+          amount: "loading",
+          type: "loading",
+        },
+      ],
+      grandTotal: "loading",
+    },
+    pricingOptions: {
+      fareType: ["loading"],
+      includedCheckedBagsOnly: false,
+    },
+    validatingAirlineCodes: ["loading"],
+    travelerPricings: [
+      {
+        travelerId: "loading",
+        fareOption: "loading",
+        travelerType: "loading",
+        price: {
+          currency: "loading",
+          total: "loading",
+          base: "loading",
+        },
+        fareDetailsBySegment: [
+          {
+            segmentId: "loading",
+            cabin: "loading",
+            fareBasis: "loading",
+            class: "loading",
+            includedCheckedBags: {
+              weight: 0,
+              weightUnit: "loading",
+            },
+            includedCabinBags: {
+              weight: 7,
+              weightUnit: "loading",
+            },
+          },
+          {
+            segmentId: "loading",
+            cabin: "loading",
+            fareBasis: "loading",
+            class: "loading",
+            includedCheckedBags: {
+              weight: 0,
+              weightUnit: "loading",
+            },
+            includedCabinBags: {
+              weight: 7,
+              weightUnit: "loading",
+            },
+          },
+        ],
+      },
+    ],
+    airlineName: "loading",
+  });
   const [returnTrue, setReturnTrue] = useState(false);
   const [flightDepartureDates, setFlightDepartureDates] = useState({
     startDate: null,
@@ -80,7 +209,12 @@ const StoreContextMain = ({ children }) => {
 
   const handleBookNowClick = (flight, airlineName) => {
     flight.airlineName = airlineName;
-    setReviewFlight([flight]);
+    localStorage.setItem("reviewFlight", JSON.stringify(flight));
+    console.log(
+      "Consoling Context",
+      JSON.parse(localStorage.getItem("reviewFlight"))
+    );
+    // setReviewFlight(flight);
     router.push("/review");
   };
 

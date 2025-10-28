@@ -5,10 +5,12 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import ReviewForm from "../components/ReviewForm";
 import ReviewDetails from "../components/ReviewDetails";
+import InitailLoad from "../components/InitailLoad";
 
 const page = () => {
   return (
     <div>
+      <InitailLoad page={"review"} />
       <Navbar />
       <div>
         <div className="text-2xl p-2 my-3  md:p-5  text-sky-700 px-10 md:text-center">
