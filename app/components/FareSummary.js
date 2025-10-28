@@ -5,34 +5,7 @@ import FlightDetailsTab from "./molecule/FlightDetailsTab";
 const FareSummary = ({ details, setDetails, flight, searchFormData }) => {
   return (
     <div className="relative mt-5 overflow-hidden shadow-md sm:rounded-lg">
-      {/* <div className="flex my-3 justify-center items-center cursor-pointer ">
-       
-        <div
-          onClick={() => setDetails("details")}
-          className={`px-3 py-2 border rounded shadow-lg ${
-            details === "details" ? "bg-sky-800 text-white" : ""
-          }`}
-        >
-          Flight Details
-        </div>
-        <div
-          onClick={() => setDetails("fare")}
-          className={`px-3 py-2 border rounded shadow-lg ${
-            details === "fare" ? "bg-sky-800 text-white" : ""
-          }`}
-        >
-          Fare Summary
-        </div>
-
-        <div
-          onClick={() => setDetails("rule")}
-          className={`px-3 py-2 border rounded shadow-lg ${
-            details === "rule" ? "bg-sky-800 text-white" : ""
-          }`}
-        >
-          Fare Rules
-        </div>
-      </div> */}
+     
       <motion.table
         key={"mainfaresummarymotion"}
         initial={{ filter: "blur(10px)", scaleY: 0 }}

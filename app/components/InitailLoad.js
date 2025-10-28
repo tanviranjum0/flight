@@ -8,7 +8,6 @@ const InitailLoad = ({ page }) => {
     setSearchFormData,
     setReviewFlight,
     setFlightDepartureDates,
-    setflightReturnDates,
   } = useContext(StoreContext);
 
   useEffect(() => {

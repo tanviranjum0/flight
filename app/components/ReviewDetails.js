@@ -6,7 +6,7 @@ import { StoreContext } from "../context/StoreContextMain";
 import { useContext } from "react";
 const ReviewDetails = () => {
   const { reviewFlight, searchFormData } = useContext(StoreContext);
-  console.log(reviewFlight);
+  // console.log(reviewFlight);
   return (
     <div>
       <div
@@ -22,10 +22,9 @@ const ReviewDetails = () => {
             <BaggageButton />
           </div>
           <div className="flex justify-around items-center py-3 border-b">
-            {/* <div className="flex"> */}
             <div className="flex items-center h-full w-full justify-center">
               <img
-                src={`https://content.airhex.com/content/logos/airlines_${reviewFlight.itineraries[0].segments[0].operating.carrierCode}_200_100_r.png`}
+                src={`https://img.wway.io/pics/root/${reviewFlight.itineraries[0].segments[0].operating.carrierCode}@png?exar=1&rs=fit:400:200`}
                 className="py-5 object-cover bg-transparent max-w-40"
               />
             </div>
@@ -41,7 +40,6 @@ const ReviewDetails = () => {
                 by : {reviewFlight.itineraries[0].segments[0].carrierCode}
               </div>
             </div>
-            {/* </div> */}
             <div className="flex items-center h-full w-full justify-center text-md">
               {reviewFlight.travelerPricings[0].fareDetailsBySegment[0].cabin}
             </div>
@@ -114,7 +112,7 @@ const ReviewDetails = () => {
         <div className="border col-span-5 md:col-span-2 shadow-lg rounded-md">
           <div className="flex justify-around w-full items-center border-b  ">
             <img
-              src={`https://content.airhex.com/content/logos/airlines_${reviewFlight.itineraries[0].segments[0].operating.carrierCode}_200_100_r.png`}
+              src={`https://img.wway.io/pics/root/${reviewFlight.itineraries[0].segments[0].operating.carrierCode}@png?exar=1&rs=fit:400:200`}
               className="py-5 object-cover bg-transparent max-w-40"
             />
             <div className="text-md ">{reviewFlight.airlineName}</div>

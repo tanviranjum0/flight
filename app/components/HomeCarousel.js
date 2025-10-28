@@ -46,10 +46,9 @@ export default function FramerDraggableCarousel() {
   const containerRef = useRef(null);
 
   const x = useMotionValue(0);
-  console.log(index);
   useEffect(() => {
     const timerId = setTimeout(() => {
-      if (index == 3) {
+      if (index == 5) {
         setIndex(0);
       } else {
         setIndex((i) => Math.max(0, i + 1));
@@ -102,7 +101,6 @@ export default function FramerDraggableCarousel() {
                 <Image
                   src={item.url}
                   alt={item.title}
-                  // fill={true}
                   className="w-full h-full object-cover rounded-lg select-none pointer-events-none"
                   draggable={false}
                 />

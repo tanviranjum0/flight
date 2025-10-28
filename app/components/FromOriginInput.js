@@ -9,7 +9,6 @@ import { StoreContext } from "../context/StoreContextMain";
 const FromOriginInput = () => {
   const { fromSearchLoader, error, searchData, handleAirportSearch } =
     useContext(StoreContext);
-
   return (
     <div
       id="searchFormFromOrigin"
@@ -62,6 +61,12 @@ const FromOriginInput = () => {
               </div>
             </div>
             <input
+              onKeyUp={(e) => {
+                if (e.target.value == "") return;
+
+                e.preventDefault();
+                handleAirportSearch("searchInputFromOrigin");
+              }}
               id="searchInputFromOrigin"
               placeholder="From Where..."
               className="text-lg py-3 mb-3 px-4 mx-4 w-[80%] focus:outline-none focus:border-b-2 bg-inherit border-b-2"

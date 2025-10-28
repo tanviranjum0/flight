@@ -3,39 +3,10 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 import logo from "../../public/logo2.png";
-import FlightDetailsTab from "./molecule/FlightDetailsTab";
-const FlightDetails = ({ searchFormData, details, setDetails, flight }) => {
+const FlightDetails = ({ searchFormData, flight }) => {
   return (
     <div>
       <div className="p-5 shadow-md">
-        {/* <div className="flex my-3 justify-center items-center cursor-pointer">
-       
-          <div
-            onClick={() => setDetails("details")}
-            className={`px-3 py-2 border rounded shadow-lg ${
-              details === "details" ? "bg-sky-800 text-white" : ""
-            }`}
-          >
-            Flight Details
-          </div>
-          <div
-            onClick={() => setDetails("fare")}
-            className={`px-3 py-2 border rounded shadow-lg ${
-              details === "fare" ? "bg-sky-800 text-white" : ""
-            }`}
-          >
-            Fare Summary
-          </div>
-
-          <div
-            onClick={() => setDetails("rule")}
-            className={`px-3 py-2 border rounded shadow-lg ${
-              details === "rule" ? "bg-sky-800 text-white" : ""
-            }`}
-          >
-            Fare Rules
-          </div>
-        </div> */}
         <div className="border bg-sky-50  sm:text-lg px-3 py-1">
           {searchFormData.fromOrigin.address.cityName} to{" "}
           {searchFormData.toOrigin.address.cityName},{" "}
@@ -49,10 +20,9 @@ const FlightDetails = ({ searchFormData, details, setDetails, flight }) => {
           className="border bg-sky-50"
         >
           <div className="hidden sm:flex px-14 py-5">
-            <Image
-              className="py-5 mx-5"
-              src={logo}
-              height={80}
+            <img
+              className="py-5 h-32 mx-5"
+              src={`https://img.wway.io/pics/root/${flight.itineraries[0].segments[0].operating.carrierCode}@png?exar=1&rs=fit:400:200`}
               alt="flight-logo"
             />
             <div className="grid">
@@ -107,7 +77,9 @@ const FlightDetails = ({ searchFormData, details, setDetails, flight }) => {
               <div className="text-sm">
                 {Math.floor(
                   (new Date(
-                    flight.itineraries[0].segments[0].arrival.at
+                    flight.itineraries[0].segments[
+                      flight.itineraries[0].segments.length - 1
+                    ].arrival.at
                   ).getTime() -
                     new Date(
                       flight.itineraries[0].segments[0].departure.at
@@ -117,7 +89,9 @@ const FlightDetails = ({ searchFormData, details, setDetails, flight }) => {
                 )}{" "}
                 hours{" "}
                 {((new Date(
-                  flight.itineraries[0].segments[0].arrival.at
+                  flight.itineraries[0].segments[
+                    flight.itineraries[0].segments.length - 1
+                  ].arrival.at
                 ).getTime() -
                   new Date(
                     flight.itineraries[0].segments[0].departure.at
@@ -133,20 +107,37 @@ const FlightDetails = ({ searchFormData, details, setDetails, flight }) => {
             <div>
               <div className="text-lg">
                 {new Date(
-                  flight.itineraries[0].segments[0].arrival.at
+                  flight.itineraries[0].segments[
+                    flight.itineraries[0].segments.length - 1
+                  ].arrival.at
                 ).toLocaleTimeString()}{" "}
                 <span className="text-sm">(local)</span>
               </div>
               <div className="text-sm">
-                {new Date(flight.itineraries[0].segments[0].arrival.at)
+                {new Date(
+                  flight.itineraries[0].segments[
+                    flight.itineraries[0].segments.length - 1
+                  ].arrival.at
+                )
                   .toUTCString()
                   .slice(0, 17)}
               </div>
               <div className="">
-                ({flight.itineraries[0].segments[0].arrival.iataCode})
+                (
+                {
+                  flight.itineraries[0].segments[
+                    flight.itineraries[0].segments.length - 1
+                  ].arrival.iataCode
+                }
+                )
               </div>
               <div className="text-sm">
-                Terminal - {flight.itineraries[0].segments[0].arrival.terminal}
+                Terminal -{" "}
+                {
+                  flight.itineraries[0].segments[
+                    flight.itineraries[0].segments.length - 1
+                  ].arrival.terminal
+                }
               </div>
               <div className="text-sm">{searchFormData.toOrigin.name}</div>
               <div className="text-xs pt-2">

@@ -5,7 +5,6 @@ import { StoreContext } from "../context/StoreContextMain";
 
 const Flights = () => {
   const { searchFormData, availableFlights } = useContext(StoreContext);
-
   const flights = availableFlights?.data;
   return (
     <div className="w-[90vw] mt-10 mx-auto">

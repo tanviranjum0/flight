@@ -1,8 +1,8 @@
 "use client";
 import FromOriginInput from "./FromOriginInput";
 import ToOriginInput from "./ToOriginInput";
-import { useContext, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import SeatTypeTab from "../components/molecule/SeatTypeTab";
+import { useContext } from "react";
 import { StoreContext } from "../context/StoreContextMain";
 import Datepicker from "react-tailwindcss-datepicker";
 const START_FROM = new Date();
@@ -241,40 +241,9 @@ const HomeSearch = ({ modify }) => {
               </div>
             </div>
           </div>
-          <div className=" text-sm md:text-base px-3 mx-auto md:w-[80%]  gap-1 md:gap-5 pt-3 grid grid-cols-2 md:grid-cols-5 items-center justify-center">
-            <div className="font-semibold w-full">Fare Type :</div>
-            <div
-              onClick={() => setCabinType("ECONOMY")}
-              className={`md:px-3 px-1 py-1 md:py-2 border hover:bg-sky-300 cursor-pointer rounded ${
-                cabinType == "ECONOMY" ? "bg-sky-200" : ""
-              }`}
-            >
-              Economy
-            </div>
-            <div
-              onClick={() => setCabinType("PREMIUM_ECONOMY")}
-              className={`md:px-3 px-1 py-1 md:py-2  border hover:bg-sky-300 cursor-pointer rounded ${
-                cabinType == "PREMIUM_ECONOMY" ? "bg-sky-200" : ""
-              }`}
-            >
-              Premium
-            </div>
-            <div
-              onClick={() => setCabinType("BUSINESS")}
-              className={`md:px-3 px-1 py-1 md:py-2  border hover:bg-sky-300 cursor-pointer rounded ${
-                cabinType == "BUSINESS" ? "bg-sky-200" : ""
-              }`}
-            >
-              Business
-            </div>
-            <div
-              onClick={() => setCabinType("FIRST")}
-              className={`md:px-3 px-1 py-1 md:py-2  border hover:bg-sky-300 cursor-pointer rounded ${
-                cabinType == "FIRST" ? "bg-sky-200" : ""
-              }`}
-            >
-              First
-            </div>
+          <div className="text-sm md:text-base px-3 mx-auto md:w-[60vw] mt-5 gap-5 flex items-center justify-center">
+            <div className="font-semibold ">Fare Type :</div>
+            <SeatTypeTab cabinType={cabinType} setCabinType={setCabinType} />
           </div>
           <div className="w-[80%] mx-auto text-center flex justify-center items-center">
             <span

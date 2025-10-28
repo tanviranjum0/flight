@@ -1,9 +1,7 @@
 "use client";
 import { motion } from "motion/react";
-import Image from "next/image";
 import { HiMiniXMark } from "react-icons/hi2";
 import { useContext } from "react";
-import img from "../images/turkish-logo.jpg";
 import { StoreContext } from "../context/StoreContextMain";
 
 const BaggageDetails = () => {
@@ -53,7 +51,8 @@ const BaggageDetails = () => {
           <div className="border mx-3 p-4">
             <div className="flex">
               <img
-                src={`https://content.airhex.com/content/logos/airlines_${reviewFlight.itineraries[0].segments[0].operating.carrierCode}_200_100_r.png`}
+              src={`https://img.wway.io/pics/root/${reviewFlight.itineraries[0].segments[0].operating.carrierCode}@png?exar=1&rs=fit:400:200`}
+                // src={`https://content.airhex.com/content/logos/airlines_${reviewFlight.itineraries[0].segments[0].operating.carrierCode}_100_100_r.png`}
                 className="py-5 object-cover bg-transparent max-w-20 m-3"
               />
               <div>

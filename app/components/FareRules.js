@@ -1,38 +1,9 @@
 "use client";
 import { motion } from "motion/react";
-import { useContext } from "react";
-import { StoreContext } from "../context/StoreContextMain";
-import FlightDetailsTab from "./molecule/FlightDetailsTab";
-const FareRules = ({ details, setDetails }) => {
+const FareRules = () => {
   return (
     <div className="flex mt-5 flex-col">
-      {/* <div className="flex my-3 justify-center items-center cursor-pointer">
-        <div
-          onClick={() => setDetails("details")}
-          className={`px-3 py-2 border rounded shadow-lg ${
-            details === "details" ? "bg-sky-800 text-white" : ""
-          }`}
-        >
-          Flight Details
-        </div>
-        <div
-          onClick={() => setDetails("fare")}
-          className={`px-3 py-2 border rounded shadow-lg ${
-            details === "fare" ? "bg-sky-800 text-white" : ""
-          }`}
-        >
-          Fare Summary
-        </div>
-
-        <div
-          onClick={() => setDetails("rule")}
-          className={`px-3 py-2 border rounded shadow-lg ${
-            details === "rule" ? "bg-sky-800 text-white" : ""
-          }`}
-        >
-          Fare Rules
-        </div>
-      </div> */}
+     
       <motion.div
         key={"farerulesmain"}
         initial={{ filter: "blur(10px)", scaleY: 0 }}

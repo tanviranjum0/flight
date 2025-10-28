@@ -223,7 +223,7 @@ const StoreContextMain = ({ children }) => {
     router.push("/search");
     setAvailableFlights(null);
     let url = new URLSearchParams();
-
+    console.log("Dates", flightDepartureDates);
     if (returnTrue) {
       if (flightDepartureDates.endDate != null) {
         url.set(
@@ -244,6 +244,7 @@ const StoreContextMain = ({ children }) => {
     url.set("adults", adultNumber);
     url.set("travelClass", cabinType);
     url.set("max", 10);
+
     const data = await fetch(
       `https://api.amadeus.com/v2/shopping/flight-offers?${url}`,
       {
@@ -259,7 +260,7 @@ const StoreContextMain = ({ children }) => {
   };
 
   const handleAirportSearch = (origin) => {
-    console.log(origin);
+    // console.log(origin);
     if (origin == "searchInputToOrigin") {
       setSearchToLoader(true);
     } else {
@@ -290,7 +291,7 @@ const StoreContextMain = ({ children }) => {
         setSearchData([]);
         return;
       }
-      console.log(result.data);
+      // console.log(result.data);
       setSearchData(result.data);
       if (origin == "searchInputToOrigin") {
         setSearchToLoader(false);

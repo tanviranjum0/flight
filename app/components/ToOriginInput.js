@@ -60,6 +60,11 @@ const ToOriginInput = () => {
               </div>
             </div>
             <input
+              onKeyUp={(e) => {
+                if (e.target.value == "") return;
+                e.preventDefault();
+                handleAirportSearch("searchInputToOrigin");
+              }}
               id="searchInputToOrigin"
               placeholder="To Where..."
               className="text-lg py-3 mb-3 px-4 mx-4 w-[80%] focus:outline-none focus:border-b-2 bg-inherit border-b-2"
