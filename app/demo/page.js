@@ -114,180 +114,227 @@
 // }
 
 "use client";
-import findingSeat from "../images/findingSeat.png";
-import planeInterior from "../images/planeInterior.png";
-import planeWindow from "../images/planeWindow.png";
-import familyReunion from "../images/familyReunion.png";
-import memoriesWall from "../images/memoriesWall.png";
-import insidePlane from "../images/insidePlane.png";
-import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, animate } from "motion/react";
-// import "../components/homeCarousel.css";
-export const items = [
-  {
-    id: 1,
-    url: findingSeat,
-    title: "Misty Mountain Majesty",
+import { HiOutlineArrowNarrowRight } from "react-icons/hi";
+const flight = {
+  type: "flight-offer",
+  id: "9",
+  source: "GDS",
+  instantTicketingRequired: false,
+  nonHomogeneous: false,
+  oneWay: false,
+  isUpsellOffer: false,
+  lastTicketingDate: "2025-10-31",
+  lastTicketingDateTime: "2025-10-31",
+  numberOfBookableSeats: 9,
+  itineraries: [
+    {
+      duration: "PT19H55M",
+      segments: [
+        {
+          departure: {
+            iataCode: "DAC",
+            terminal: "1",
+            at: "2025-11-05T01:05:00",
+          },
+          arrival: {
+            iataCode: "HKG",
+            terminal: "1",
+            at: "2025-11-05T06:35:00",
+          },
+          carrierCode: "CX",
+          number: "662",
+          aircraft: {
+            code: "333",
+          },
+          operating: {
+            carrierCode: "CX",
+          },
+          duration: "PT3H30M",
+          id: "20",
+          numberOfStops: 0,
+          blacklistedInEU: false,
+        },
+        {
+          departure: {
+            iataCode: "HKG",
+            terminal: "1",
+            at: "2025-11-05T08:10:00",
+          },
+          arrival: {
+            iataCode: "LHR",
+            terminal: "3",
+            at: "2025-11-05T15:00:00",
+          },
+          carrierCode: "CX",
+          number: "257",
+          aircraft: {
+            code: "351",
+          },
+          operating: {
+            carrierCode: "CX",
+          },
+          duration: "PT14H50M",
+          id: "21",
+          numberOfStops: 0,
+          blacklistedInEU: false,
+        },
+      ],
+    },
+  ],
+  price: {
+    currency: "USD",
+    total: "771.80",
+    base: "526.00",
+    fees: [
+      {
+        amount: "0.00",
+        type: "SUPPLIER",
+      },
+      {
+        amount: "0.00",
+        type: "TICKETING",
+      },
+    ],
+    grandTotal: "771.80",
   },
-  {
-    id: 2,
-    url: planeInterior,
-    title: "Winter Wonderland",
+  pricingOptions: {
+    fareType: ["PUBLISHED"],
+    includedCheckedBagsOnly: true,
   },
-  {
-    id: 3,
-    url: planeWindow,
-    title: "Autumn Mountain Retreat",
-  },
-  {
-    id: 4,
-    url: familyReunion,
-    title: "Tranquil Lake Reflection",
-  },
-  {
-    id: 5,
-    url: memoriesWall,
-    title: "Misty Mountain Peaks",
-  },
-  {
-    id: 6,
-    url: insidePlane,
-    title: "Golden Hour Glow",
-  },
-];
-export default function FramerDraggableCarousel() {
-  const [index, setIndex] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const containerRef = useRef(null);
+  validatingAirlineCodes: ["CX"],
+  travelerPricings: [
+    {
+      travelerId: "1",
+      fareOption: "STANDARD",
+      travelerType: "ADULT",
+      price: {
+        currency: "USD",
+        total: "771.80",
+        base: "526.00",
+      },
+      fareDetailsBySegment: [
+        {
+          segmentId: "20",
+          cabin: "ECONOMY",
+          fareBasis: "QK21BDAO",
+          class: "Q",
+          includedCheckedBags: {
+            quantity: 1,
+          },
+          includedCabinBags: {
+            quantity: 1,
+          },
+        },
+        {
+          segmentId: "21",
+          cabin: "ECONOMY",
+          fareBasis: "QK21BDAO",
+          class: "Q",
+          includedCheckedBags: {
+            quantity: 1,
+          },
+          includedCabinBags: {
+            quantity: 1,
+          },
+        },
+      ],
+    },
+  ],
+};
 
-  const x = useMotionValue(0);
-  console.log(index);
-  useEffect(() => {
-    const timerId = setTimeout(() => {
-      if (index == 3) {
-        setIndex(0);
-      } else {
-        setIndex((i) => Math.max(0, i + 1));
-      }
-    }, 3000);
-    return () => {
-      clearTimeout(timerId);
-    };
-  }, []);
-  useEffect(() => {
-    if (!isDragging && containerRef.current) {
-      const containerWidth = containerRef.current.offsetWidth || 1;
-      const targetX = -index * containerWidth;
-      animate(x, targetX, {
-        type: "spring",
-        stiffness: 300,
-        damping: 30,
-      });
-    }
-  }, [index, x, isDragging]);
+import React, { useContext } from "react";
+import { StoreContext } from "../context/StoreContextMain";
+import InitailLoad from "../components/InitailLoad";
+const page = () => {
+  const { searchFormData, availableFlights } = useContext(StoreContext);
+  console.log(availableFlights);
+  console.log(searchFormData);
   return (
-    <div className="w-full lg:p-10 sm:p-4 p-2">
-      <div className="flex flex-col gap-3">
-        <div className="relative overflow-hidden rounded-lg" ref={containerRef}>
-          <motion.div
-            className="flex"
-            drag="x"
-            dragElastic={0.2}
-            dragMomentum={false}
-            onDragStart={() => setIsDragging(true)}
-            onDragEnd={(e, info) => {
-              setIsDragging(false);
-              const containerWidth = containerRef.current?.offsetWidth || 1;
-              const offset = info.offset.x;
-              const velocity = info.velocity.x;
-              let newIndex = index;
-              if (Math.abs(velocity) > 500) {
-                newIndex = velocity > 0 ? index - 1 : index + 1;
-              } else if (Math.abs(offset) > containerWidth * 0.3) {
-                newIndex = offset > 0 ? index - 1 : index + 1;
-              }
-              newIndex = Math.max(0, Math.min(items.length - 1, newIndex));
-              setIndex(newIndex);
-            }}
-            style={{ x }}
-          >
-            {items.map((item) => (
-              <div key={item.id} className="shrink-0 w-full h-[100vh]">
-                <Image
-                  src={item.url}
-                  alt={item.title}
-                  // fill={true}
-                  className="w-full h-full object-cover rounded-lg select-none pointer-events-none"
-                  draggable={false}
-                />
-              </div>
-            ))}
-          </motion.div>
-
-          <motion.button
-            disabled={index === 0}
-            onClick={() => setIndex((i) => Math.max(0, i - 1))}
-            className={`absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-transform z-10
-              ${
-                index === 0
-                  ? "opacity-40 cursor-not-allowed"
-                  : "bg-white hover:scale-110 hover:opacity-100 opacity-70"
-              }`}
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-          </motion.button>
-
-          <motion.button
-            disabled={index === items.length - 1}
-            onClick={() => setIndex((i) => Math.min(items.length - 1, i + 1))}
-            className={`absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-transform z-10
-              ${
-                index === items.length - 1
-                  ? "opacity-40 cursor-not-allowed"
-                  : "bg-white hover:scale-110 hover:opacity-100 opacity-70"
-              }`}
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </motion.button>
-
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-            {items.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setIndex(i)}
-                className={`h-2 rounded-full transition-all ${
-                  i === index ? "w-8 bg-white" : "w-2 bg-white/50"
-                }`}
-              />
-            ))}
+    <div className="mt-5 flex h-[100vh] w-full justify-center items-center">
+      <InitailLoad page={"demo"} />
+      <div className="h-[80vh] w-[60vw] p-5 rounded bg-fuchsia-300 border-2">
+        <div className="text-xl flex gap-4 font-semibold items-center">
+          {searchFormData.fromOrigin.address.cityName}{" "}
+          <HiOutlineArrowNarrowRight />
+          {searchFormData.toOrigin.address.cityName}
+        </div>
+        <div className="flex items-center text-sm">
+          <div className="py-1 px-1.5 rounded bg-gray-800 text-white">
+            Depart
+          </div>
+          <div className="">
+            {new Date(flight.itineraries[0].segments[0].departure.at)
+              .toUTCString()
+              .slice(0, 17)}{" "}
+            {" | "}
+          </div>
+          <div className="">
+            {" "}
+            Duration :{" "}
+            {Math.floor(
+              (new Date(
+                flight.itineraries[0].segments[
+                  flight.itineraries[0].segments.length - 1
+                ].arrival.at
+              ).getTime() -
+                new Date(
+                  flight.itineraries[0].segments[0].departure.at
+                ).getTime()) /
+                60000 /
+                60
+            )}{" "}
+            hours{" "}
+            {((new Date(
+              flight.itineraries[0].segments[
+                flight.itineraries[0].segments.length - 1
+              ].arrival.at
+            ).getTime() -
+              new Date(
+                flight.itineraries[0].segments[0].departure.at
+              ).getTime()) /
+              60000) %
+              60}{" "}
+            min
+          </div>
+        </div>
+        <div className="grid grid-cols-5 w-[50%]">
+          <div className="col-span-1 font-semibold border">
+            {" "}
+            {new Date(flight.itineraries[0].segments[0].departure.at)
+              .toLocaleTimeString()
+              .replace(":00", "")}{" "}
+          </div>
+          <div className="col-span-4 font-bold border text-sm">
+            {searchFormData.fromOrigin.iataCode}{" "}
+            {searchFormData.fromOrigin.address.cityName}{" "}
+            {searchFormData.fromOrigin.name}
+            {" T "}
+            {flight.itineraries[0].segments[0].departure.terminal}
+          </div>
+          <div className="col-span-1 p-5 font-semibold border">
+            <img
+              src={`https://img.wway.io/pics/root/BG@png?exar=1&rs=fit:100:100`}
+              // alt={logo}
+              className="object-cover bg-transparent"
+            />
+          </div>
+          <div className="col-span-4 h-full border text-xs">
+            {
+              availableFlights?.dictionaries?.carriers[
+                flight?.itineraries[0]?.segments[0]?.carrierCode
+              ]
+            }{" "}
+            {
+              availableFlights?.dictionaries?.aircraft[
+                flight?.itineraries[0]?.segments[0]?.aircraft.code
+              ]
+            }{" "}
+            {flight.travelerPricings[0].fareDetailsBySegment[0].cabin} Class
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default page;

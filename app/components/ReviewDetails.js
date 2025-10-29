@@ -88,7 +88,13 @@ const ReviewDetails = () => {
               <div className=" ">
                 <MdOutlineArrowRightAlt className="h-10 w-10" />
               </div>
-              <div className="text-sm">Non Stop</div>
+              <div className="text-sm">
+                {reviewFlight?.itineraries[0]?.segments?.length > 1
+                  ? `${
+                      reviewFlight?.itineraries[0]?.segments?.length - 1
+                    } Stops`
+                  : "Non Stop"}
+              </div>
             </div>
             <div className="py-3">
               <div className="text-xs">Arrive</div>

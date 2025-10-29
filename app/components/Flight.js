@@ -7,6 +7,7 @@ import FareSummary from "./FareSummary";
 import FareRules from "./FareRules";
 import FlightDetailsTab from "./molecule/FlightDetailsTab";
 import { StoreContext } from "../context/StoreContextMain";
+import Timeline from "./Timeline";
 
 const Flight = ({ flight, searchFormData }) => {
   const { handleBookNowClick, availableFlights } = useContext(StoreContext);
@@ -169,6 +170,14 @@ const Flight = ({ flight, searchFormData }) => {
               setDetails={setDetails}
             />
           )}
+          {details == "timeline" && (
+            <Timeline
+              details={details}
+              flight={flight}
+              searchFormData={searchFormData}
+              setDetails={setDetails}
+            />
+          )}
           {details == "fare" && (
             <FareSummary
               details={details}
@@ -177,6 +186,7 @@ const Flight = ({ flight, searchFormData }) => {
               setDetails={setDetails}
             />
           )}
+
           {details == "rule" && (
             <FareRules
               details={details}

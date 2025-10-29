@@ -1,8 +1,6 @@
 "use client";
 import { motion } from "motion/react";
-import Image from "next/image";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
-import logo from "../../public/logo2.png";
 const FlightDetails = ({ searchFormData, flight }) => {
   return (
     <div>
