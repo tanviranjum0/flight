@@ -294,7 +294,7 @@ const page = () => {
               ).getTime()) /
               60000) %
               60}{" "}
-            min
+            {/* min */}
           </div>
         </div>
         <div className="grid grid-cols-12 gap-x-5 w-[50%]">
