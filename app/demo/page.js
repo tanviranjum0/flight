@@ -252,13 +252,13 @@ const page = () => {
   return (
     <div className="mt-5 flex h-[100vh] w-full justify-center items-center">
       <InitailLoad page={"demo"} />
-      <div className="h-[80vh] w-[60vw] p-5 rounded bg-fuchsia-300 border-2">
+      <div className="h-[80vh] w-[65vw] p-5 shadow-xl rounded bg-white border-2">
         <div className="text-xl flex gap-4 font-semibold items-center">
           {searchFormData.fromOrigin.address.cityName}{" "}
           <HiOutlineArrowNarrowRight />
           {searchFormData.toOrigin.address.cityName}
         </div>
-        <div className="flex items-center text-sm">
+        <div className="flex my-3 items-center text-sm">
           <div className="py-1 px-1.5 rounded bg-gray-800 text-white">
             Depart
           </div>
@@ -297,28 +297,30 @@ const page = () => {
             min
           </div>
         </div>
-        <div className="grid grid-cols-5 w-[50%]">
-          <div className="col-span-1 font-semibold border">
+        <div className="grid grid-cols-12 gap-x-5 w-[50%]">
+          <div className="col-span-2 font-semibold border">
             {" "}
             {new Date(flight.itineraries[0].segments[0].departure.at)
               .toLocaleTimeString()
               .replace(":00", "")}{" "}
           </div>
-          <div className="col-span-4 font-bold border text-sm">
+          <div className="border-r-2 col-span-1 border-black"></div>
+
+          <div className="col-span-9 font-bold border text-sm">
             {searchFormData.fromOrigin.iataCode}{" "}
             {searchFormData.fromOrigin.address.cityName}{" "}
             {searchFormData.fromOrigin.name}
             {" T "}
             {flight.itineraries[0].segments[0].departure.terminal}
           </div>
-          <div className="col-span-1 p-5 font-semibold border">
+          <div className="col-span-2 p-5 font-semibold border">
             <img
               src={`https://img.wway.io/pics/root/BG@png?exar=1&rs=fit:100:100`}
-              // alt={logo}
               className="object-cover bg-transparent"
             />
           </div>
-          <div className="col-span-4 h-full border text-xs">
+          <div className="border-r-2 col-span-1 border-black"></div>
+          <div className="col-span-9 h-full w-full flex items-center border text-xs">
             {
               availableFlights?.dictionaries?.carriers[
                 flight?.itineraries[0]?.segments[0]?.carrierCode
@@ -330,6 +332,29 @@ const page = () => {
               ]
             }{" "}
             {flight.travelerPricings[0].fareDetailsBySegment[0].cabin} Class
+          </div>
+          <div className="col-span-2 font-semibold border">
+            {" "}
+            {new Date(
+              flight.itineraries[0].segments[
+                flight.itineraries[0].segments.length - 1
+              ].arrival.at
+            )
+              .toLocaleTimeString()
+              .replace(":00", "")}{" "}
+          </div>
+          <div className="border-r-2 col-span-1 border-black"></div>
+
+          <div className="col-span-9 font-bold border text-sm">
+            {searchFormData.toOrigin.iataCode}{" "}
+            {searchFormData.toOrigin.address.cityName}{" "}
+            {searchFormData.toOrigin.name}
+            {" T-"}
+            {
+              flight.itineraries[0].segments[
+                flight.itineraries[0].segments.length - 1
+              ].departure.terminal
+            }
           </div>
         </div>
       </div>
