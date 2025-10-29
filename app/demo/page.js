@@ -248,31 +248,43 @@ import InitailLoad from "../components/InitailLoad";
 const page = () => {
   const { searchFormData, availableFlights } = useContext(StoreContext);
   console.log(availableFlights);
-  console.log(searchFormData);
+  // console.log(searchFormData);
   return (
     <div className="mt-5 flex h-[100vh] w-full justify-center items-center">
       <InitailLoad page={"demo"} />
-      <div className="h-[80vh] w-[65vw] p-5 shadow-xl rounded bg-white border-2">
-        <div className="text-xl flex gap-4 font-semibold items-center">
-          {searchFormData.fromOrigin.address.cityName}{" "}
-          <HiOutlineArrowNarrowRight />
-          {searchFormData.toOrigin.address.cityName}
-        </div>
-        <div className="flex my-3 items-center text-sm">
-          <div className="py-1 px-1.5 rounded bg-gray-800 text-white">
-            Depart
+      <div className="w-[65vw]   rounded bg-white border-2">
+        <div className="p-5 shadow-lg">
+          <div className="text-xl flex gap-4 font-semibold items-center">
+            {searchFormData.fromOrigin.address.cityName}{" "}
+            <HiOutlineArrowNarrowRight />
+            {searchFormData.toOrigin.address.cityName}
           </div>
-          <div className="">
-            {new Date(flight.itineraries[0].segments[0].departure.at)
-              .toUTCString()
-              .slice(0, 17)}{" "}
-            {" | "}
-          </div>
-          <div className="">
-            {" "}
-            Duration :{" "}
-            {Math.floor(
-              (new Date(
+          <div className="flex my-3 gap-3 items-center text-sm">
+            <div className="py-1 px-1.5 rounded bg-gray-800 text-white">
+              Depart
+            </div>
+            <div className="">
+              {new Date(flight.itineraries[0].segments[0].departure.at)
+                .toUTCString()
+                .slice(0, 17)}
+              {" |"}
+            </div>
+            <div className="">
+              Duration :{" "}
+              {Math.floor(
+                (new Date(
+                  flight.itineraries[0].segments[
+                    flight.itineraries[0].segments.length - 1
+                  ].arrival.at
+                ).getTime() -
+                  new Date(
+                    flight.itineraries[0].segments[0].departure.at
+                  ).getTime()) /
+                  60000 /
+                  60
+              )}{" "}
+              hours{" "}
+              {((new Date(
                 flight.itineraries[0].segments[
                   flight.itineraries[0].segments.length - 1
                 ].arrival.at
@@ -280,81 +292,75 @@ const page = () => {
                 new Date(
                   flight.itineraries[0].segments[0].departure.at
                 ).getTime()) /
-                60000 /
-                60
-            )}{" "}
-            hours{" "}
-            {((new Date(
-              flight.itineraries[0].segments[
-                flight.itineraries[0].segments.length - 1
-              ].arrival.at
-            ).getTime() -
-              new Date(
-                flight.itineraries[0].segments[0].departure.at
-              ).getTime()) /
-              60000) %
-              60}{" "}
-            {/* min */}
+                60000) %
+                60}{" "}
+              min
+            </div>
+          </div>
+          <div className="grid text-gray-700 grid-cols-12 w-[50%]">
+            <div className="col-span-2 font-semibold">
+              {" "}
+              {new Date(flight.itineraries[0].segments[0].departure.at)
+                .toLocaleTimeString()
+                .replace(":00", "")}{" "}
+            </div>
+            <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
+
+            <div className="col-span-9 font-bold text-sm">
+              {searchFormData.fromOrigin.iataCode}{" "}
+              {searchFormData.fromOrigin.address.cityName}{" "}
+              {searchFormData.fromOrigin.name}
+              {" T "}
+              {flight.itineraries[0].segments[0].departure.terminal}
+            </div>
+            <div className="col-span-2 p-5 font-semibold ">
+              <img
+                src={`https://img.wway.io/pics/root/BG@png?exar=1&rs=fit:100:100`}
+                className="object-cover bg-transparent"
+              />
+            </div>
+            <div className="border-r-4  border-dotted mr-4 col-span-1 border-gray-500"></div>
+            <div className="col-span-9 h-full w-full flex items-center text-xs">
+              {
+                availableFlights?.dictionaries?.carriers[
+                  flight?.itineraries[0]?.segments[0]?.carrierCode
+                ]
+              }{" "}
+              {
+                availableFlights?.dictionaries?.aircraft[
+                  flight?.itineraries[0]?.segments[0]?.aircraft.code
+                ]
+              }{" "}
+              {flight.travelerPricings[0].fareDetailsBySegment[0].cabin} Class
+            </div>
+            <div className="col-span-2 font-semibold ">
+              {" "}
+              {new Date(
+                flight.itineraries[0].segments[
+                  flight.itineraries[0].segments.length - 1
+                ].arrival.at
+              )
+                .toLocaleTimeString()
+                .replace(":00", "")}{" "}
+            </div>
+            <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
+            <div className="col-span-9 font-bold text-sm">
+              {searchFormData.toOrigin.iataCode}{" "}
+              {searchFormData.toOrigin.address.cityName}{" "}
+              {searchFormData.toOrigin.name}
+              {" T-"}
+              {
+                flight.itineraries[0].segments[
+                  flight.itineraries[0].segments.length - 1
+                ].departure.terminal
+              }
+            </div>
           </div>
         </div>
-        <div className="grid grid-cols-12 gap-x-5 w-[50%]">
-          <div className="col-span-2 font-semibold border">
-            {" "}
-            {new Date(flight.itineraries[0].segments[0].departure.at)
-              .toLocaleTimeString()
-              .replace(":00", "")}{" "}
-          </div>
-          <div className="border-r-2 col-span-1 border-black"></div>
-
-          <div className="col-span-9 font-bold border text-sm">
-            {searchFormData.fromOrigin.iataCode}{" "}
-            {searchFormData.fromOrigin.address.cityName}{" "}
-            {searchFormData.fromOrigin.name}
-            {" T "}
-            {flight.itineraries[0].segments[0].departure.terminal}
-          </div>
-          <div className="col-span-2 p-5 font-semibold border">
-            <img
-              src={`https://img.wway.io/pics/root/BG@png?exar=1&rs=fit:100:100`}
-              className="object-cover bg-transparent"
-            />
-          </div>
-          <div className="border-r-2 col-span-1 border-black"></div>
-          <div className="col-span-9 h-full w-full flex items-center border text-xs">
-            {
-              availableFlights?.dictionaries?.carriers[
-                flight?.itineraries[0]?.segments[0]?.carrierCode
-              ]
-            }{" "}
-            {
-              availableFlights?.dictionaries?.aircraft[
-                flight?.itineraries[0]?.segments[0]?.aircraft.code
-              ]
-            }{" "}
-            {flight.travelerPricings[0].fareDetailsBySegment[0].cabin} Class
-          </div>
-          <div className="col-span-2 font-semibold border">
-            {" "}
-            {new Date(
-              flight.itineraries[0].segments[
-                flight.itineraries[0].segments.length - 1
-              ].arrival.at
-            )
-              .toLocaleTimeString()
-              .replace(":00", "")}{" "}
-          </div>
-          <div className="border-r-2 col-span-1 border-black"></div>
-
-          <div className="col-span-9 font-bold border text-sm">
-            {searchFormData.toOrigin.iataCode}{" "}
-            {searchFormData.toOrigin.address.cityName}{" "}
-            {searchFormData.toOrigin.name}
-            {" T-"}
-            {
-              flight.itineraries[0].segments[
-                flight.itineraries[0].segments.length - 1
-              ].departure.terminal
-            }
+        <div className="flex justify-end items-center gap-3 p-3 shadow-xl w-full">
+          <div className="text-xl text-sky-500 underline cursor-pointer ">{`$${flight.price.total}`}</div>
+          <div className="px-4 cursor-pointer py-3 text-xl bg-sky-700 rounded-lg text-white">
+            Continue
           </div>
         </div>
       </div>
