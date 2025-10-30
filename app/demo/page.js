@@ -114,6 +114,7 @@
 // }
 
 "use client";
+import { FcRefresh } from "react-icons/fc";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 const flight = {
   type: "flight-offer",
@@ -242,10 +243,11 @@ const flight = {
   ],
 };
 
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { StoreContext } from "../context/StoreContextMain";
 import InitailLoad from "../components/InitailLoad";
 const page = () => {
+  const [inDepthTab, setInDepthTab] = useState(false);
   const { searchFormData, availableFlights } = useContext(StoreContext);
   console.log(availableFlights);
   // console.log(searchFormData);
@@ -297,65 +299,130 @@ const page = () => {
               min
             </div>
           </div>
-          <div className="grid text-gray-700 grid-cols-12 w-[50%]">
-            <div className="col-span-2 font-semibold">
-              {" "}
-              {new Date(flight.itineraries[0].segments[0].departure.at)
-                .toLocaleTimeString()
-                .replace(":00", "")}{" "}
-            </div>
-            <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
+          {flight.itineraries[0].segments.length == 1 && (
+            <div className="grid text-gray-700 grid-cols-12 w-[50%]">
+              <div className="col-span-2 font-semibold">
+                {" "}
+                {new Date(flight.itineraries[0].segments[0].departure.at)
+                  .toLocaleTimeString()
+                  .replace(":00", "")}{" "}
+              </div>
+              <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
 
-            <div className="col-span-9 font-bold text-sm">
-              {searchFormData.fromOrigin.iataCode}{" "}
-              {searchFormData.fromOrigin.address.cityName}{" "}
-              {searchFormData.fromOrigin.name}
-              {" T "}
-              {flight.itineraries[0].segments[0].departure.terminal}
+              <div className="col-span-9 font-bold text-sm">
+                {searchFormData.fromOrigin.iataCode}{" "}
+                {searchFormData.fromOrigin.address.cityName}{" "}
+                {searchFormData.fromOrigin.name}
+                {" T "}
+                {flight.itineraries[0].segments[0].departure.terminal}
+              </div>
+              <div className="col-span-2 p-5 font-semibold ">
+                <img
+                  src={`https://img.wway.io/pics/root/BG@png?exar=1&rs=fit:100:100`}
+                  className="object-cover bg-transparent"
+                />
+              </div>
+              <div className="border-r-4  border-dotted mr-4 col-span-1 border-gray-500"></div>
+              <div className="col-span-9 h-full w-full flex items-center text-xs">
+                {
+                  availableFlights?.dictionaries?.carriers[
+                    flight?.itineraries[0]?.segments[0]?.carrierCode
+                  ]
+                }{" "}
+                {
+                  availableFlights?.dictionaries?.aircraft[
+                    flight?.itineraries[0]?.segments[0]?.aircraft.code
+                  ]
+                }{" "}
+                {flight.travelerPricings[0].fareDetailsBySegment[0].cabin} Class
+              </div>
+              <div className="col-span-2 font-semibold ">
+                {" "}
+                {new Date(
+                  flight.itineraries[0].segments[
+                    flight.itineraries[0].segments.length - 1
+                  ].arrival.at
+                )
+                  .toLocaleTimeString()
+                  .replace(":00", "")}{" "}
+              </div>
+              <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
+              <div className="col-span-9 font-bold text-sm">
+                {searchFormData.toOrigin.iataCode}{" "}
+                {searchFormData.toOrigin.address.cityName}{" "}
+                {searchFormData.toOrigin.name}
+                {" T-"}
+                {
+                  flight.itineraries[0].segments[
+                    flight.itineraries[0].segments.length - 1
+                  ].departure.terminal
+                }
+              </div>
             </div>
-            <div className="col-span-2 p-5 font-semibold ">
-              <img
-                src={`https://img.wway.io/pics/root/BG@png?exar=1&rs=fit:100:100`}
-                className="object-cover bg-transparent"
-              />
-            </div>
-            <div className="border-r-4  border-dotted mr-4 col-span-1 border-gray-500"></div>
-            <div className="col-span-9 h-full w-full flex items-center text-xs">
-              {
-                availableFlights?.dictionaries?.carriers[
-                  flight?.itineraries[0]?.segments[0]?.carrierCode
-                ]
-              }{" "}
-              {
-                availableFlights?.dictionaries?.aircraft[
-                  flight?.itineraries[0]?.segments[0]?.aircraft.code
-                ]
-              }{" "}
-              {flight.travelerPricings[0].fareDetailsBySegment[0].cabin} Class
-            </div>
-            <div className="col-span-2 font-semibold ">
-              {" "}
-              {new Date(
-                flight.itineraries[0].segments[
-                  flight.itineraries[0].segments.length - 1
-                ].arrival.at
-              )
-                .toLocaleTimeString()
-                .replace(":00", "")}{" "}
-            </div>
-            <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
-            <div className="col-span-9 font-bold text-sm">
-              {searchFormData.toOrigin.iataCode}{" "}
-              {searchFormData.toOrigin.address.cityName}{" "}
-              {searchFormData.toOrigin.name}
-              {" T-"}
-              {
-                flight.itineraries[0].segments[
-                  flight.itineraries[0].segments.length - 1
-                ].departure.terminal
-              }
-            </div>
-          </div>
+          )}
+          {flight.itineraries[0].segments.length > 1 &&
+            flight.itineraries[0].segments.map((segment, i) => {
+              return (
+                <div className="grid text-gray-700 grid-cols-12 w-[50%]">
+                  <div className="col-span-2 font-semibold">
+                    {" "}
+                    {new Date(flight.itineraries[0].segments[0].departure.at)
+                      .toLocaleTimeString()
+                      .replace(":00", "")}{" "}
+                  </div>
+                  <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
+
+                  <div className="col-span-9 font-bold text-sm">
+                    {searchFormData.fromOrigin.iataCode}{" "}
+                    {searchFormData.fromOrigin.address.cityName}{" "}
+                    {searchFormData.fromOrigin.name}
+                    {" T "}
+                    {flight.itineraries[0].segments[0].departure.terminal}
+                  </div>
+                  <div className="col-span-2 p-5 font-semibold ">
+                    <img
+                      src={`https://img.wway.io/pics/root/BG@png?exar=1&rs=fit:100:100`}
+                      className="object-cover bg-transparent"
+                    />
+                  </div>
+                  <div className="rotate-90 text-black h-full flex items-center justify-center col-span-1 border-gray-500">
+                    <FcRefresh />
+                  </div>
+                  {!inDepthTab && (
+                    <div className="col-span-9 h-full w-full  flex items-center text-xs">
+                      <div
+                        onClick={() => setInDepthTab(true)}
+                        className="border py-1 px-2 cursor-pointer"
+                      >
+                        Hello
+                      </div>
+                    </div>
+                  )}
+                  <div className="col-span-2 font-semibold ">
+                    {" "}
+                    {new Date(
+                      flight.itineraries[0].segments[
+                        flight.itineraries[0].segments.length - 1
+                      ].arrival.at
+                    )
+                      .toLocaleTimeString()
+                      .replace(":00", "")}{" "}
+                  </div>
+                  <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
+                  <div className="col-span-9 font-bold text-sm">
+                    {searchFormData.toOrigin.iataCode}{" "}
+                    {searchFormData.toOrigin.address.cityName}{" "}
+                    {searchFormData.toOrigin.name}
+                    {" T-"}
+                    {
+                      flight.itineraries[0].segments[
+                        flight.itineraries[0].segments.length - 1
+                      ].departure.terminal
+                    }
+                  </div>
+                </div>
+              );
+            })}
         </div>
         <div className="flex justify-end items-center gap-3 p-3 shadow-xl w-full">
           <div className="text-xl text-sky-500 underline cursor-pointer ">{`$${flight.price.total}`}</div>
