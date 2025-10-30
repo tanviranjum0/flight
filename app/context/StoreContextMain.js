@@ -363,7 +363,6 @@ const StoreContextMain = ({ children }) => {
         }
       );
       const data = await airportDetilas.json();
-      // console.log(data);
       return data.data[0];
     }
   };

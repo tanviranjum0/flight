@@ -1,123 +1,8 @@
-// // "use client";
-// // import { useState } from "react";
-// // import { motion, AnimatePresence } from "framer-motion";
-// // const page = () => {
-// //   const [number, setNumber] = useState(0);
-// //   return (
-// //     <div className="mt-5 flex justify-center items-center h-[100vh] w-full">
-// //       <div className="h-16 bg-sky-100 w-44 flex justify-around items-center gap-1 px-2 rounded-full">
-// //         <div
-// //           onClick={() => setNumber((prev) => prev - 1)}
-// //           className="h-12 select-none cursor-pointer w-full flex justify-center items-center font-bold text-4xl rounded-full bg-[#0cdcf733]"
-// //         >
-// //           -
-// //         </div>
-// //         <div className="h-12 select-none cursor-pointer w-full px-2 flex justify-center items-center font-bold text-4xl rounded-full">
-// //           {number}
-// //         </div>
-// //         <div
-// //           onClick={() => setNumber((prev) => prev + 1)}
-// //           className="h-12 select-none cursor-pointer w-full flex justify-center items-center font-bold text-4xl rounded-full bg-[#0cdcf733]"
-// //         >
-// //           +
-// //         </div>
-// //       </div>
-// //     </div>
-// //   );
-// // };
-
-// // export default page;
-
-// "use client";
-
-// import React from "react";
-// import Datepicker from "react-tailwindcss-datepicker";
-// const START_FROM = new Date();
-// START_FROM.setMonth(START_FROM.getMonth());
-// const MIN_DATE = new Date();
-// MIN_DATE.setDate(MIN_DATE.getDate() + 1);
-// const page = () => {
-//   return (
-//     <div className="h-[100vh] flex justify-center items-center w-full">
-//       <div id="datePickerNewOop">
-//         <Datepicker
-//           inputClassName="text-2xl
-//         focus:outline-none active:border "
-//           primaryColor={"sky"}
-//           separator="and"
-//           minDate={MIN_DATE}
-//           onChange={(newval) => {
-//             console.log(newval);
-//             console.log(document.getElementById("datePickerNewOop"));
-//           }}
-//           startFrom={START_FROM}
-//         />
-//       </div>
-//       <div
-//         onClick={() => {
-//           document.getElementById("datePickerNewOop")?.click();
-//         }}
-//         className="text-4xl p-5 cursor-pointer bg-green-300"
-//       >
-//         Button
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default page;
-
-// "use client";
-// import { useState } from "react";
-// import { motion } from "motion/react";
-
-// const tabs = [
-//   { name: "Details", color: "green" },
-//   { name: "Fare Summary", color: "green" },
-//   { name: "Fare Rules", color: "green" },
-// ];
-
-// const duration = 0.3;
-
-// export default function Example() {
-//   const [selected, setSelected] = useState(0);
-//   const [formerColor, setFormerColor] = useState(tabs[0].color);
-
-//   return (
-//     <div className="relative p-1.5 mt-5 flex items-start place-content-start justify-start">
-//       {tabs.map(({ name, color }, i) => (
-//         <motion.div
-//           className="relative h-[30px] py-1 font-bold cursor-pointer px-4 text-lg"
-//           key={i}
-//           initial={{ color: i === selected ? "#fff" : "black" }}
-//           animate={{ color: i === selected ? "#fff" : "black" }}
-//           transition={{ duration }}
-//           onTap={() => {
-//             setFormerColor(tabs[selected].color);
-//             setSelected(i);
-//           }}
-//         >
-//           <span style={{ position: "relative", zIndex: 1 }}>{name}</span>
-//           {i === selected && (
-//             <motion.div
-//               className="w-full h-full absolute top-0 left-0"
-//               layoutId="selected"
-//               initial={{ backgroundColor: formerColor }}
-//               animate={{ backgroundColor: color }}
-//               transition={{ duration }}
-//             />
-//           )}
-//         </motion.div>
-//       ))}
-//     </div>
-//   );
-// }
-
 "use client";
 
 const flight = {
   type: "flight-offer",
-  id: "9",
+  id: "7",
   source: "GDS",
   instantTicketingRequired: false,
   nonHomogeneous: false,
@@ -128,7 +13,7 @@ const flight = {
   numberOfBookableSeats: 9,
   itineraries: [
     {
-      duration: "PT19H55M",
+      duration: "PT22H15M",
       segments: [
         {
           departure: {
@@ -150,7 +35,7 @@ const flight = {
             carrierCode: "CX",
           },
           duration: "PT3H30M",
-          id: "20",
+          id: "7",
           numberOfStops: 0,
           blacklistedInEU: false,
         },
@@ -158,23 +43,23 @@ const flight = {
           departure: {
             iataCode: "HKG",
             terminal: "1",
-            at: "2025-11-05T08:10:00",
+            at: "2025-11-05T10:40:00",
           },
           arrival: {
             iataCode: "LHR",
             terminal: "3",
-            at: "2025-11-05T15:00:00",
+            at: "2025-11-05T17:20:00",
           },
           carrierCode: "CX",
-          number: "257",
+          number: "239",
           aircraft: {
-            code: "351",
+            code: "359",
           },
           operating: {
             carrierCode: "CX",
           },
-          duration: "PT14H50M",
-          id: "21",
+          duration: "PT14H40M",
+          id: "8",
           numberOfStops: 0,
           blacklistedInEU: false,
         },
@@ -214,7 +99,7 @@ const flight = {
       },
       fareDetailsBySegment: [
         {
-          segmentId: "20",
+          segmentId: "7",
           cabin: "ECONOMY",
           fareBasis: "QK21BDAO",
           class: "Q",
@@ -226,7 +111,7 @@ const flight = {
           },
         },
         {
-          segmentId: "21",
+          segmentId: "8",
           cabin: "ECONOMY",
           fareBasis: "QK21BDAO",
           class: "Q",
@@ -248,13 +133,11 @@ import { AiOutlineFileProtect } from "react-icons/ai";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { StoreContext } from "../context/StoreContextMain";
 import InitailLoad from "../components/InitailLoad";
-// import { FaArrowAltCircleLeft } from "react-icons/fa";
+import { FiClock } from "react-icons/fi";
 const page = () => {
   const [inDepthTab, setInDepthTab] = useState(false);
-  const { searchFormData, availableFlights, getAirportDetails } =
-    useContext(StoreContext);
+  const { searchFormData, availableFlights } = useContext(StoreContext);
   console.log(availableFlights);
-  // console.log(searchFormData);
   return (
     <div className="mt-5 flex h-[100vh] w-full justify-center items-center">
       <InitailLoad page={"demo"} />
@@ -303,72 +186,69 @@ const page = () => {
               min
             </div>
           </div>
-          {flight.itineraries[0].segments.length == 1 && (
-            <div className="grid text-gray-700 grid-cols-12 w-[50%]">
-              <div className="col-span-2 font-semibold">
-                {" "}
-                {new Date(flight.itineraries[0].segments[0].departure.at)
-                  .toLocaleTimeString()
-                  .replace(":00", "")}{" "}
-              </div>
-              <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
-
-              <div className="col-span-9 font-bold text-sm">
-                {searchFormData.fromOrigin.iataCode}{" "}
-                {searchFormData.fromOrigin.address.cityName}{" "}
-                {searchFormData.fromOrigin.name}
-                {" T "}
-                {flight.itineraries[0].segments[0].departure.terminal}
-              </div>
-              <div className="col-span-2 p-5 font-semibold ">
-                <img
-                  src={`https://img.wway.io/pics/root/BG@png?exar=1&rs=fit:100:100`}
-                  className="object-cover bg-transparent"
-                />
-              </div>
-              <div className="border-r-4  border-dotted mr-4 col-span-1 border-gray-500"></div>
-              <div className="col-span-9 h-full w-full flex items-center text-xs">
-                {
-                  availableFlights?.dictionaries?.carriers[
-                    flight?.itineraries[0]?.segments[0]?.carrierCode
-                  ]
-                }{" "}
-                {
-                  availableFlights?.dictionaries?.aircraft[
-                    flight?.itineraries[0]?.segments[0]?.aircraft.code
-                  ]
-                }{" "}
-                {flight.travelerPricings[0].fareDetailsBySegment[0].cabin} Class
-              </div>
-              <div className="col-span-2 font-semibold ">
-                {" "}
-                {new Date(
-                  flight.itineraries[0].segments[
-                    flight.itineraries[0].segments.length - 1
-                  ].arrival.at
-                )
-                  .toLocaleTimeString()
-                  .replace(":00", "")}{" "}
-              </div>
-              <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
-              <div className="col-span-9 font-bold text-sm">
-                {searchFormData.toOrigin.iataCode}{" "}
-                {searchFormData.toOrigin.address.cityName}{" "}
-                {searchFormData.toOrigin.name}
-                {" T-"}
-                {
-                  flight.itineraries[0].segments[
-                    flight.itineraries[0].segments.length - 1
-                  ].departure.terminal
-                }
-              </div>
+          {/* {flight.itineraries[0].segments.length == 1 && ( */}
+          <div className="grid text-gray-700 grid-cols-12 w-[50%]">
+            <div className="col-span-2 font-semibold">
+              {" "}
+              {new Date(flight.itineraries[0].segments[0].departure.at)
+                .toLocaleTimeString()
+                .replace(":00", "")}{" "}
             </div>
-          )}
-          {flight.itineraries[0].segments.length > 1 &&
-            flight.itineraries[0].segments.map(async (segment, i) => {
-              const data = await getAirportDetails(segment.departure.iataCode);
-              // console.log(data);
-              // console.log("i", i);
+            <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
+
+            <div className="col-span-9 font-bold text-sm">
+              {searchFormData.fromOrigin.iataCode}{" "}
+              {searchFormData.fromOrigin.address.cityName}{" "}
+              {searchFormData.fromOrigin.name}
+              {" T "}
+              {flight.itineraries[0].segments[0].departure.terminal}
+            </div>
+            <div className="col-span-2 p-5 font-semibold ">
+              <img
+                src={`https://img.wway.io/pics/root/BG@png?exar=1&rs=fit:100:100`}
+                className="object-cover bg-transparent"
+              />
+            </div>
+            <div className="border-r-4  border-dotted mr-4 col-span-1 border-gray-500"></div>
+            <div className="col-span-9 h-full w-full flex items-center text-xs">
+              {
+                availableFlights?.dictionaries?.carriers[
+                  flight?.itineraries[0]?.segments[0]?.carrierCode
+                ]
+              }{" "}
+              {
+                availableFlights?.dictionaries?.aircraft[
+                  flight?.itineraries[0]?.segments[0]?.aircraft.code
+                ]
+              }{" "}
+              {flight.travelerPricings[0].fareDetailsBySegment[0].cabin} Class
+            </div>
+            <div className="col-span-2 font-semibold ">
+              {new Date(
+                flight.itineraries[0].segments[
+                  flight.itineraries[0].segments.length - 1
+                ].arrival.at
+              )
+                .toLocaleTimeString()
+                .replace(":00", "")}{" "}
+            </div>
+            <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
+            <div className="col-span-9 font-bold text-sm">
+              {searchFormData.toOrigin.iataCode}{" "}
+              {searchFormData.toOrigin.address.cityName}{" "}
+              {searchFormData.toOrigin.name}
+              {" T-"}
+              {
+                flight.itineraries[0].segments[
+                  flight.itineraries[0].segments.length - 1
+                ].departure.terminal
+              }
+            </div>
+          </div>
+          {/* )} */}
+          {/* {flight.itineraries[0].segments.length > 1 &&
+            flight.itineraries[0].segments.map((segment, i) => {
+              console.log(i);
               return (
                 <div
                   key={`${i}-${flight.itineraries[0].segments[i].arrival.at}`}
@@ -383,42 +263,61 @@ const page = () => {
                   <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
 
                   <div className="col-span-9 font-bold text-sm">
-                    {segment.departure.iataCode}{" "}
-                    {searchFormData.fromOrigin.address.cityName}{" "}
-                    {searchFormData.fromOrigin.name}
-                    {" T-"}
-                    {segment.departure.terminal}
+                    {i == 0 && (
+                      <>
+                        {" "}
+                        {segment.departure.iataCode}{" "}
+                        {searchFormData.fromOrigin.address.cityName}{" "}
+                        {searchFormData.fromOrigin.name}
+                        {" T-"}
+                        {segment.departure.terminal}
+                      </>
+                    )}
+                    {i > 0 && <> Leave {segment.departure.iataCode}</>}
                   </div>
                   <div className="col-span-2 font-semibold ">
                     <img
                       src={`https://img.wway.io/pics/root/BG@png?exar=1&rs=fit:100:100`}
                       className="object-cover bg-transparent"
                     />
-                    <div className="text-xs">
-                      {Math.floor(
-                        (new Date(segment.arrival.at).getTime() -
-                          new Date(segment.departure.at).getTime()) /
-                          60000 /
-                          60
-                      )}
-                      h{" "}
-                      {((new Date(segment.arrival.at).getTime() -
-                        new Date(segment.departure.at).getTime()) /
-                        60000) %
-                        60}
-                      m
-                    </div>
                   </div>
-                  <div className="h-full flex items-center justify-center col-span-1 border-r-4 border-dotted mr-4 border-gray-500">
-                    {/* <FcRefresh /> */}
-                  </div>
+                  <div className="h-full flex items-center justify-center col-span-1 border-r-4 border-dotted mr-4 border-gray-500"></div>
                   {!inDepthTab && (
-                    <div className="col-span-9 h-full w-full  flex items-center text-xs">
+                    <div className="col-span-9 h-full w-full text-xs">
                       <div
                         onClick={() => setInDepthTab(true)}
-                        className="border py-1 px-2 cursor-pointer"
+                        className="py-1 px-2 cursor-pointer"
                       >
-                        Hello
+                        {
+                          availableFlights?.dictionaries?.carriers[
+                            segment?.carrierCode
+                          ]
+                        }{" "}
+                        {
+                          availableFlights?.dictionaries?.aircraft[
+                            segment?.aircraft.code
+                          ]
+                        }{" "}
+                        {
+                          flight.travelerPricings[0].fareDetailsBySegment[0]
+                            .cabin
+                        }{" "}
+                        Class
+                      </div>
+                      <div className="text-xs flex items-center gap-1">
+                        <FiClock /> Flight Time:{" "}
+                        {Math.floor(
+                          (new Date(segment.arrival.at).getTime() -
+                            new Date(segment.departure.at).getTime()) /
+                            60000 /
+                            60
+                        )}
+                        h{" "}
+                        {((new Date(segment.arrival.at).getTime() -
+                          new Date(segment.departure.at).getTime()) /
+                          60000) %
+                          60}
+                        m
                       </div>
                     </div>
                   )}
@@ -430,14 +329,21 @@ const page = () => {
                   </div>
                   <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
                   <div className="col-span-9 font-bold text-sm">
-                    {segment.arrival.iataCode}{" "}
-                    {searchFormData.toOrigin.address.cityName}{" "}
-                    {searchFormData.toOrigin.name}
-                    {" T-"}
-                    {segment.departure.terminal}
+                    {i == flight.itineraries[0].segments.length - 1 && (
+                      <>
+                        {segment.arrival.iataCode}{" "}
+                        {searchFormData.toOrigin.address.cityName}{" "}
+                        {searchFormData.toOrigin.name}
+                        {" T-"}
+                        {segment.arrival.terminal}
+                      </>
+                    )}
+                    {i < flight.itineraries[0].segments.length && (
+                      <> Transit in {segment.arrival.iataCode}</>
+                    )}
                   </div>
                   {flight.itineraries[0].segments.length - 1 != i && (
-                    <div className="col-span-12 grid grid-cols-12">
+                    <div className="col-span-12 my-3 grid grid-cols-12">
                       <div className="col-span-1"></div>
                       <div className="col-span-1"></div>
                       <div className="col-span-1 rotate-90 text-black h-full flex items-center justify-center border-gray-500">
@@ -479,7 +385,7 @@ const page = () => {
                   )}
                 </div>
               );
-            })}
+            })} */}
         </div>
         <div className="flex justify-end items-center gap-3 p-3 shadow-xl w-full">
           <div className="text-xl text-sky-500 underline cursor-pointer ">{`$${flight.price.total}`}</div>

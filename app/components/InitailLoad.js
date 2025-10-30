@@ -4,11 +4,8 @@ import { StoreContext } from "../context/StoreContextMain.js";
 
 const InitailLoad = ({ page }) => {
   const isAlreadyRenderred = useRef(false);
-  const {
-    setSearchFormData,
-    setReviewFlight,
-    setFlightDepartureDates,
-  } = useContext(StoreContext);
+  const { setSearchFormData, setReviewFlight, setFlightDepartureDates } =
+    useContext(StoreContext);
 
   useEffect(() => {
     if (!isAlreadyRenderred.current) {
