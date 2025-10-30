@@ -367,7 +367,7 @@ const page = () => {
           {flight.itineraries[0].segments.length > 1 &&
             flight.itineraries[0].segments.map(async (segment, i) => {
               const data = await getAirportDetails(segment.departure.iataCode);
-              console.log(data);
+              // console.log(data);
               // console.log("i", i);
               return (
                 <div
