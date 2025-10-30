@@ -351,7 +351,25 @@ const StoreContextMain = ({ children }) => {
     console.log(searchFormData);
   };
 
+  const getAirportDetails = async (iata) => {
+    if (typeof window !== "undefined" && window.localStorage) {
+      const airportDetilas = await fetch(
+        `https://api.amadeus.com/v1/reference-data/locations?subType=AIRPORT&keyword=${iata}&page%5Blimit%5D=10&page%5Boffset%5D=0&sort=analytics.travelers.score&view=FULL`,
+
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        }
+      );
+      const data = await airportDetilas.json();
+      // console.log(data);
+      return data.data[0];
+    }
+  };
+
   const contextValue = {
+    getAirportDetails,
     handleToLocation,
     handleFromLocation,
     handleFlightSearch,

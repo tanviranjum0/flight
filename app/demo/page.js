@@ -114,8 +114,7 @@
 // }
 
 "use client";
-import { FcRefresh } from "react-icons/fc";
-import { HiOutlineArrowNarrowRight } from "react-icons/hi";
+
 const flight = {
   type: "flight-offer",
   id: "9",
@@ -244,11 +243,16 @@ const flight = {
 };
 
 import React, { useContext, useState } from "react";
+import { FcRefresh } from "react-icons/fc";
+import { AiOutlineFileProtect } from "react-icons/ai";
+import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { StoreContext } from "../context/StoreContextMain";
 import InitailLoad from "../components/InitailLoad";
+// import { FaArrowAltCircleLeft } from "react-icons/fa";
 const page = () => {
   const [inDepthTab, setInDepthTab] = useState(false);
-  const { searchFormData, availableFlights } = useContext(StoreContext);
+  const { searchFormData, availableFlights, getAirportDetails } =
+    useContext(StoreContext);
   console.log(availableFlights);
   // console.log(searchFormData);
   return (
@@ -361,32 +365,52 @@ const page = () => {
             </div>
           )}
           {flight.itineraries[0].segments.length > 1 &&
-            flight.itineraries[0].segments.map((segment, i) => {
+            flight.itineraries[0].segments.map(async (segment, i) => {
+              const data = await getAirportDetails(segment.departure.iataCode);
+              console.log(data);
+              // console.log("i", i);
               return (
-                <div className="grid text-gray-700 grid-cols-12 w-[50%]">
+                <div
+                  key={`${i}-${flight.itineraries[0].segments[i].arrival.at}`}
+                  className="grid text-gray-700 grid-cols-12 w-[50%]"
+                >
                   <div className="col-span-2 font-semibold">
                     {" "}
-                    {new Date(flight.itineraries[0].segments[0].departure.at)
+                    {new Date(segment.departure.at)
                       .toLocaleTimeString()
                       .replace(":00", "")}{" "}
                   </div>
                   <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
 
                   <div className="col-span-9 font-bold text-sm">
-                    {searchFormData.fromOrigin.iataCode}{" "}
+                    {segment.departure.iataCode}{" "}
                     {searchFormData.fromOrigin.address.cityName}{" "}
                     {searchFormData.fromOrigin.name}
-                    {" T "}
-                    {flight.itineraries[0].segments[0].departure.terminal}
+                    {" T-"}
+                    {segment.departure.terminal}
                   </div>
-                  <div className="col-span-2 p-5 font-semibold ">
+                  <div className="col-span-2 font-semibold ">
                     <img
                       src={`https://img.wway.io/pics/root/BG@png?exar=1&rs=fit:100:100`}
                       className="object-cover bg-transparent"
                     />
+                    <div className="text-xs">
+                      {Math.floor(
+                        (new Date(segment.arrival.at).getTime() -
+                          new Date(segment.departure.at).getTime()) /
+                          60000 /
+                          60
+                      )}
+                      h{" "}
+                      {((new Date(segment.arrival.at).getTime() -
+                        new Date(segment.departure.at).getTime()) /
+                        60000) %
+                        60}
+                      m
+                    </div>
                   </div>
-                  <div className="rotate-90 text-black h-full flex items-center justify-center col-span-1 border-gray-500">
-                    <FcRefresh />
+                  <div className="h-full flex items-center justify-center col-span-1 border-r-4 border-dotted mr-4 border-gray-500">
+                    {/* <FcRefresh /> */}
                   </div>
                   {!inDepthTab && (
                     <div className="col-span-9 h-full w-full  flex items-center text-xs">
@@ -400,26 +424,59 @@ const page = () => {
                   )}
                   <div className="col-span-2 font-semibold ">
                     {" "}
-                    {new Date(
-                      flight.itineraries[0].segments[
-                        flight.itineraries[0].segments.length - 1
-                      ].arrival.at
-                    )
+                    {new Date(segment.arrival.at)
                       .toLocaleTimeString()
                       .replace(":00", "")}{" "}
                   </div>
                   <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
                   <div className="col-span-9 font-bold text-sm">
-                    {searchFormData.toOrigin.iataCode}{" "}
+                    {segment.arrival.iataCode}{" "}
                     {searchFormData.toOrigin.address.cityName}{" "}
                     {searchFormData.toOrigin.name}
                     {" T-"}
-                    {
-                      flight.itineraries[0].segments[
-                        flight.itineraries[0].segments.length - 1
-                      ].departure.terminal
-                    }
+                    {segment.departure.terminal}
                   </div>
+                  {flight.itineraries[0].segments.length - 1 != i && (
+                    <div className="col-span-12 grid grid-cols-12">
+                      <div className="col-span-1"></div>
+                      <div className="col-span-1"></div>
+                      <div className="col-span-1 rotate-90 text-black h-full flex items-center justify-center border-gray-500">
+                        <FcRefresh />
+                      </div>
+                      <div className="col-span-9 p-3 text-sm border">
+                        <div className="py-1">
+                          Transfer in {segment.arrival.iataCode}{" "}
+                          {Math.floor(
+                            (new Date(
+                              flight.itineraries[0].segments[i + 1].departure.at
+                            ).getTime() -
+                              new Date(
+                                flight.itineraries[0].segments[i].arrival.at
+                              ).getTime()) /
+                              60000 /
+                              60
+                          )}
+                          h{" "}
+                          {((new Date(
+                            flight.itineraries[0].segments[i + 1].departure.at
+                          ).getTime() -
+                            new Date(
+                              flight.itineraries[0].segments[i].arrival.at
+                            ).getTime()) /
+                            60000) %
+                            60}
+                          m
+                        </div>
+                        <div className="flex underline cursor-pointer justify-center items-center gap-2 -ml-5">
+                          <div className="text-sky-500">
+                            {" "}
+                            <AiOutlineFileProtect />{" "}
+                          </div>
+                          No need to collect & re-check baggage
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               );
             })}
