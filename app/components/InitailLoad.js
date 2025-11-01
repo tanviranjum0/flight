@@ -45,7 +45,7 @@ const InitailLoad = ({ page }) => {
           }
         );
         const AuthorizedJSON = await data.json();
-        console.log(AuthorizedJSON);
+        // console.log(AuthorizedJSON);
         localStorage.setItem("access_token_created_at", Date.now());
         localStorage.setItem("access_token", AuthorizedJSON.access_token);
       }
