@@ -3,79 +3,84 @@
 @tailwind utilities;
 
 @keyframes left-nav-anim {
- from {  transform: translateX(-50px);
-  opacity:0;
-}
- to {  transform: translateX(0px);
-opacity: 1;
-}
+  from {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0px);
+    opacity: 1;
+  }
 }
 @keyframes home-search-anim {
- from {  transform: translateY(100px);
-  opacity:0;
-}
- to {  transform: translateY(0px);
-opacity: 1;
-}
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
 }
 
 @keyframes right-nav-anim {
- from {  transform: translateX(50px);
-  opacity:0;
-}
- to {  transform: translateX(0px);
-opacity: 1;
-}
+  from {
+    transform: translateX(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0px);
+    opacity: 1;
+  }
 }
 @keyframes footer-anim {
- from {  
-  opacity:0;
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
- to { 
-opacity: 1;
-}
-}
-.navbar-left-animation{
+.navbar-left-animation {
   animation-name: left-nav-anim;
   animation-duration: 1s;
 }
-.footer-animation{
+.footer-animation {
   animation-name: footer-anim;
   animation-duration: 1s;
 }
-.navbar-right-animation{
+.navbar-right-animation {
   animation-name: right-nav-anim;
   animation-duration: 1s;
 }
-.home-search-animation{
+.home-search-animation {
   animation-name: home-search-anim;
   animation-duration: 1s;
 }
 
-.main-bg{
-  background-image: url('./images/main-bg.webp');
+.main-bg {
+  background-image: url("../public/bg-sky.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
-.banner-bg{
-  background-image: url('../public/banner.jpg');
+.banner-bg {
+  background-image: url("../public/banner.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-
 }
-input[type=radio]:checked + label:before{
+input[type="radio"]:checked + label:before {
   background-color: rgb(55, 55, 140);
 }
-input[type=radio] + label:before{
-  height:18px;
-  width:18px;
+input[type="radio"] + label:before {
+  height: 18px;
+  width: 18px;
   border-radius: 100%;
   padding-right: 5px;
   border: 2px solid black;
   margin-right: 2px;
   content: " ";
-  display:inline-block;
+  display: inline-block;
   vertical-align: baseline;
 }

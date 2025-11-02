@@ -8,6 +8,7 @@ import FareRules from "./FareRules";
 import FlightDetailsTab from "./molecule/FlightDetailsTab";
 import { StoreContext } from "../context/StoreContextMain";
 import Timeline from "./Timeline";
+import { AnimatePresence, motion } from "motion/react";
 
 const Flight = ({ flight, searchFormData }) => {
   const { handleBookNowClick, availableFlights } = useContext(StoreContext);
@@ -155,48 +156,69 @@ const Flight = ({ flight, searchFormData }) => {
           Flight Details &#8595;
         </div>
       </div>
-      {isTabOpen && (
-        <div>
-          <FlightDetailsTab
-            flightId={`flight-${flight.id}`}
-            details={details}
-            setDetails={setDetails}
-          />
-          {details == "details" && (
-            <FlightDetails
+      <AnimatePresence mode="wait">
+        {isTabOpen && (
+          <motion.div
+            initial={{
+              opacity: 0,
+              height: 0,
+            }}
+            animate={{
+              opacity: 1,
+              height: "auto",
+            }}
+            transition={{
+              duration: 0.5,
+            }}
+            exit={{
+              opacity: 0,
+              height: 0,
+              transition: {
+                duration: 0.25,
+              },
+            }}
+          >
+            <FlightDetailsTab
+              flightId={`flight-${flight.id}`}
               details={details}
-              flight={flight}
-              searchFormData={searchFormData}
               setDetails={setDetails}
             />
-          )}
-          {details == "timeline" && (
-            <Timeline
-              details={details}
-              flight={flight}
-              searchFormData={searchFormData}
-              setDetails={setDetails}
-            />
-          )}
-          {details == "fare" && (
-            <FareSummary
-              details={details}
-              flight={flight}
-              searchFormData={searchFormData}
-              setDetails={setDetails}
-            />
-          )}
+            {details == "details" && (
+              <FlightDetails
+                details={details}
+                flight={flight}
+                searchFormData={searchFormData}
+                setDetails={setDetails}
+              />
+            )}
+            {details == "timeline" && (
+              <Timeline
+                details={details}
+                flight={flight}
+                searchFormData={searchFormData}
+                setDetails={setDetails}
+              />
+            )}
+            {details == "fare" && (
+              <FareSummary
+                details={details}
+                flight={flight}
+                searchFormData={searchFormData}
+                setDetails={setDetails}
+              />
+            )}
 
-          {details == "rule" && (
-            <FareRules
-              details={details}
-              searchFormData={searchFormData}
-              flight={flight}
-              setDetails={setDetails}
-            />
-          )}
-        </div>
-      )}
+            {details == "rule" && (
+              <FareRules
+                details={details}
+                searchFormData={searchFormData}
+                flight={flight}
+                setDetails={setDetails}
+              />
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

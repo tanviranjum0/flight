@@ -51,7 +51,7 @@ const BaggageDetails = () => {
           <div className="border mx-3 p-4">
             <div className="flex">
               <img
-              src={`https://img.wway.io/pics/root/${reviewFlight.itineraries[0].segments[0].operating.carrierCode}@png?exar=1&rs=fit:400:200`}
+                src={`https://img.wway.io/pics/root/${reviewFlight.itineraries[0].segments[0].operating.carrierCode}@png?exar=1&rs=fit:400:200`}
                 // src={`https://content.airhex.com/content/logos/airlines_${reviewFlight.itineraries[0].segments[0].operating.carrierCode}_100_100_r.png`}
                 className="py-5 object-cover bg-transparent max-w-20 m-3"
               />

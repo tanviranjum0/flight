@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import BaggageButton from "./button/BaggageButton";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 import { StoreContext } from "../context/StoreContextMain";

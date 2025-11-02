@@ -1,141 +1,13 @@
 "use client";
-
-const flight = {
-  type: "flight-offer",
-  id: "7",
-  source: "GDS",
-  instantTicketingRequired: false,
-  nonHomogeneous: false,
-  oneWay: false,
-  isUpsellOffer: false,
-  lastTicketingDate: "2025-10-31",
-  lastTicketingDateTime: "2025-10-31",
-  numberOfBookableSeats: 9,
-  itineraries: [
-    {
-      duration: "PT22H15M",
-      segments: [
-        {
-          departure: {
-            iataCode: "DAC",
-            terminal: "1",
-            at: "2025-11-05T01:05:00",
-          },
-          arrival: {
-            iataCode: "HKG",
-            terminal: "1",
-            at: "2025-11-05T06:35:00",
-          },
-          carrierCode: "CX",
-          number: "662",
-          aircraft: {
-            code: "333",
-          },
-          operating: {
-            carrierCode: "CX",
-          },
-          duration: "PT3H30M",
-          id: "7",
-          numberOfStops: 0,
-          blacklistedInEU: false,
-        },
-        {
-          departure: {
-            iataCode: "HKG",
-            terminal: "1",
-            at: "2025-11-05T10:40:00",
-          },
-          arrival: {
-            iataCode: "LHR",
-            terminal: "3",
-            at: "2025-11-05T17:20:00",
-          },
-          carrierCode: "CX",
-          number: "239",
-          aircraft: {
-            code: "359",
-          },
-          operating: {
-            carrierCode: "CX",
-          },
-          duration: "PT14H40M",
-          id: "8",
-          numberOfStops: 0,
-          blacklistedInEU: false,
-        },
-      ],
-    },
-  ],
-  price: {
-    currency: "USD",
-    total: "771.80",
-    base: "526.00",
-    fees: [
-      {
-        amount: "0.00",
-        type: "SUPPLIER",
-      },
-      {
-        amount: "0.00",
-        type: "TICKETING",
-      },
-    ],
-    grandTotal: "771.80",
-  },
-  pricingOptions: {
-    fareType: ["PUBLISHED"],
-    includedCheckedBagsOnly: true,
-  },
-  validatingAirlineCodes: ["CX"],
-  travelerPricings: [
-    {
-      travelerId: "1",
-      fareOption: "STANDARD",
-      travelerType: "ADULT",
-      price: {
-        currency: "USD",
-        total: "771.80",
-        base: "526.00",
-      },
-      fareDetailsBySegment: [
-        {
-          segmentId: "7",
-          cabin: "ECONOMY",
-          fareBasis: "QK21BDAO",
-          class: "Q",
-          includedCheckedBags: {
-            quantity: 1,
-          },
-          includedCabinBags: {
-            quantity: 1,
-          },
-        },
-        {
-          segmentId: "8",
-          cabin: "ECONOMY",
-          fareBasis: "QK21BDAO",
-          class: "Q",
-          includedCheckedBags: {
-            quantity: 1,
-          },
-          includedCabinBags: {
-            quantity: 1,
-          },
-        },
-      ],
-    },
-  ],
-};
-
 import React, { useContext, useState } from "react";
 import { FcRefresh } from "react-icons/fc";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import { AiOutlineFileProtect } from "react-icons/ai";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { StoreContext } from "../context/StoreContextMain";
 import InitailLoad from "../components/InitailLoad";
 import { FiClock } from "react-icons/fi";
-const page = () => {
+const FlightTimeline = ({ flight }) => {
   const [inDepthTab, setInDepthTab] = useState(false);
   const { searchFormData, availableFlights } = useContext(StoreContext);
   console.log(availableFlights);
@@ -247,81 +119,95 @@ const page = () => {
               </div>
             </div>
           )}
+          {/* <AnimatePresence mode="wait"> */}
           {!inDepthTab && (
-            <motion.div
-              initial={{
-                height: 0,
-                opacity: 1,
-              }}
-              animate={{
-                height: "auto",
-              }}
-              transition={{
-                duration: 0.4,
-              }}
-              className="grid text-gray-700 grid-cols-12 w-[50%]"
-            >
-              <div className="col-span-2 font-semibold">
-                {" "}
-                {new Date(flight.itineraries[0].segments[0].departure.at)
-                  .toLocaleTimeString()
-                  .replace(":00", "")}{" "}
-              </div>
-              <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
-
-              <div className="col-span-9 font-bold text-sm">
-                {searchFormData.fromOrigin.iataCode}{" "}
-                {searchFormData.fromOrigin.address.cityName}{" "}
-                {searchFormData.fromOrigin.name}
-                {" T "}
-                {flight.itineraries[0].segments[0].departure.terminal}
-              </div>
-              <div className="col-span-2 p-5 font-semibold ">
-                <img
-                  src={`https://img.wway.io/pics/root/BG@png?exar=1&rs=fit:100:100`}
-                  className="object-cover bg-transparent"
-                />
-              </div>
-              <div className="border-r-4  border-dotted mr-4 col-span-1 border-gray-500"></div>
-              <div
-                onClick={() => setInDepthTab(true)}
-                className="col-span-9 my-2 cursor-pointer p-3 text-sm border"
+            <>
+              <motion.div
+                initial={{
+                  height: 0,
+                  opacity: 1,
+                }}
+                animate={{
+                  height: "auto",
+                }}
+                transition={{
+                  duration: 0.7,
+                }}
+                exit={{
+                  opacity: 0,
+                }}
+                className="grid text-gray-700 grid-cols-12 w-[50%]"
               >
-                <div className="">
-                  Transfer in {flight.itineraries[0].segments.length - 1} stops
-                  <div className="flex underline  justify-center items-center gap-2 -ml-5">
-                    <div className="text-sky-500">
-                      {" "}
-                      <AiOutlineFileProtect />{" "}
+                <div className="col-span-2 font-semibold">
+                  {" "}
+                  {new Date(flight.itineraries[0].segments[0].departure.at)
+                    .toLocaleTimeString()
+                    .replace(":00", "")}{" "}
+                </div>
+                <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
+
+                <div className="col-span-9 font-bold text-sm">
+                  {searchFormData.fromOrigin.iataCode}{" "}
+                  {searchFormData.fromOrigin.address.cityName}{" "}
+                  {searchFormData.fromOrigin.name}
+                  {" T "}
+                  {flight.itineraries[0].segments[0].departure.terminal}
+                </div>
+                <div className="col-span-2 p-5 font-semibold ">
+                  <img
+                    src={`https://img.wway.io/pics/root/BG@png?exar=1&rs=fit:100:100`}
+                    className="object-cover bg-transparent"
+                  />
+                </div>
+                <div className="border-r-4  border-dotted mr-4 col-span-1 border-gray-500"></div>
+                <div
+                  onClick={() => setInDepthTab(true)}
+                  className="col-span-9 my-2 cursor-pointer p-3 text-sm border"
+                >
+                  <div className="">
+                    Transfer in {flight.itineraries[0].segments.length - 1}{" "}
+                    stops
+                    <div className="flex underline  justify-center items-center gap-2 -ml-5">
+                      <div className="text-sky-500">
+                        {" "}
+                        <AiOutlineFileProtect />{" "}
+                      </div>
+                      No need to collect & re-check baggage
                     </div>
-                    No need to collect & re-check baggage
                   </div>
                 </div>
+                <div className="col-span-2 font-semibold ">
+                  {new Date(
+                    flight.itineraries[0].segments[
+                      flight.itineraries[0].segments.length - 1
+                    ].arrival.at
+                  )
+                    .toLocaleTimeString()
+                    .replace(":00", "")}{" "}
+                </div>
+                <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
+                <div className="col-span-9 font-bold text-sm">
+                  {searchFormData.toOrigin.iataCode}{" "}
+                  {searchFormData.toOrigin.address.cityName}{" "}
+                  {searchFormData.toOrigin.name}
+                  {" T-"}
+                  {
+                    flight.itineraries[0].segments[
+                      flight.itineraries[0].segments.length - 1
+                    ].departure.terminal
+                  }
+                </div>
+              </motion.div>
+              <div className="flex justify-end items-center gap-3 p-3 shadow-xl w-full">
+                <div className="text-xl text-sky-500 underline cursor-pointer ">{`$${flight.price.total}`}</div>
+                <div className="px-4 cursor-pointer py-3 text-xl bg-sky-700 rounded-lg text-white">
+                  Continue
+                </div>
               </div>
-              <div className="col-span-2 font-semibold ">
-                {new Date(
-                  flight.itineraries[0].segments[
-                    flight.itineraries[0].segments.length - 1
-                  ].arrival.at
-                )
-                  .toLocaleTimeString()
-                  .replace(":00", "")}{" "}
-              </div>
-              <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
-              <div className="col-span-9 font-bold text-sm">
-                {searchFormData.toOrigin.iataCode}{" "}
-                {searchFormData.toOrigin.address.cityName}{" "}
-                {searchFormData.toOrigin.name}
-                {" T-"}
-                {
-                  flight.itineraries[0].segments[
-                    flight.itineraries[0].segments.length - 1
-                  ].departure.terminal
-                }
-              </div>
-            </motion.div>
+            </>
           )}
-
+          {/* </AnimatePresence> */}
+          {/* <AnimatePresence mode="wait"> */}
           {inDepthTab && (
             <motion.div
               initial={{
@@ -333,6 +219,9 @@ const page = () => {
               }}
               transition={{
                 duration: 0.7,
+              }}
+              exit={{
+                opacity: 0,
               }}
               onClick={() => setInDepthTab(false)}
             >
@@ -476,18 +365,19 @@ const page = () => {
                     </div>
                   );
                 })}
+              <div className="flex justify-end items-center gap-3 p-3 shadow-xl w-full">
+                <div className="text-xl text-sky-500 underline cursor-pointer ">{`$${flight.price.total}`}</div>
+                <div className="px-4 cursor-pointer py-3 text-xl bg-sky-700 rounded-lg text-white">
+                  Continue
+                </div>
+              </div>
             </motion.div>
           )}
-        </div>
-        <div className="flex justify-end items-center gap-3 p-3 shadow-xl w-full">
-          <div className="text-xl text-sky-500 underline cursor-pointer ">{`$${flight.price.total}`}</div>
-          <div className="px-4 cursor-pointer py-3 text-xl bg-sky-700 rounded-lg text-white">
-            Continue
-          </div>
+          {/* </AnimatePresence> */}
         </div>
       </div>
     </div>
   );
 };
 
-export default page;
+export default FlightTimeline;
