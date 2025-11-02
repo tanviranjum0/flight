@@ -482,7 +482,7 @@ const page = () => {
         <div className="flex justify-end items-center gap-3 p-3 shadow-xl w-full">
           <div className="text-xl text-sky-500 underline cursor-pointer ">{`$${flight.price.total}`}</div>
           <div className="px-4 cursor-pointer py-3 text-xl bg-sky-700 rounded-lg text-white">
-            Continue
+            {/* Continue */}
           </div>
         </div>
       </div>
