@@ -177,7 +177,7 @@ const HomeSearch = ({ modify }) => {
                 value={flightDepartureDates}
                 asSingle={!returnTrue}
                 onChange={(newValue) => {
-                  console.log(newValue);
+                  // console.log(newValue);
                   setFlightDepartureDates(newValue);
                   let d = new Date(newValue.startDate);
                   let day = days[d.getDay()];

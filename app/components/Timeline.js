@@ -13,7 +13,7 @@ const FlightTimeline = ({ flight }) => {
   const { searchFormData, availableFlights, handleBookNowClick } =
     useContext(StoreContext);
 
-  console.log(availableFlights);
+  // console.log(availableFlights);
 
   return (
     <div className="mt-5 flex w-full justify-center items-center">
@@ -247,7 +247,7 @@ const FlightTimeline = ({ flight }) => {
             >
               {flight.itineraries[0].segments.length > 1 &&
                 flight.itineraries[0].segments.map((segment, i) => {
-                  console.log(i);
+                  // console.log(i);
                   return (
                     <div
                       key={`${i}-${flight.itineraries[0].segments[i].arrival.at}`}

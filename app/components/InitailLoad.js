@@ -20,11 +20,11 @@ const InitailLoad = ({ page }) => {
       endDate: InitialDate,
     });
     if (page == "review") {
-      console.log("seting from localstorage");
+      // console.log("seting from localstorage");
       setReviewFlight(JSON.parse(localStorage.getItem("reviewFlight")));
     }
 
-    console.log(JSON.parse(localStorage.getItem("olderOrigins")));
+    // console.log(JSON.parse(localStorage.getItem("olderOrigins")));
 
     if (JSON.parse(localStorage.getItem("olderOrigins")) != null) {
       setSearchFormData(JSON.parse(localStorage.getItem("olderOrigins")));
@@ -49,7 +49,7 @@ const InitailLoad = ({ page }) => {
           }
         );
         const AuthorizedJSON = await data.json();
-        console.log(AuthorizedJSON);
+        // console.log(AuthorizedJSON);
         localStorage.setItem("access_token_created_at", Date.now());
         localStorage.setItem("access_token", AuthorizedJSON.access_token);
       }

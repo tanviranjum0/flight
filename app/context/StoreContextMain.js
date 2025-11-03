@@ -210,10 +210,10 @@ const StoreContextMain = ({ children }) => {
   const handleBookNowClick = (flight, airlineName) => {
     flight.airlineName = airlineName;
     localStorage.setItem("reviewFlight", JSON.stringify(flight));
-    console.log(
-      "Consoling Context",
-      JSON.parse(localStorage.getItem("reviewFlight"))
-    );
+    // console.log(
+    //   "Consoling Context",
+    //   JSON.parse(localStorage.getItem("reviewFlight"))
+    // );
     router.push("/review");
   };
 
@@ -222,7 +222,7 @@ const StoreContextMain = ({ children }) => {
     router.push("/search");
     setAvailableFlights(null);
     let url = new URLSearchParams();
-    console.log("Dates", flightDepartureDates);
+    // console.log("Dates", flightDepartureDates);
     if (returnTrue) {
       if (flightDepartureDates.endDate != null) {
         url.set(
@@ -257,7 +257,7 @@ const StoreContextMain = ({ children }) => {
       alert("No flights found");
     }
     localStorage.setItem("flights", JSON.stringify(result));
-    console.log("Flights", JSON.parse(localStorage.getItem("flights")));
+    // console.log("Flights", JSON.parse(localStorage.getItem("flights")));
     setAvailableFlights(result);
     document.getElementById("AllFlightsShowSection")?.scrollIntoView({
       behavior: "smooth",
@@ -353,7 +353,7 @@ const StoreContextMain = ({ children }) => {
       fromInput: false,
       toInput: true,
     });
-    console.log(searchFormData);
+    // console.log(searchFormData);
   };
 
   const getAirportDetails = async (iata) => {
