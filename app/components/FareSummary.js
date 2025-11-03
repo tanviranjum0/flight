@@ -1,11 +1,9 @@
 "use client";
 import { motion } from "motion/react";
 
-import FlightDetailsTab from "./molecule/FlightDetailsTab";
-const FareSummary = ({ details, setDetails, flight, searchFormData }) => {
+const FareSummary = ({ flight }) => {
   return (
     <div className="relative mt-5 overflow-hidden shadow-md sm:rounded-lg">
-     
       <motion.table
         key={"mainfaresummarymotion"}
         initial={{ filter: "blur(10px)", scaleY: 0 }}
@@ -40,18 +38,18 @@ const FareSummary = ({ details, setDetails, flight, searchFormData }) => {
               Adult
             </th>
             <td className="px-6 py-4">
-              {flight.price.currency} {flight.price.base}
+              {flight?.price?.currency} {flight?.price?.base}
             </td>
             <td className="px-6 py-4">
-              {flight.price.currency}{" "}
-              {Math.round(flight.price.total - flight.price.base)}
+              {flight?.price?.currency}{" "}
+              {Math.round(flight?.price?.total - flight?.price?.base)}
             </td>
             <td className="px-6 py-4">
-              {flight.price.currency} ({flight.price.total}x1)
+              {flight?.price?.currency} ({flight?.price?.total}x1)
             </td>
             <td className="px-6 py-4 text-right">
               {" "}
-              {flight.price.currency} {flight.price.total}
+              {flight?.price?.currency} {flight?.price?.total}
             </td>
           </tr>
           <tr className="bg-white border-b  hover:bg-gray-50">
@@ -64,7 +62,7 @@ const FareSummary = ({ details, setDetails, flight, searchFormData }) => {
             </th>
 
             <td colSpan={2} className="px-6 py-4 text-sky-800  text-right">
-              Total : {flight.price.currency} {flight.price.total}
+              Total : {flight?.price?.currency} {flight?.price?.total}
             </td>
           </tr>
         </tbody>

@@ -19,9 +19,9 @@ const FlightTimeline = ({ flight }) => {
       <div className="rounded bg-white w-full border-2">
         <div className="p-5 shadow-lg">
           <div className="text-xl flex gap-4 font-semibold items-center">
-            {searchFormData.fromOrigin.address.cityName}{" "}
+            {searchFormData?.fromOrigin?.address.cityName}{" "}
             <HiOutlineArrowNarrowRight />
-            {searchFormData.toOrigin.address.cityName}
+            {searchFormData?.toOrigin?.address.cityName}
           </div>
           <div className="flex my-3 gap-3 items-center text-sm">
             <div className="py-1 px-1.5 rounded bg-gray-800 text-white">
@@ -72,9 +72,9 @@ const FlightTimeline = ({ flight }) => {
               <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
 
               <div className="col-span-9 font-bold text-sm">
-                {searchFormData.fromOrigin.iataCode}{" "}
-                {searchFormData.fromOrigin.address.cityName}{" "}
-                {searchFormData.fromOrigin.name}
+                {searchFormData?.fromOrigin?.iataCode}{" "}
+                {searchFormData?.fromOrigin?.address.cityName}{" "}
+                {searchFormData?.fromOrigin?.name}
                 {" T-"}
                 {flight.itineraries[0].segments[0].departure.terminal}
               </div>
@@ -109,9 +109,9 @@ const FlightTimeline = ({ flight }) => {
               </div>
               <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
               <div className="col-span-9 font-bold text-sm">
-                {searchFormData.toOrigin.iataCode}{" "}
-                {searchFormData.toOrigin.address.cityName}{" "}
-                {searchFormData.toOrigin.name}
+                {searchFormData?.toOrigin?.iataCode}{" "}
+                {searchFormData?.toOrigin?.address.cityName}{" "}
+                {searchFormData?.toOrigin?.name}
                 {" T-"}
                 {
                   flight.itineraries[0].segments[
@@ -144,9 +144,9 @@ const FlightTimeline = ({ flight }) => {
                 <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
 
                 <div className="col-span-9 font-bold text-sm">
-                  {searchFormData.fromOrigin.iataCode}{" "}
-                  {searchFormData.fromOrigin.address.cityName}{" "}
-                  {searchFormData.fromOrigin.name}
+                  {searchFormData?.fromOrigin?.iataCode}{" "}
+                  {searchFormData?.fromOrigin?.address.cityName}{" "}
+                  {searchFormData?.fromOrigin?.name}
                   {" T-"}
                   {flight.itineraries[0].segments[0].departure.terminal}
                 </div>
@@ -183,9 +183,9 @@ const FlightTimeline = ({ flight }) => {
                 </div>
                 <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
                 <div className="col-span-9 font-bold text-sm">
-                  {searchFormData.toOrigin.iataCode}{" "}
-                  {searchFormData.toOrigin.address.cityName}{" "}
-                  {searchFormData.toOrigin.name}
+                  {searchFormData?.toOrigin?.iataCode}{" "}
+                  {searchFormData?.toOrigin?.address.cityName}{" "}
+                  {searchFormData?.toOrigin?.name}
                   {" T-"}
                   {
                     flight.itineraries[0].segments[
@@ -246,8 +246,8 @@ const FlightTimeline = ({ flight }) => {
                           <>
                             {" "}
                             {segment.departure.iataCode}{" "}
-                            {searchFormData.fromOrigin.address.cityName}{" "}
-                            {searchFormData.fromOrigin.name}
+                            {searchFormData?.fromOrigin?.address.cityName}{" "}
+                            {searchFormData?.fromOrigin?.name}
                             {" T-"}
                             {segment.departure.terminal}
                           </>
@@ -308,8 +308,8 @@ const FlightTimeline = ({ flight }) => {
                         {i == flight.itineraries[0].segments.length - 1 && (
                           <>
                             {segment.arrival.iataCode}{" "}
-                            {searchFormData.toOrigin.address.cityName}{" "}
-                            {searchFormData.toOrigin.name}
+                            {searchFormData?.toOrigin?.address.cityName}{" "}
+                            {searchFormData?.toOrigin?.name}
                             {" T-"}
                             {segment.arrival.terminal}
                           </>

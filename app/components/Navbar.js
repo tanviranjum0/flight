@@ -1,5 +1,4 @@
 import Image from "next/image";
-// import { motion } from "framer-motion";
 import logo from "../../public/logo2.png";
 import Link from "next/link";
 const Navbar = () => {

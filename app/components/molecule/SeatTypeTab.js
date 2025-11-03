@@ -10,8 +10,7 @@ const tabs = [
 
 const duration = 0.3;
 
-export default function FlightDetailsTab({ cabinType, setCabinType }) {
-  // console.log(cabinType);
+export default function FlightDetailsTab({ setCabinType }) {
   const [selected, setSelected] = useState(0);
   const [formerColor, setFormerColor] = useState(tabs[0].color);
 
@@ -33,7 +32,7 @@ export default function FlightDetailsTab({ cabinType, setCabinType }) {
           <span className="relative z-10">{name}</span>
           {i === selected && (
             <motion.div
-              className="w-full h-full rounded-lg w-full absolute top-0 left-0"
+              className="w-full h-full rounded-lg absolute top-0 left-0"
               layoutId="SeatTypeSelected"
               initial={{ backgroundColor: formerColor }}
               animate={{ backgroundColor: color }}

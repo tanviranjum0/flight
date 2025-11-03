@@ -6,9 +6,9 @@ const FlightDetails = ({ searchFormData, flight }) => {
     <div>
       <div className="p-5 shadow-md">
         <div className="border bg-sky-50  sm:text-lg px-3 py-1">
-          {searchFormData.fromOrigin.address.cityName} to{" "}
-          {searchFormData.toOrigin.address.cityName},{" "}
-          {new Date(flight.itineraries[0].segments[0].departure.at)
+          {searchFormData?.fromOrigin?.address?.cityName} to{" "}
+          {searchFormData?.toOrigin?.address?.cityName},{" "}
+          {new Date(flight?.itineraries[0]?.segments[0]?.departure?.at)
             .toUTCString()
             .slice(0, 17)}
         </div>
@@ -20,28 +20,28 @@ const FlightDetails = ({ searchFormData, flight }) => {
           <div className="hidden sm:flex px-14 py-5">
             <img
               className="py-5 h-32 mx-5"
-              src={`https://img.wway.io/pics/root/${flight.itineraries[0].segments[0].operating.carrierCode}@png?exar=1&rs=fit:400:200`}
+              src={`https://img.wway.io/pics/root/${flight?.itineraries[0]?.segments[0]?.operating?.carrierCode}@png?exar=1&rs=fit:400:200`}
               alt="flight-logo"
             />
             <div className="grid">
               <div className="text-lg">
-                <span className="font-bold">{flight.airlineName}</span>{" "}
-                {flight.itineraries[0].segments[0].carrierCode} |{" "}
-                {flight.itineraries[0].segments[0].aircraft.code}
+                <span className="font-bold">{flight?.airlineName}</span>{" "}
+                {flight?.itineraries[0]?.segments[0]?.carrierCode} |{" "}
+                {flight?.itineraries[0]?.segments[0]?.aircraft?.code}
               </div>
               <div className="">
-                Aircraft : {flight.itineraries[0].segments[0].aircraft.code}
+                Aircraft : {flight?.itineraries[0]?.segments[0]?.aircraft.code}
               </div>
               <div className="">
-                Operated by : {flight.itineraries[0].segments[0].carrierCode}
+                Operated by : {flight?.itineraries[0]?.segments[0]?.carrierCode}
               </div>
               <div className="">
                 Cabin :{" "}
-                {flight.travelerPricings[0].fareDetailsBySegment[0].cabin} (
-                {flight.travelerPricings[0].fareDetailsBySegment[0].class})
+                {flight?.travelerPricings[0]?.fareDetailsBySegment[0]?.cabin} (
+                {flight?.travelerPricings[0]?.fareDetailsBySegment[0]?.class})
               </div>
               <div className="">
-                Available seats: {flight.numberOfBookableSeats}
+                Available seats: {flight?.numberOfBookableSeats}
               </div>
             </div>
           </div>
@@ -49,50 +49,50 @@ const FlightDetails = ({ searchFormData, flight }) => {
             <div>
               <div className="text-lg">
                 {new Date(
-                  flight.itineraries[0].segments[0].departure.at
+                  flight?.itineraries[0]?.segments[0]?.departure?.at
                 ).toLocaleTimeString()}{" "}
                 <span className="text-sm">(local)</span>
               </div>
               <div className="text-sm">
-                {new Date(flight.itineraries[0].segments[0].departure.at)
+                {new Date(flight?.itineraries[0]?.segments[0]?.departure?.at)
                   .toUTCString()
                   .slice(0, 17)}
               </div>
               <div className="">
-                ({flight.itineraries[0].segments[0].departure.iataCode})
+                ({flight?.itineraries[0]?.segments[0]?.departure?.iataCode})
               </div>
               <div className="text-sm">
                 Terminal -{" "}
-                {flight.itineraries[0].segments[0].departure.terminal}
+                {flight?.itineraries[0]?.segments[0]?.departure?.terminal}
               </div>
-              <div className="text-sm">{searchFormData.fromOrigin.name}</div>
+              <div className="text-sm">{searchFormData?.fromOrigin?.name}</div>
               <div className="text-xs pt-2">
-                {searchFormData.fromOrigin.address.cityName},
-                {searchFormData.fromOrigin.address.countryName}
+                {searchFormData?.fromOrigin?.address?.cityName},
+                {searchFormData?.fromOrigin?.address?.countryName}
               </div>
             </div>
             <div>
               <div className="text-sm">
                 {Math.floor(
                   (new Date(
-                    flight.itineraries[0].segments[
+                    flight?.itineraries[0]?.segments[
                       flight.itineraries[0].segments.length - 1
-                    ].arrival.at
+                    ]?.arrival.at
                   ).getTime() -
                     new Date(
-                      flight.itineraries[0].segments[0].departure.at
+                      flight?.itineraries[0]?.segments[0]?.departure?.at
                     ).getTime()) /
                     60000 /
                     60
                 )}{" "}
                 hours{" "}
                 {((new Date(
-                  flight.itineraries[0].segments[
-                    flight.itineraries[0].segments.length - 1
-                  ].arrival.at
+                  flight?.itineraries[0]?.segments[
+                    flight?.itineraries[0]?.segments?.length - 1
+                  ]?.arrival?.at
                 ).getTime() -
                   new Date(
-                    flight.itineraries[0].segments[0].departure.at
+                    flight?.itineraries[0]?.segments[0]?.departure?.at
                   ).getTime()) /
                   60000) %
                   60}{" "}
@@ -105,17 +105,17 @@ const FlightDetails = ({ searchFormData, flight }) => {
             <div>
               <div className="text-lg">
                 {new Date(
-                  flight.itineraries[0].segments[
-                    flight.itineraries[0].segments.length - 1
-                  ].arrival.at
+                  flight?.itineraries[0]?.segments[
+                    flight?.itineraries[0]?.segments?.length - 1
+                  ]?.arrival?.at
                 ).toLocaleTimeString()}{" "}
                 <span className="text-sm">(local)</span>
               </div>
               <div className="text-sm">
                 {new Date(
-                  flight.itineraries[0].segments[
-                    flight.itineraries[0].segments.length - 1
-                  ].arrival.at
+                  flight?.itineraries[0]?.segments[
+                    flight?.itineraries[0]?.segments?.length - 1
+                  ]?.arrival?.at
                 )
                   .toUTCString()
                   .slice(0, 17)}
@@ -123,25 +123,25 @@ const FlightDetails = ({ searchFormData, flight }) => {
               <div className="">
                 (
                 {
-                  flight.itineraries[0].segments[
-                    flight.itineraries[0].segments.length - 1
-                  ].arrival.iataCode
+                  flight?.itineraries[0]?.segments[
+                    flight?.itineraries[0]?.segments?.length - 1
+                  ]?.arrival?.iataCode
                 }
                 )
               </div>
               <div className="text-sm">
                 Terminal -{" "}
                 {
-                  flight.itineraries[0].segments[
-                    flight.itineraries[0].segments.length - 1
-                  ].arrival.terminal
+                  flight?.itineraries[0]?.segments[
+                    flight?.itineraries[0]?.segments?.length - 1
+                  ]?.arrival?.terminal
                 }
               </div>
-              <div className="text-sm">{searchFormData.toOrigin.name}</div>
+              <div className="text-sm">{searchFormData?.toOrigin?.name}</div>
               <div className="text-xs pt-2">
                 {" "}
-                {searchFormData.toOrigin.address.cityName},
-                {searchFormData.toOrigin.address.countryName}
+                {searchFormData?.toOrigin?.address?.cityName},
+                {searchFormData?.toOrigin?.address?.countryName}
               </div>
             </div>
             <div className="">
@@ -150,13 +150,7 @@ const FlightDetails = ({ searchFormData, flight }) => {
             </div>
             <div className="">
               <div className="font-semi-bold text-xl">Check In </div>
-              <div className="text-sm">
-                {/* {
-                  flight.travelerPricings[0].fareDetailsBySegment[0]
-                    .amenities[0].description
-                } */}
-                {/* Hello */}1
-              </div>
+              <div className="text-sm">1</div>
             </div>
             <div className="">
               <div className="font-semi-bold text-xl">Cabin</div>

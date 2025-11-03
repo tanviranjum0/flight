@@ -37,35 +37,38 @@ const BaggageDetails = () => {
           </div>
 
           <div className="text-lg py-3 px-4">
-            {searchFormData.fromOrigin.name} (
-            {reviewFlight.itineraries[0].segments[0].departure.iataCode}) to{" "}
-            {searchFormData.toOrigin.name} (
-            {reviewFlight.itineraries[0].segments[0].arrival.iataCode}),
+            {searchFormData?.fromOrigin?.name} (
+            {reviewFlight?.itineraries[0]?.segments[0]?.departure?.iataCode}) to{" "}
+            {searchFormData?.toOrigin?.name} (
+            {reviewFlight?.itineraries[0]?.segments[0]?.arrival?.iataCode}),
           </div>
           <div className="text-lg  px-4">
             {" "}
-            {new Date(reviewFlight.itineraries[0].segments[0].departure.at)
+            {new Date(reviewFlight?.itineraries[0]?.segments[0]?.departure?.at)
               .toUTCString()
               .slice(0, 17)}
           </div>
           <div className="border mx-3 p-4">
             <div className="flex">
               <img
-                src={`https://img.wway.io/pics/root/${reviewFlight.itineraries[0].segments[0].operating.carrierCode}@png?exar=1&rs=fit:400:200`}
+                src={`https://img.wway.io/pics/root/${reviewFlight?.itineraries[0]?.segments[0]?.operating?.carrierCode}@png?exar=1&rs=fit:400:200`}
                 className="py-5 object-cover bg-transparent max-w-20 m-3"
               />
               <div>
-                <div className="text-xs pb-3">{reviewFlight.airlineName}</div>
+                <div className="text-xs pb-3">{reviewFlight?.airlineName}</div>
                 <div className="text-md">
                   {" "}
-                  {reviewFlight.itineraries[0].segments[0].carrierCode} |{" "}
-                  {reviewFlight.itineraries[0].segments[0].aircraft.code}
+                  {
+                    reviewFlight?.itineraries[0]?.segments[0]?.carrierCode
+                  } | {reviewFlight?.itineraries[0]?.segments[0]?.aircraft.code}
                 </div>
                 <div className="text-sm font-semibold">
                   {" "}
                   Aircraft :{" "}
-                  {reviewFlight.itineraries[0].segments[0].aircraft.code}{" "}
-                  Operated by : {reviewFlight.airlineName}
+                  {
+                    reviewFlight?.itineraries[0]?.segments[0]?.aircraft?.code
+                  }{" "}
+                  Operated by : {reviewFlight?.airlineName}
                 </div>
               </div>
             </div>
@@ -78,27 +81,27 @@ const BaggageDetails = () => {
             <div className="text-center">
               <div className="text-md py-3">Check In</div>
               <div className="text-sm">
-                {(reviewFlight.travelerPricings[0].fareDetailsBySegment[0]
-                  .includedCheckedBags.quantity !=
+                {(reviewFlight?.travelerPricings[0]?.fareDetailsBySegment[0]
+                  ?.includedCheckedBags.quantity !=
                   null) |
-                  (reviewFlight.travelerPricings[0].fareDetailsBySegment[0]
-                    .includedCheckedBags.quantity !=
+                  (reviewFlight?.travelerPricings[0]?.fareDetailsBySegment[0]
+                    ?.includedCheckedBags.quantity !=
                     undefined) &&
-                  reviewFlight.travelerPricings[0].fareDetailsBySegment[0]
-                    .includedCheckedBags.quantity}
+                  reviewFlight?.travelerPricings[0]?.fareDetailsBySegment[0]
+                    ?.includedCheckedBags.quantity}
               </div>
             </div>
             <div className="text-center">
               <div className="text-md py-3">Cabin</div>
               <div className="text-sm">
-                {(reviewFlight.travelerPricings[0].fareDetailsBySegment[0]
-                  .includedCabinBags.quantity !=
+                {(reviewFlight?.travelerPricings[0]?.fareDetailsBySegment[0]
+                  ?.includedCabinBags?.quantity !=
                   null) |
-                  (reviewFlight.travelerPricings[0].fareDetailsBySegment[0]
-                    .includedCabinBags.quantity !=
+                  (reviewFlight?.travelerPricings[0]?.fareDetailsBySegment[0]
+                    ?.includedCabinBags?.quantity !=
                     undefined) &&
-                  reviewFlight.travelerPricings[0].fareDetailsBySegment[0]
-                    .includedCabinBags.quantity}
+                  reviewFlight?.travelerPricings[0]?.fareDetailsBySegment[0]
+                    ?.includedCabinBags?.quantity}
               </div>
             </div>
           </div>

@@ -107,9 +107,9 @@ const HomeSearch = ({ modify }) => {
               </div>
 
               <div className="text-xs opacity-80 ">
-                {searchFormData?.fromOrigin.address.cityName},
+                {searchFormData?.fromOrigin?.address?.cityName},
                 <span className="text-xs">
-                  {searchFormData?.fromOrigin.address.countryName}
+                  {searchFormData?.fromOrigin?.address?.countryName}
                 </span>
               </div>
             </div>
@@ -139,16 +139,16 @@ const HomeSearch = ({ modify }) => {
                 {searchFormData?.toOrigin?.name}
               </div>
               <div className="text-xs opacity-80 ">
-                {searchFormData?.toOrigin.address.cityName},
+                {searchFormData?.toOrigin?.address?.cityName},
                 <span className="text-xs">
-                  {searchFormData?.toOrigin.address.countryName}
+                  {searchFormData?.toOrigin?.address?.countryName}
                 </span>
               </div>
             </div>
             <div
               key={"departuredate"}
               className={`p-3 cursor-pointer ${
-                query.departureDateInput && "bg-sky-100"
+                query?.departureDateInput && "bg-sky-100"
               } border rounded w-full`}
               onClick={() =>
                 setQuery({
@@ -184,13 +184,13 @@ const HomeSearch = ({ modify }) => {
                   setDates({ ...dates, departureDay: day });
                 }}
               />
-              <div className="text-sm opacity-80 ">{dates.departureDay}</div>
+              <div className="text-sm opacity-80 ">{dates?.departureDay}</div>
             </div>
 
             <div
               key={"travellernumber"}
               className={`p-3 cursor-pointer ${
-                query.travellersCount && "bg-sky-100"
+                query?.travellersCount && "bg-sky-100"
               } border rounded w-full`}
               onClick={() =>
                 setQuery({
