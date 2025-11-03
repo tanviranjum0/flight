@@ -103,7 +103,7 @@ const HomeSearch = ({ modify }) => {
             >
               <div className="text-sm opacity-80 ">From</div>
               <div type="text" className="text-sm w-full">
-                {searchFormData?.fromOrigin.name}
+                {searchFormData?.fromOrigin?.name}
               </div>
 
               <div className="text-xs opacity-80 ">
@@ -136,7 +136,7 @@ const HomeSearch = ({ modify }) => {
               <div className="text-sm opacity-80 ">To</div>
 
               <div type="text" className="text-sm  w-full">
-                {searchFormData?.toOrigin.name}
+                {searchFormData?.toOrigin?.name}
               </div>
               <div className="text-xs opacity-80 ">
                 {searchFormData?.toOrigin.address.cityName},
