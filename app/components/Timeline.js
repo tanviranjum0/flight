@@ -10,12 +10,13 @@ import { FiClock } from "react-icons/fi";
 
 const FlightTimeline = ({ flight }) => {
   const [inDepthTab, setInDepthTab] = useState(false);
-  const { searchFormData, availableFlights } = useContext(StoreContext);
+  const { searchFormData, availableFlights, handleBookNowClick } =
+    useContext(StoreContext);
   console.log(availableFlights);
   return (
     <div className="mt-5 flex w-full justify-center items-center">
       <InitailLoad page={"demo"} />
-      <div className="w-[65vw]   rounded bg-white border-2">
+      <div className="rounded bg-white w-full border-2">
         <div className="p-5 shadow-lg">
           <div className="text-xl flex gap-4 font-semibold items-center">
             {searchFormData.fromOrigin.address.cityName}{" "}
@@ -74,12 +75,12 @@ const FlightTimeline = ({ flight }) => {
                 {searchFormData.fromOrigin.iataCode}{" "}
                 {searchFormData.fromOrigin.address.cityName}{" "}
                 {searchFormData.fromOrigin.name}
-                {" T "}
+                {" T-"}
                 {flight.itineraries[0].segments[0].departure.terminal}
               </div>
               <div className="col-span-2 p-5 font-semibold ">
                 <img
-                  src={`https://img.wway.io/pics/root/BG@png?exar=1&rs=fit:100:100`}
+                  src={`https://img.wway.io/pics/root/${flight.itineraries[0].segments[0].carrierCode}@png?exar=1&rs=fit:100:100`}
                   className="object-cover bg-transparent"
                 />
               </div>
@@ -146,27 +147,26 @@ const FlightTimeline = ({ flight }) => {
                   {searchFormData.fromOrigin.iataCode}{" "}
                   {searchFormData.fromOrigin.address.cityName}{" "}
                   {searchFormData.fromOrigin.name}
-                  {" T "}
+                  {" T-"}
                   {flight.itineraries[0].segments[0].departure.terminal}
                 </div>
                 <div className="col-span-2 p-5 font-semibold ">
                   <img
-                    src={`https://img.wway.io/pics/root/BG@png?exar=1&rs=fit:100:100`}
+                    src={`https://img.wway.io/pics/root/${flight.itineraries[0].segments[0].carrierCode}@png?exar=1&rs=fit:100:100`}
                     className="object-cover bg-transparent"
                   />
                 </div>
-                <div className="border-r-4  border-dotted mr-4 col-span-1 border-gray-500"></div>
+                <div className="border-r-4 border-dotted mr-4 col-span-1 border-gray-500"></div>
                 <div
                   onClick={() => setInDepthTab(true)}
-                  className="col-span-9 my-2 cursor-pointer p-3 text-sm border"
+                  className="col-span-9 my-2 cursor-pointer flex items-center text-sm "
                 >
-                  <div className="">
+                  <div className="border p-3 ">
                     Transfer in {flight.itineraries[0].segments.length - 1}{" "}
                     stops
-                    <div className="flex underline  justify-center items-center gap-2 -ml-5">
+                    <div className="flex underline items-center gap-2">
                       <div className="text-sky-500">
-                        {" "}
-                        <AiOutlineFileProtect />{" "}
+                        <AiOutlineFileProtect />
                       </div>
                       No need to collect & re-check baggage
                     </div>
@@ -196,7 +196,17 @@ const FlightTimeline = ({ flight }) => {
               </motion.div>
               <div className="flex justify-end items-center gap-3 p-3 shadow-xl w-full">
                 <div className="text-xl text-sky-500 underline cursor-pointer ">{`$${flight.price.total}`}</div>
-                <div className="px-4 cursor-pointer py-3 text-xl bg-sky-700 rounded-lg text-white">
+                <div
+                  onClick={() => {
+                    return handleBookNowClick(
+                      flight,
+                      availableFlights?.dictionaries?.carriers[
+                        flight?.itineraries[0]?.segments[0]?.carrierCode
+                      ]
+                    );
+                  }}
+                  className="px-4 cursor-pointer py-3 text-xl bg-sky-700 rounded-lg text-white"
+                >
                   Continue
                 </div>
               </div>
@@ -246,7 +256,7 @@ const FlightTimeline = ({ flight }) => {
                       </div>
                       <div className="col-span-2 font-semibold ">
                         <img
-                          src={`https://img.wway.io/pics/root/BG@png?exar=1&rs=fit:100:100`}
+                          src={`https://img.wway.io/pics/root/${flight.itineraries[0].segments[0].carrierCode}@png?exar=1&rs=fit:100:100`}
                           className="object-cover bg-transparent"
                         />
                       </div>
@@ -315,7 +325,7 @@ const FlightTimeline = ({ flight }) => {
                           <div className="col-span-1 rotate-90 text-black h-full flex items-center justify-center border-gray-500">
                             <FcRefresh />
                           </div>
-                          <div className="col-span-9 cursor-pointer p-3 text-sm border">
+                          <div className="col-span-9 my-2 cursor-pointer p-3 text-sm border">
                             <div className="py-1">
                               Transfer in {segment.arrival.iataCode}{" "}
                               {Math.floor(
@@ -343,7 +353,7 @@ const FlightTimeline = ({ flight }) => {
                                 60}
                               m
                             </div>
-                            <div className="flex underline  justify-center items-center gap-2 -ml-5">
+                            <div className="flex underline items-center gap-2">
                               <div className="text-sky-500">
                                 {" "}
                                 <AiOutlineFileProtect />{" "}
@@ -358,7 +368,17 @@ const FlightTimeline = ({ flight }) => {
                 })}
               <div className="flex justify-end items-center gap-3 p-3 shadow-xl w-full">
                 <div className="text-xl text-sky-500 underline cursor-pointer ">{`$${flight.price.total}`}</div>
-                <div className="px-4 cursor-pointer py-3 text-xl bg-sky-700 rounded-lg text-white">
+                <div
+                  onClick={() => {
+                    return handleBookNowClick(
+                      flight,
+                      availableFlights?.dictionaries?.carriers[
+                        flight?.itineraries[0]?.segments[0]?.carrierCode
+                      ]
+                    );
+                  }}
+                  className="px-4 cursor-pointer py-3 text-xl bg-sky-700 rounded-lg text-white"
+                >
                   Continue
                 </div>
               </div>

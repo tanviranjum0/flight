@@ -52,7 +52,6 @@ const BaggageDetails = () => {
             <div className="flex">
               <img
                 src={`https://img.wway.io/pics/root/${reviewFlight.itineraries[0].segments[0].operating.carrierCode}@png?exar=1&rs=fit:400:200`}
-                // src={`https://content.airhex.com/content/logos/airlines_${reviewFlight.itineraries[0].segments[0].operating.carrierCode}_100_100_r.png`}
                 className="py-5 object-cover bg-transparent max-w-20 m-3"
               />
               <div>
@@ -78,11 +77,29 @@ const BaggageDetails = () => {
             </div>
             <div className="text-center">
               <div className="text-md py-3">Check In</div>
-              <div className="text-sm">20kg(s)</div>
+              <div className="text-sm">
+                {(reviewFlight.travelerPricings[0].fareDetailsBySegment[0]
+                  .includedCheckedBags.quantity !=
+                  null) |
+                  (reviewFlight.travelerPricings[0].fareDetailsBySegment[0]
+                    .includedCheckedBags.quantity !=
+                    undefined) &&
+                  reviewFlight.travelerPricings[0].fareDetailsBySegment[0]
+                    .includedCheckedBags.quantity}
+              </div>
             </div>
             <div className="text-center">
               <div className="text-md py-3">Cabin</div>
-              <div className="text-sm">7kg(s)</div>
+              <div className="text-sm">
+                {(reviewFlight.travelerPricings[0].fareDetailsBySegment[0]
+                  .includedCabinBags.quantity !=
+                  null) |
+                  (reviewFlight.travelerPricings[0].fareDetailsBySegment[0]
+                    .includedCabinBags.quantity !=
+                    undefined) &&
+                  reviewFlight.travelerPricings[0].fareDetailsBySegment[0]
+                    .includedCabinBags.quantity}
+              </div>
             </div>
           </div>
         </div>

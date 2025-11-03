@@ -254,6 +254,9 @@ const StoreContextMain = ({ children }) => {
       }
     );
     const result = await data.json();
+    if (result.data.length == 0) {
+      alert("No flights found");
+    }
     localStorage.setItem("flights", JSON.stringify(result));
     console.log("Flights", JSON.parse(localStorage.getItem("flights")));
     setAvailableFlights(result);
