@@ -12,7 +12,9 @@ const FlightTimeline = ({ flight }) => {
   const [inDepthTab, setInDepthTab] = useState(false);
   const { searchFormData, availableFlights, handleBookNowClick } =
     useContext(StoreContext);
+
   console.log(availableFlights);
+
   return (
     <div className="mt-5 flex w-full justify-center items-center">
       <InitailLoad page={"demo"} />
@@ -121,7 +123,6 @@ const FlightTimeline = ({ flight }) => {
               </div>
             </div>
           )}
-          {/* <AnimatePresence mode="wait"> */}
           {!inDepthTab && (
             <>
               <motion.div
@@ -212,8 +213,7 @@ const FlightTimeline = ({ flight }) => {
               </div>
             </>
           )}
-          {/* </AnimatePresence> */}
-          {/* <AnimatePresence mode="wait"> */}
+
           {inDepthTab && (
             <motion.div
               key={"inDetailFlightinfo"}
@@ -236,7 +236,7 @@ const FlightTimeline = ({ flight }) => {
                     >
                       <div className="col-span-2 font-semibold">
                         {" "}
-                        {new Date(segment.departure.at)
+                        {new Date(segment?.departure?.at)
                           .toLocaleTimeString()
                           .replace(":00", "")}{" "}
                       </div>
@@ -245,18 +245,18 @@ const FlightTimeline = ({ flight }) => {
                         {i == 0 && (
                           <>
                             {" "}
-                            {segment.departure.iataCode}{" "}
-                            {searchFormData?.fromOrigin?.address.cityName}{" "}
+                            {segment?.departure?.iataCode}{" "}
+                            {searchFormData?.fromOrigin?.address?.cityName}{" "}
                             {searchFormData?.fromOrigin?.name}
                             {" T-"}
-                            {segment.departure.terminal}
+                            {segment?.departure?.terminal}
                           </>
                         )}
-                        {i > 0 && <> Leave {segment.departure.iataCode}</>}
+                        {i > 0 && <> Leave {segment?.departure?.iataCode}</>}
                       </div>
                       <div className="col-span-2 font-semibold ">
                         <img
-                          src={`https://img.wway.io/pics/root/${flight.itineraries[0].segments[0].carrierCode}@png?exar=1&rs=fit:100:100`}
+                          src={`https://img.wway.io/pics/root/${flight?.itineraries[0]?.segments[0]?.carrierCode}@png?exar=1&rs=fit:100:100`}
                           className="object-cover bg-transparent"
                         />
                       </div>
@@ -271,26 +271,26 @@ const FlightTimeline = ({ flight }) => {
                           }{" "}
                           {
                             availableFlights?.dictionaries?.aircraft[
-                              segment?.aircraft.code
+                              segment?.aircraft?.code
                             ]
                           }{" "}
                           {
-                            flight.travelerPricings[0].fareDetailsBySegment[0]
-                              .cabin
+                            flight?.travelerPricings[0]?.fareDetailsBySegment[0]
+                              ?.cabin
                           }{" "}
                           Class
                         </div>
                         <div className="text-xs flex items-center gap-1">
                           <FiClock /> Flight Time:{" "}
                           {Math.floor(
-                            (new Date(segment.arrival.at).getTime() -
-                              new Date(segment.departure.at).getTime()) /
+                            (new Date(segment?.arrival?.at).getTime() -
+                              new Date(segment?.departure?.at).getTime()) /
                               60000 /
                               60
                           )}
                           h{" "}
-                          {((new Date(segment.arrival.at).getTime() -
-                            new Date(segment.departure.at).getTime()) /
+                          {((new Date(segment?.arrival?.at).getTime() -
+                            new Date(segment?.departure?.at).getTime()) /
                             60000) %
                             60}
                           m
@@ -299,26 +299,26 @@ const FlightTimeline = ({ flight }) => {
 
                       <div className="col-span-2 font-semibold ">
                         {" "}
-                        {new Date(segment.arrival.at)
+                        {new Date(segment?.arrival?.at)
                           .toLocaleTimeString()
                           .replace(":00", "")}{" "}
                       </div>
                       <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
                       <div className="col-span-9 font-bold text-sm">
-                        {i == flight.itineraries[0].segments.length - 1 && (
+                        {i == flight?.itineraries[0]?.segments?.length - 1 && (
                           <>
-                            {segment.arrival.iataCode}{" "}
-                            {searchFormData?.toOrigin?.address.cityName}{" "}
+                            {segment?.arrival?.iataCode}{" "}
+                            {searchFormData?.toOrigin?.address?.cityName}{" "}
                             {searchFormData?.toOrigin?.name}
                             {" T-"}
-                            {segment.arrival.terminal}
+                            {segment?.arrival?.terminal}
                           </>
                         )}
-                        {i < flight.itineraries[0].segments.length && (
-                          <> Transit in {segment.arrival.iataCode}</>
+                        {i < flight?.itineraries[0]?.segments?.length && (
+                          <> Transit in {segment?.arrival?.iataCode}</>
                         )}
                       </div>
-                      {flight.itineraries[0].segments.length - 1 != i && (
+                      {flight?.itineraries[0]?.segments?.length - 1 != i && (
                         <div className="col-span-12 my-3 grid grid-cols-12">
                           <div className="col-span-1"></div>
                           <div className="col-span-1"></div>
@@ -327,27 +327,31 @@ const FlightTimeline = ({ flight }) => {
                           </div>
                           <div className="col-span-9 my-2 cursor-pointer p-3 text-sm border">
                             <div className="py-1">
-                              Transfer in {segment.arrival.iataCode}{" "}
+                              Transfer in {segment?.arrival?.iataCode}{" "}
                               {Math.floor(
                                 (new Date(
-                                  flight.itineraries[0].segments[
+                                  flight?.itineraries[0]?.segments[
                                     i + 1
-                                  ].departure.at
+                                  ]?.departure?.at
                                 ).getTime() -
                                   new Date(
-                                    flight.itineraries[0].segments[i].arrival.at
+                                    flight?.itineraries[0]?.segments[
+                                      i
+                                    ]?.arrival?.at
                                   ).getTime()) /
                                   60000 /
                                   60
                               )}
                               h{" "}
                               {((new Date(
-                                flight.itineraries[0].segments[
+                                flight?.itineraries[0]?.segments[
                                   i + 1
-                                ].departure.at
+                                ]?.departure?.at
                               ).getTime() -
                                 new Date(
-                                  flight.itineraries[0].segments[i].arrival.at
+                                  flight?.itineraries[0]?.segments[
+                                    i
+                                  ]?.arrival?.at
                                 ).getTime()) /
                                 60000) %
                                 60}
@@ -384,7 +388,6 @@ const FlightTimeline = ({ flight }) => {
               </div>
             </motion.div>
           )}
-          {/* </AnimatePresence> */}
         </div>
       </div>
     </div>

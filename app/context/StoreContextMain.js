@@ -214,7 +214,6 @@ const StoreContextMain = ({ children }) => {
       "Consoling Context",
       JSON.parse(localStorage.getItem("reviewFlight"))
     );
-    // setReviewFlight(flight);
     router.push("/review");
   };
 
@@ -260,10 +259,13 @@ const StoreContextMain = ({ children }) => {
     localStorage.setItem("flights", JSON.stringify(result));
     console.log("Flights", JSON.parse(localStorage.getItem("flights")));
     setAvailableFlights(result);
+    document.getElementById("AllFlightsShowSection").scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   };
 
   const handleAirportSearch = (origin) => {
-    // console.log(origin);
     if (origin == "searchInputToOrigin") {
       setSearchToLoader(true);
     } else {

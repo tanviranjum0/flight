@@ -150,11 +150,31 @@ const FlightDetails = ({ searchFormData, flight }) => {
             </div>
             <div className="">
               <div className="font-semi-bold text-xl">Check In </div>
-              <div className="text-sm">1</div>
+              <div className="text-sm">
+                {" "}
+                {(flight?.travelerPricings[0]?.fareDetailsBySegment[0]
+                  ?.includedCheckedBags.quantity !=
+                  null) |
+                  (flight?.travelerPricings[0]?.fareDetailsBySegment[0]
+                    ?.includedCheckedBags.quantity !=
+                    undefined) &&
+                  flight?.travelerPricings[0]?.fareDetailsBySegment[0]
+                    ?.includedCheckedBags.quantity}
+              </div>
             </div>
             <div className="">
               <div className="font-semi-bold text-xl">Cabin</div>
-              <div className="text-sm">1 (30 KG)</div>
+              <div className="text-sm">
+                {" "}
+                {(flight?.travelerPricings[0]?.fareDetailsBySegment[0]
+                  ?.includedCabinBags?.quantity !=
+                  null) |
+                  (flight?.travelerPricings[0]?.fareDetailsBySegment[0]
+                    ?.includedCabinBags?.quantity !=
+                    undefined) &&
+                  flight?.travelerPricings[0]?.fareDetailsBySegment[0]
+                    ?.includedCabinBags?.quantity}
+              </div>
             </div>
           </div>
         </motion.div>

@@ -23,21 +23,23 @@ const Flights = () => {
           <div className="">To get available shortest flights</div>
         </div>
       </div>
-      {flights ? (
-        availableFlights.data.map((flight, idx) => {
-          return (
-            <Flight
-              key={`${idx}flightindividual`}
-              flight={flight}
-              searchFormData={searchFormData}
-            />
-          );
-        })
-      ) : (
-        <div className="flex justify-center items-center py-10 px-20 mt-5 bg-sky-100">
-          <div className="text-center text-2xl">No available flights</div>
-        </div>
-      )}
+      <div id="AllFlightsShowSection">
+        {flights ? (
+          availableFlights.data.map((flight, idx) => {
+            return (
+              <Flight
+                key={`${idx}flightindividual`}
+                flight={flight}
+                searchFormData={searchFormData}
+              />
+            );
+          })
+        ) : (
+          <div className="flex justify-center items-center py-10 px-20 mt-5 bg-sky-100">
+            <div className="text-center text-2xl">No available flights</div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

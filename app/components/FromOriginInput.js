@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { FaSearch } from "react-icons/fa";
 import { HiMiniXMark } from "react-icons/hi2";
 import SearchItem from "./molecule/SearchItem";
@@ -63,7 +63,6 @@ const FromOriginInput = () => {
             <input
               onKeyUp={(e) => {
                 if (e.target.value == "") return;
-
                 e.preventDefault();
                 handleAirportSearch("searchInputFromOrigin");
               }}

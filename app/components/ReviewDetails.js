@@ -5,7 +5,7 @@ import { StoreContext } from "../context/StoreContextMain";
 import { useContext } from "react";
 const ReviewDetails = () => {
   const { reviewFlight, searchFormData } = useContext(StoreContext);
-  // console.log(reviewFlight?);
+
   return (
     <div>
       <div

@@ -24,7 +24,11 @@ const InitailLoad = ({ page }) => {
       setReviewFlight(JSON.parse(localStorage.getItem("reviewFlight")));
     }
 
-    setSearchFormData(JSON.parse(localStorage.getItem("olderOrigins")));
+    console.log(JSON.parse(localStorage.getItem("olderOrigins")));
+
+    if (JSON.parse(localStorage.getItem("olderOrigins")) != null) {
+      setSearchFormData(JSON.parse(localStorage.getItem("olderOrigins")));
+    }
 
     async function getApiAuthorization() {
       const time = Date.now();
