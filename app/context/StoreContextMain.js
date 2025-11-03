@@ -259,7 +259,7 @@ const StoreContextMain = ({ children }) => {
     localStorage.setItem("flights", JSON.stringify(result));
     console.log("Flights", JSON.parse(localStorage.getItem("flights")));
     setAvailableFlights(result);
-    document.getElementById("AllFlightsShowSection").scrollIntoView({
+    document.getElementById("AllFlightsShowSection")?.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });

@@ -1,6 +1,6 @@
 "use client";
 import Flight from "./Flight";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { StoreContext } from "../context/StoreContextMain";
 
 const Flights = () => {

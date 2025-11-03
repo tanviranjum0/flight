@@ -64,78 +64,8 @@ const FlightTimeline = ({ flight }) => {
             </div>
           </div>
           {flight.itineraries[0].segments.length == 1 && (
-            <div className="grid text-gray-700 grid-cols-12 w-[50%]">
-              <div className="col-span-2 font-semibold">
-                {" "}
-                {new Date(flight.itineraries[0].segments[0].departure.at)
-                  .toLocaleTimeString()
-                  .replace(":00", "")}{" "}
-              </div>
-              <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
-
-              <div className="col-span-9 font-bold text-sm">
-                {searchFormData?.fromOrigin?.iataCode}{" "}
-                {searchFormData?.fromOrigin?.address.cityName}{" "}
-                {searchFormData?.fromOrigin?.name}
-                {" T-"}
-                {flight.itineraries[0].segments[0].departure.terminal}
-              </div>
-              <div className="col-span-2 p-5 font-semibold ">
-                <img
-                  src={`https://img.wway.io/pics/root/${flight.itineraries[0].segments[0].carrierCode}@png?exar=1&rs=fit:100:100`}
-                  className="object-cover bg-transparent"
-                />
-              </div>
-              <div className="border-r-4  border-dotted mr-4 col-span-1 border-gray-500"></div>
-              <div className="col-span-9 h-full w-full flex items-center text-xs">
-                {
-                  availableFlights?.dictionaries?.carriers[
-                    flight?.itineraries[0]?.segments[0]?.carrierCode
-                  ]
-                }{" "}
-                {
-                  availableFlights?.dictionaries?.aircraft[
-                    flight?.itineraries[0]?.segments[0]?.aircraft.code
-                  ]
-                }{" "}
-                {flight.travelerPricings[0].fareDetailsBySegment[0].cabin} Class
-              </div>
-              <div className="col-span-2 font-semibold ">
-                {new Date(
-                  flight.itineraries[0].segments[
-                    flight.itineraries[0].segments.length - 1
-                  ].arrival.at
-                )
-                  .toLocaleTimeString()
-                  .replace(":00", "")}{" "}
-              </div>
-              <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
-              <div className="col-span-9 font-bold text-sm">
-                {searchFormData?.toOrigin?.iataCode}{" "}
-                {searchFormData?.toOrigin?.address.cityName}{" "}
-                {searchFormData?.toOrigin?.name}
-                {" T-"}
-                {
-                  flight.itineraries[0].segments[
-                    flight.itineraries[0].segments.length - 1
-                  ].departure.terminal
-                }
-              </div>
-            </div>
-          )}
-          {!inDepthTab && (
             <>
-              <motion.div
-                key={"basicFlightDetails"}
-                initial={{ filter: "blur(10px)", scaleY: 0 }}
-                animate={{ filter: "none", scaleY: 1 }}
-                transition={{
-                  duration: 0.7,
-                  type: "spring",
-                  bounce: 0,
-                }}
-                className="grid text-gray-700 grid-cols-12 w-[50%]"
-              >
+              <div className="grid text-gray-700 grid-cols-12 w-[50%]">
                 <div className="col-span-2 font-semibold">
                   {" "}
                   {new Date(flight.itineraries[0].segments[0].departure.at)
@@ -157,21 +87,20 @@ const FlightTimeline = ({ flight }) => {
                     className="object-cover bg-transparent"
                   />
                 </div>
-                <div className="border-r-4 border-dotted mr-4 col-span-1 border-gray-500"></div>
-                <div
-                  onClick={() => setInDepthTab(true)}
-                  className="col-span-9 my-2 cursor-pointer flex items-center text-sm "
-                >
-                  <div className="border p-3 ">
-                    Transfer in {flight.itineraries[0].segments.length - 1}{" "}
-                    stops
-                    <div className="flex underline items-center gap-2">
-                      <div className="text-sky-500">
-                        <AiOutlineFileProtect />
-                      </div>
-                      No need to collect & re-check baggage
-                    </div>
-                  </div>
+                <div className="border-r-4  border-dotted mr-4 col-span-1 border-gray-500"></div>
+                <div className="col-span-9 h-full w-full flex items-center text-xs">
+                  {
+                    availableFlights?.dictionaries?.carriers[
+                      flight?.itineraries[0]?.segments[0]?.carrierCode
+                    ]
+                  }{" "}
+                  {
+                    availableFlights?.dictionaries?.aircraft[
+                      flight?.itineraries[0]?.segments[0]?.aircraft.code
+                    ]
+                  }{" "}
+                  {flight.travelerPricings[0].fareDetailsBySegment[0].cabin}{" "}
+                  Class
                 </div>
                 <div className="col-span-2 font-semibold ">
                   {new Date(
@@ -194,26 +123,116 @@ const FlightTimeline = ({ flight }) => {
                     ].departure.terminal
                   }
                 </div>
-              </motion.div>
-              <div className="flex justify-end items-center gap-3 p-3 shadow-xl w-full">
-                <div className="text-xl text-sky-500 underline cursor-pointer ">{`$${flight.price.total}`}</div>
-                <div
-                  onClick={() => {
-                    return handleBookNowClick(
-                      flight,
-                      availableFlights?.dictionaries?.carriers[
-                        flight?.itineraries[0]?.segments[0]?.carrierCode
-                      ]
-                    );
-                  }}
-                  className="px-4 cursor-pointer py-3 text-xl bg-sky-700 rounded-lg text-white"
-                >
-                  Continue
-                </div>
+              </div>
+              <div
+                onClick={() => {
+                  return handleBookNowClick(
+                    flight,
+                    availableFlights?.dictionaries?.carriers[
+                      flight?.itineraries[0]?.segments[0]?.carrierCode
+                    ]
+                  );
+                }}
+                className="px-4 w-fit mt-5 cursor-pointer py-3 text-xl bg-sky-700 rounded-lg text-white"
+              >
+                Continue
               </div>
             </>
           )}
+          {flight.itineraries[0].segments.length != 1 && (
+            <>
+              {!inDepthTab && (
+                <>
+                  <motion.div
+                    key={"basicFlightDetails"}
+                    initial={{ filter: "blur(10px)", scaleY: 0 }}
+                    animate={{ filter: "none", scaleY: 1 }}
+                    transition={{
+                      duration: 0.7,
+                      type: "spring",
+                      bounce: 0,
+                    }}
+                    className="grid text-gray-700 grid-cols-12 w-[50%]"
+                  >
+                    <div className="col-span-2 font-semibold">
+                      {" "}
+                      {new Date(flight.itineraries[0].segments[0].departure.at)
+                        .toLocaleTimeString()
+                        .replace(":00", "")}{" "}
+                    </div>
+                    <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
 
+                    <div className="col-span-9 font-bold text-sm">
+                      {searchFormData?.fromOrigin?.iataCode}{" "}
+                      {searchFormData?.fromOrigin?.address.cityName}{" "}
+                      {searchFormData?.fromOrigin?.name}
+                      {" T-"}
+                      {flight.itineraries[0].segments[0].departure.terminal}
+                    </div>
+                    <div className="col-span-2 p-5 font-semibold ">
+                      <img
+                        src={`https://img.wway.io/pics/root/${flight.itineraries[0].segments[0].carrierCode}@png?exar=1&rs=fit:100:100`}
+                        className="object-cover bg-transparent"
+                      />
+                    </div>
+                    <div className="border-r-4 border-dotted mr-4 col-span-1 border-gray-500"></div>
+                    <div
+                      onClick={() => setInDepthTab(true)}
+                      className="col-span-9 my-2 cursor-pointer flex items-center text-sm "
+                    >
+                      <div className="border p-3 ">
+                        Transfer in {flight.itineraries[0].segments.length - 1}{" "}
+                        stops
+                        <div className="flex underline items-center gap-2">
+                          <div className="text-sky-500">
+                            <AiOutlineFileProtect />
+                          </div>
+                          No need to collect & re-check baggage
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-span-2 font-semibold ">
+                      {new Date(
+                        flight.itineraries[0].segments[
+                          flight.itineraries[0].segments.length - 1
+                        ].arrival.at
+                      )
+                        .toLocaleTimeString()
+                        .replace(":00", "")}{" "}
+                    </div>
+                    <div className="border-r-4 mr-4 col-span-1 border-gray-500"></div>
+                    <div className="col-span-9 font-bold text-sm">
+                      {searchFormData?.toOrigin?.iataCode}{" "}
+                      {searchFormData?.toOrigin?.address.cityName}{" "}
+                      {searchFormData?.toOrigin?.name}
+                      {" T-"}
+                      {
+                        flight.itineraries[0].segments[
+                          flight.itineraries[0].segments.length - 1
+                        ].departure.terminal
+                      }
+                    </div>
+                  </motion.div>
+                  <div className="flex justify-end items-center gap-3 p-3 shadow-xl w-full">
+                    <div className="text-xl text-sky-500 underline cursor-pointer ">{`$${flight.price.total}`}</div>
+                    <div
+                      onClick={() => {
+                        return handleBookNowClick(
+                          flight,
+                          availableFlights?.dictionaries?.carriers[
+                            flight?.itineraries[0]?.segments[0]?.carrierCode
+                          ]
+                        );
+                      }}
+                      className="px-4 cursor-pointer py-3 text-xl bg-sky-700 rounded-lg text-white"
+                    >
+                      Continue
+                    </div>
+                  </div>
+                </>
+              )}
+            </>
+          )}
           {inDepthTab && (
             <motion.div
               key={"inDetailFlightinfo"}
