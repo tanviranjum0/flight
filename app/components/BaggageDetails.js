@@ -10,7 +10,7 @@ const BaggageDetails = () => {
   return (
     <div
       id="baggageDetails"
-      className="absolute hidden overflow-hidden inset-0 backdrop-blur"
+      className="fixed hidden overflow-hidden inset-0 backdrop-blur"
     >
       <motion.div
         key={"mainbaggageDetails"}

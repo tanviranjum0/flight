@@ -16,6 +16,7 @@ const HomeSearch = ({ modify }) => {
     setAdultNumber,
     setSearchData,
     dates,
+    isFlightSearchInProgress,
     cabinType,
     setCabinType,
     setDates,
@@ -177,7 +178,6 @@ const HomeSearch = ({ modify }) => {
                 value={flightDepartureDates}
                 asSingle={!returnTrue}
                 onChange={(newValue) => {
-                  // console.log(newValue);
                   setFlightDepartureDates(newValue);
                   let d = new Date(newValue.startDate);
                   let day = days[d.getDay()];
@@ -250,7 +250,11 @@ const HomeSearch = ({ modify }) => {
               onClick={(e) => handleFlightSearch(e)}
               className="active:scale-90  text-center px-7 cursor-pointer rounded-lg py-3 text-xl select-none hover:bg-sky-700 hover:text-white transition-all duration-300 bg-sky-300 relative bottom-[-2rem]"
             >
-              {modify ? "Modify Search" : "Search"}
+              {isFlightSearchInProgress
+                ? "Searching..."
+                : modify
+                ? "Modify Search"
+                : "Search"}
             </span>
           </div>
         </div>

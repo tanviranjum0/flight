@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
         <div className="fixed top-0 left-0 right-0 bg-white shadow text-black text-sm text-center h-5">
           **This site is not fully functional
         </div>
-        <StoreContextMain> {children}</StoreContextMain>
+        <StoreContextMain>{children}</StoreContextMain>
       </body>
     </html>
   );

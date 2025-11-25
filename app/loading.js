@@ -29,7 +29,6 @@ const page = () => {
           transition={{
             repeat: Infinity,
             ease: "easeInOut",
-            // width: ['100%', '50%'],
             duration: 1,
           }}
         />

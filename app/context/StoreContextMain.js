@@ -4,7 +4,8 @@ import { useRouter } from "next/navigation";
 export const StoreContext = createContext(null);
 const StoreContextMain = ({ children }) => {
   const router = useRouter();
-
+  const [isFlightSearchInProgress, setIsFlightSearchInProgress] =
+    useState(false);
   const [adultNumber, setAdultNumber] = useState(1);
   const [cabinType, setCabinType] = useState("ECONOMY");
   const [reviewFlight, setReviewFlight] = useState({
@@ -210,10 +211,7 @@ const StoreContextMain = ({ children }) => {
   const handleBookNowClick = (flight, airlineName) => {
     flight.airlineName = airlineName;
     localStorage.setItem("reviewFlight", JSON.stringify(flight));
-    // console.log(
-    //   "Consoling Context",
-    //   JSON.parse(localStorage.getItem("reviewFlight"))
-    // );
+
     router.push("/review");
   };
 
@@ -222,7 +220,6 @@ const StoreContextMain = ({ children }) => {
     router.push("/search");
     setAvailableFlights(null);
     let url = new URLSearchParams();
-    // console.log("Dates", flightDepartureDates);
     if (returnTrue) {
       if (flightDepartureDates.endDate != null) {
         url.set(
@@ -257,7 +254,6 @@ const StoreContextMain = ({ children }) => {
       alert("No flights found");
     }
     localStorage.setItem("flights", JSON.stringify(result));
-    // console.log("Flights", JSON.parse(localStorage.getItem("flights")));
     setAvailableFlights(result);
     document.getElementById("AllFlightsShowSection")?.scrollIntoView({
       behavior: "smooth",
@@ -296,7 +292,6 @@ const StoreContextMain = ({ children }) => {
         setSearchData([]);
         return;
       }
-      // console.log(result.data);
       setSearchData(result.data);
       if (origin == "searchInputToOrigin") {
         setSearchToLoader(false);
@@ -353,7 +348,6 @@ const StoreContextMain = ({ children }) => {
       fromInput: false,
       toInput: true,
     });
-    // console.log(searchFormData);
   };
 
   const getAirportDetails = async (iata) => {
@@ -376,6 +370,8 @@ const StoreContextMain = ({ children }) => {
     getAirportDetails,
     handleToLocation,
     handleFromLocation,
+    isFlightSearchInProgress,
+    setIsFlightSearchInProgress,
     handleFlightSearch,
     searchData,
     setSearchData,

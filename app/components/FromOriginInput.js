@@ -12,7 +12,7 @@ const FromOriginInput = () => {
   return (
     <div
       id="searchFormFromOrigin"
-      className={`absolute hidden  overflow-hidden z-20 inset-0 backdrop-blur`}
+      className={`fixed hidden  overflow-hidden z-20 inset-0 backdrop-blur`}
     >
       {" "}
       <motion.div
