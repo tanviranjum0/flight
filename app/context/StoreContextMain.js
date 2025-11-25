@@ -217,6 +217,7 @@ const StoreContextMain = ({ children }) => {
 
   const handleFlightSearch = async (e) => {
     e.preventDefault();
+    setIsFlightSearchInProgress(true);
     router.push("/search");
     setAvailableFlights(null);
     let url = new URLSearchParams();
@@ -259,6 +260,7 @@ const StoreContextMain = ({ children }) => {
       behavior: "smooth",
       block: "start",
     });
+    setIsFlightSearchInProgress(false);
   };
 
   const handleAirportSearch = (origin) => {
