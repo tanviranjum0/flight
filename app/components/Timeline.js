@@ -12,9 +12,6 @@ const FlightTimeline = ({ flight }) => {
   const [inDepthTab, setInDepthTab] = useState(false);
   const { searchFormData, availableFlights, handleBookNowClick } =
     useContext(StoreContext);
-
-  // console.log(availableFlights);
-
   return (
     <div className="mt-5 flex w-full justify-center items-center">
       <InitailLoad page={"demo"} />

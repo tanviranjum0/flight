@@ -14,7 +14,6 @@ const Flight = ({ flight, searchFormData }) => {
   const { handleBookNowClick, availableFlights } = useContext(StoreContext);
   const [details, setDetails] = useState("details");
   const [isTabOpen, setIsTabopen] = useState(false);
-  // console.log(flight);
   return (
     <div className="my-5">
       <div className="grid  grid-cols-2 md:grid-cols-6 border py-5 rounded-lg bg-sky-100 ">
@@ -134,7 +133,7 @@ const Flight = ({ flight, searchFormData }) => {
           </button>
         </div>
       </div>
-      <div className="absolute right-20 ">
+      <div className="absolute right-20">
         <div
           onClick={() => {
             setIsTabopen((prev) => !prev);
